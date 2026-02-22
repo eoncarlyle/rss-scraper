@@ -2,7 +2,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
-    <AssemblyName>DiffParse</AssemblyName>
+    <AssemblyName>RssScraper</AssemblyName>
     <EnableDefaultContentItems>false</EnableDefaultContentItems>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
@@ -15,6 +15,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Parse.fs" />
+    <Compile Include="Caching.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup>
