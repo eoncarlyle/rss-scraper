@@ -1,5 +1,6 @@
 module Scrape
 
+open System.Globalization
 open FsHttp
 open AngleSharp.Html.Parser
 open System
@@ -11,7 +12,8 @@ let parser = HtmlParser()
 type Post =
     { PostTitle: String
       Link: String
-      Description: String option }
+      Description: String
+      Date: String }
 
 type Feed =
     { FeedTitle: String
@@ -24,13 +26,15 @@ let rssItem (post: Post) =
         []
         [ tag "title" [] [ encodedText post.PostTitle ]
           tag "link" [] [ encodedText post.Link ]
-          tag "description" [] [ encodedText (Option.defaultValue $"Scraped {DateTime.UtcNow} UTC" post.Description) ] ]
+          tag "pubDate" [] [ encodedText post.Date ]
+          tag "description" [] [ encodedText post.Description ] ]
 
 let fallbackPosts name scrapePath =
     seq {
         { PostTitle = $"Parse Failure for {name}"
           Link = scrapePath
-          Description = None }
+          Date = DateTime.UtcNow.ToString("ddd, dd MMM yyyy HH:mm:ss UTC", CultureInfo.InvariantCulture)
+          Description = "Parse Failure" }
     }
 
 let rssChannelView feed (items: XmlNode seq) =
@@ -52,25 +56,36 @@ module TheDispatch =
     let scrapePath newsletterSlug =
         $"https://thedispatch.com/newsletter/{newsletterSlug}"
 
-    let feed newsletterSlug =
-        { FeedTitle = $"The Dispatch: {newsletterSlug}"
+    let feed (newsletterSlug: String) =
+        { FeedTitle = $"{CultureInfo.InvariantCulture.TextInfo.ToTitleCase(newsletterSlug.ToLower())}: The Dispatch"
           Link = scrapePath newsletterSlug
           Description = $"Simple scraper for The Dispatch: {newsletterSlug}" }
+
+    let getFormattedIsoDate (isoTimestamp: string) =
+        DateTimeOffset.Parse(isoTimestamp, CultureInfo.InvariantCulture)
+            .ToUniversalTime()
+            .ToString("ddd, dd MMM yyyy HH:mm:ss UTC", CultureInfo.InvariantCulture)
 
     let getPosts newsletterSlug (doc: IHtmlDocument) =
         let scrapedPosts =
             doc.QuerySelectorAll "article.card-featured"
             |> Seq.choose (fun article ->
-                let anchor = article.QuerySelector "h3 a" |> Option.ofObj
-                let date = article.QuerySelector "time" |> Option.ofObj
+                let maybeAnchor = article.QuerySelector "h3 a" |> Option.ofObj
 
-                match anchor with
-                | None -> None
-                | Some a ->
+                let maybeDate =
+                    article.QuerySelector "time"
+                    |> Option.ofObj
+                    |> Option.bind (fun el -> el.GetAttribute("datetime") |> Option.ofObj)
+                    |> Option.map getFormattedIsoDate
+
+                match (maybeAnchor, maybeDate) with
+                | (Some anchor, Some date) ->
                     Some
-                        { PostTitle = a.InnerHtml.Trim()
-                          Link = a.GetAttribute "href"
-                          Description = date |> Option.map _.InnerHtml.Trim() })
+                        { PostTitle = anchor.InnerHtml.Trim()
+                          Link = anchor.GetAttribute "href"
+                          Description = $"Scraped {DateTime.Now.ToString()}"
+                          Date = date }
+                | _ -> None)
 
         if Seq.isEmpty scrapedPosts then
             fallbackPosts newsletterSlug <| scrapePath newsletterSlug
@@ -83,7 +98,6 @@ module TheDispatch =
             |> getDoc
             |> getPosts newsletterSlug
             |> Seq.map rssItem
-            |> Seq.rev
             |> rssChannelView (feed newsletterSlug)
 
 module TheDiff =
@@ -95,20 +109,31 @@ module TheDiff =
           Link = scrapePath
           Description = "Simple scraper for The Diff" }
 
+    let getFormattedIsoDate isoDate =
+        let dt = DateTime.ParseExact(isoDate, "yyyy-MM-dd", CultureInfo.InvariantCulture)
+        dt.ToString("ddd, dd MMM yyyy HH:mm:ss UTC", CultureInfo.InvariantCulture)
+
     let getPosts (doc: IHtmlDocument) =
         let scrapedPosts =
             doc.QuerySelectorAll "ol.post-list article"
             |> Seq.choose (fun article ->
-                let anchor = article.QuerySelector "h3 a" |> Option.ofObj
-                let description = article.QuerySelector ".post-item-content p" |> Option.ofObj
+                let maybeAnchor = article.QuerySelector "h3 a" |> Option.ofObj
+                let maybeDescription = article.QuerySelector ".post-item-content p" |> Option.ofObj
 
-                match anchor with
-                | None -> None
-                | Some a ->
+                let maybeIsoDate =
+                    article.QuerySelector "time"
+                    |> Option.ofObj
+                    |> Option.bind (fun el -> el.GetAttribute("datetime") |> Option.ofObj)
+                    |> Option.map getFormattedIsoDate
+
+                match (maybeAnchor, maybeDescription, maybeIsoDate) with
+                | (Some anchor, Some description, Some isoDate) ->
                     Some
-                        { PostTitle = a.InnerHtml.Trim()
-                          Link = Uri(Uri basePath, a.GetAttribute "href").ToString()
-                          Description = description |> Option.map _.InnerHtml.Trim() })
+                        { PostTitle = anchor.InnerHtml.Trim()
+                          Link = Uri(Uri basePath, anchor.GetAttribute "href").ToString()
+                          Date = isoDate
+                          Description = description.InnerHtml.Trim() }
+                | _ -> None)
 
         if Seq.isEmpty scrapedPosts then
             fallbackPosts "The Diff" scrapePath
@@ -116,4 +141,4 @@ module TheDiff =
             scrapedPosts
 
     let getRss () =
-        getDoc scrapePath |> getPosts |> Seq.map rssItem |> Seq.rev |> rssChannelView feed
+        getDoc scrapePath |> getPosts |> Seq.map rssItem |> rssChannelView feed
