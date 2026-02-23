@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="web.config" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Dockerfile" />
     <Content Include="WebRoot\**\*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

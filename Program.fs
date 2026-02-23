@@ -1,9 +1,7 @@
 module RssScraper.App
 
 open System
-open System.IO
 open Microsoft.AspNetCore.Builder
-// open Microsoft.AspNetCore.Cors.Infrastructure
 open Microsoft.AspNetCore.Hosting
 open Microsoft.Extensions.Hosting
 open Microsoft.Extensions.Logging
@@ -11,8 +9,6 @@ open Microsoft.Extensions.DependencyInjection
 open Microsoft.AspNetCore.Http
 open Giraffe
 open Giraffe.ViewEngine
-open System.Runtime
-open Microsoft.Extensions.Caching.Memory
 
 open Scrape
 

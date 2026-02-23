@@ -1,0 +1,115 @@
+name: Build and Deploy Container Images to VPS
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}/rss-scraper
+
+jobs:
+  build_and_push:
+    runs-on: [self-hosted, los-angeles]
+
+    permissions:
+      contents: read
+      packages: write
+
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+
+    steps:
+      - name: Clean images
+        run: sudo podman image prune -af
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Generate version info
+        id: version
+        run: |
+          VERSION=$(date +'%Y.%m.%d').${{ github.run_number }}
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Generated version: $VERSION"
+
+      - name: Log in to the Container registry
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | sudo podman login ghcr.io -u "${{ github.actor }}" --password-stdin
+
+      - name: Build and push container image
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+
+          # Build with the version tag
+          sudo podman build -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${VERSION} .
+          sudo podman tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${VERSION} ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          sudo podman push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${VERSION}
+          sudo podman push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+
+  deploy_test:
+    needs: build_and_push
+    runs-on: [self-hosted, new-york-0]
+
+    steps:
+      - name: Log in to GitHub Container Registry
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | sudo podman login ghcr.io -u "${{ github.actor }}" --password-stdin
+
+      - name: Setup Network
+        run: |
+          sudo podman network exists podman_bridge_rootfull || \
+          sudo podman network create --driver bridge \
+            --subnet 192.168.100.0/24 \
+            --gateway 192.168.100.1 \
+            podman_bridge_rootfull
+
+      - name: Pull latest image
+        run: |
+          sudo podman pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ needs.build_and_push.outputs.version }}
+
+      - name: Deploy to test environment
+        run: |
+          sudo podman run -d \
+            --name portfolio-application-1-test \
+            --replace \
+            --restart unless-stopped \
+            --network podman_bridge_rootfull \
+            --ip 192.168.100.100 \
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ needs.build_and_push.outputs.version }}
+
+      - name: Verify Container Deployments
+        run: |
+          sudo podman ps --format "{{.Names}}: {{.Status}}"
+
+      - name: Verify success
+        run: |
+          curl -If --retry 5 --retry-delay 5 --retry-all-errors https://test.iainschmitt.com
+
+  deploy_prod:
+    needs: [deploy_test, build_and_push]
+    runs-on: [self-hosted, new-york-0]
+
+    steps:
+      - name: Log in to GitHub Container Registry
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | sudo podman login ghcr.io -u "${{ github.actor }}" --password-stdin
+
+      - name: Deploy to production environment
+        run: |
+          sudo podman run -d \
+            --name portfolio-application-1 \
+            --replace \
+            --restart unless-stopped \
+            --network podman_bridge_rootfull \
+            --ip 192.168.100.101 \
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ needs.build_and_push.outputs.version }}
+
+      - name: Verify Container Deployments
+        run: |
+          sudo podman ps --format "{{.Names}}: {{.Status}}"
+
+      - name: Verify success
+        run: |
+          curl -If --retry 5 --retry-delay 5 --retry-all-errors https://iainschmitt.com
