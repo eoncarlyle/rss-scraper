@@ -39,7 +39,7 @@ let rssSlugHandler slug : Handler =
 
 let webApp =
     choose
-        [ GET >=> choose [ routef "/%s" rssSlugHandler ]
+        [ GET >=> choose [ route "/" >=> text "up"; routef "/%s" rssSlugHandler ]
           setStatusCode 404 >=> text "Not Found" ]
 
 
@@ -64,16 +64,13 @@ let configureServices (services: IServiceCollection) =
 let configureLogging (builder: ILoggingBuilder) =
     builder.AddConsole().AddDebug() |> ignore
 
-type AppArgs =
-    { HostAddress: string }
+type AppArgs = { HostAddress: string }
 
 let getAppArgs args =
     let argList = Array.toList args
 
     match argList with
-    | [ hostAddress ] ->
-        Some
-            { HostAddress = hostAddress }
+    | [ hostAddress ] -> Some { HostAddress = hostAddress }
     | _ -> None
 
 [<EntryPoint>]
