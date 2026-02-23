@@ -77,7 +77,7 @@ jobs:
             --restart unless-stopped \
             --network podman_bridge_rootfull \
             --ip 192.168.100.111 \
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ needs.build_and_push.outputs.version }}
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ needs.build_and_push.outputs.version }} 192.168.100.111
 
       - name: Verify Container Deployments
         run: |
@@ -104,7 +104,7 @@ jobs:
             --restart unless-stopped \
             --network podman_bridge_rootfull \
             --ip 192.168.100.110 \
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ needs.build_and_push.outputs.version }}
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ needs.build_and_push.outputs.version }} 192.168.100.110
 
       - name: Verify Container Deployments
         run: |
