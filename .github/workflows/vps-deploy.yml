@@ -72,7 +72,7 @@ jobs:
       - name: Deploy to test environment
         run: |
           sudo podman run -d \
-            --name portfolio-application-1-test \
+            --name rss-scraper-test \
             --replace \
             --restart unless-stopped \
             --network podman_bridge_rootfull \
@@ -99,7 +99,7 @@ jobs:
       - name: Deploy to production environment
         run: |
           sudo podman run -d \
-            --name portfolio-application-1 \
+            --name rss-scraper-prod \
             --replace \
             --restart unless-stopped \
             --network podman_bridge_rootfull \
