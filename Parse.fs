@@ -83,6 +83,7 @@ module TheDispatch =
             |> getDoc
             |> getPosts newsletterSlug
             |> Seq.map rssItem
+            |> Seq.rev
             |> rssChannelView (feed newsletterSlug)
 
 module TheDiff =
@@ -115,4 +116,4 @@ module TheDiff =
             scrapedPosts
 
     let getRss () =
-        getDoc scrapePath |> getPosts |> Seq.map rssItem |> rssChannelView feed
+        getDoc scrapePath |> getPosts |> Seq.map rssItem |> Seq.rev |> rssChannelView feed
