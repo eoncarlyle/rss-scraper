@@ -39,7 +39,8 @@ let rssSlugHandler slug : Handler =
 
 let webApp =
     choose
-        [ GET >=> choose [ route "/" >=> text "up"; routef "/%s" rssSlugHandler ]
+        [ GET >=> choose [ routef "/%s" rssSlugHandler ]
+          HEAD >=> setStatusCode 200
           setStatusCode 404 >=> text "Not Found" ]
 
 
