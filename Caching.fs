@@ -20,11 +20,6 @@ let getOrElseWith key (ifEmptyThunk: Unit -> XmlNode) (cache: Cache) =
     | true, entry when entry.ExpireTime > current -> entry.Xml
     | _ ->
         let xml = ifEmptyThunk ()
-
-        cache.Add(
-            key,
-            { Xml = xml
-              ExpireTime = current.AddMinutes(5.0) }
-        )
-
+        if cache.ContainsKey key then do cache.Remove key |> ignore
+        cache.Add(key, { Xml = xml; ExpireTime = current.AddMinutes(5.0) }) |> ignore
         xml

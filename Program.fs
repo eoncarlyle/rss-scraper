@@ -1,9 +1,7 @@
 module RssScraper.App
 
 open System
-open System.IO
 open Microsoft.AspNetCore.Builder
-// open Microsoft.AspNetCore.Cors.Infrastructure
 open Microsoft.AspNetCore.Hosting
 open Microsoft.Extensions.Hosting
 open Microsoft.Extensions.Logging
@@ -11,8 +9,6 @@ open Microsoft.Extensions.DependencyInjection
 open Microsoft.AspNetCore.Http
 open Giraffe
 open Giraffe.ViewEngine
-open System.Runtime
-open Microsoft.Extensions.Caching.Memory
 
 open Scrape
 
@@ -44,6 +40,7 @@ let rssSlugHandler slug : Handler =
 let webApp =
     choose
         [ GET >=> choose [ routef "/%s" rssSlugHandler ]
+          HEAD >=> setStatusCode 200
           setStatusCode 404 >=> text "Not Found" ]
 
 
@@ -68,17 +65,25 @@ let configureServices (services: IServiceCollection) =
 let configureLogging (builder: ILoggingBuilder) =
     builder.AddConsole().AddDebug() |> ignore
 
+type AppArgs = { HostAddress: string }
+
+let getAppArgs args =
+    let argList = Array.toList args
+
+    match argList with
+    | [ hostAddress ] -> Some { HostAddress = hostAddress }
+    | _ -> None
+
 [<EntryPoint>]
 let main args =
-    //let contentRoot = Directory.GetCurrentDirectory()
-    //let webRoot = Path.Combine(contentRoot, "WebRoot")
+    let appArgs = getAppArgs args |> Option.get
     let port = 5050
 
     Host
         .CreateDefaultBuilder(args)
         .ConfigureWebHostDefaults(fun webHostBuilder ->
             webHostBuilder
-                .UseUrls($"http://127.0.0.1:{port}")
+                .UseUrls($"http://{appArgs.HostAddress}:{port}")
                 //.UseContentRoot(contentRoot)
                 //.UseWebRoot(webRoot)
                 .Configure(Action<IApplicationBuilder> configureApp)
