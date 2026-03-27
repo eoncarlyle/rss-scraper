@@ -1,0 +1,26 @@
+{
+  "model": "claude-haiku-4-5-20251001",
+  "id": "msg_01Gp4fp89BAQLvHZg7HF47Ao",
+  "type": "message",
+  "role": "assistant",
+  "content": [
+    {
+      "type": "text",
+      "text": "# Summary\n\nCohen \u0026 Company Asset Management has published a whitepaper arguing that **casualty insurance-linked securities (ILS) represent the next evolution of the ILS market**, driven by advances in structuring, analytics, and governance.\n\n## Key Points:\n\n**Market Context:**\n- The ILS market has grown to approximately $121 billion in alternative capital by mid-2025\n- Historically dominated by property catastrophe coverage, but now expanding into longer-tail casualty risks\n- Casualty ILS is a relatively new but rapidly accelerating segment\n\n**Benefits for Investors:**\n- Private-equity-like returns with meaningful diversification\n- Low correlation to traditional assets and catastrophe-focused ILS\n- Attractive risk-adjusted returns and low beta compared to conventional investments\n\n**Benefits for Sponsors:**\n- Access to additional capital sources\n- Mitigation of counterparty credit risk through collateralization\n- Capital optimization while maintaining underwriting control\n- Diversification of capacity sources beyond traditional reinsurance\n\n**Market Drivers:**\n- Improved risk modeling and actuarial analytics\n- Standardized documentation and enhanced data transparency\n- Emerging liquidity solutions\n- Growing investor appetite for longer-duration risks\n- Alternative capital reaching record levels\n\n**Outlook:**\nCohen \u0026 Company concludes that casualty ILS is at an \u0022inflection point\u0022 and expects significant scaling in the coming years, potentially becoming a core allocation within alternative risk portfolios and a major pillar of alternative capital."
+    }
+  ],
+  "stop_reason": "end_turn",
+  "stop_sequence": null,
+  "usage": {
+    "input_tokens": 1423,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0,
+    "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 0
+    },
+    "output_tokens": 323,
+    "service_tier": "standard",
+    "inference_geo": "not_available"
+  }
+}
