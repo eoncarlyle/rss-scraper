@@ -2,14 +2,14 @@ module OriginalSourceFeeds
 
 open FsHttp // Did not know you could scope this way, which is nice
 open Models
-open XmlParsing
+open Serialisation
 open FSharp.Data
 
 module Artemis =
 
-    type ArtemisRss = XmlProvider<"artemis.rss">
+    type ArtemisRss = XmlProvider<"schema/artemis.rss">
 
-    let localArtemisRss = ArtemisRss.Load "artemis.rss"
+    let localArtemisRss = ArtemisRss.Load "schema/artemis.rss"
 
     let deserialiseRssItem (item: ArtemisRss.Item) : MinimalRssItem =
         { Title = item.Title
@@ -29,7 +29,7 @@ module Artemis =
                 CacheControl "no-cache"
                 body
             }
-
+            
         task {
             let! response = request |> Request.sendTAsync
             let body = Response.toText response

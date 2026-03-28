@@ -6,8 +6,8 @@ open Models
 open Anthropic
 open Anthropic.Models.Messages
 open Anthropic.Models.Messages.Batches
-open XmlParsing
 open System
+open Queries
 
 let internal client = new AnthropicClient()
 let internal encoder = Encoder(O200KBase())
@@ -66,7 +66,7 @@ let internal submitBatch maybeTokenCutoff maybeModel (items: MinimalRssItem arra
     // TODO internal semaphroe thing
     task {
         let itemsWithRequestGuids =
-            Array.map (fun item -> item, System.Guid.NewGuid()) items
+            Array.map (fun item -> item, Guid.NewGuid()) items
 
         let requestWithExcludes =
             getRequestsWithExcludes itemsWithRequestGuids model systemPrompt tokenCutoff
@@ -92,7 +92,7 @@ let internal submitBatch maybeTokenCutoff maybeModel (items: MinimalRssItem arra
                       Result = None })
 
         return
-            { ID = response.ID
+            { Id = response.ID
               ProcessingStatus = ProcessingStatus.InProgress
               ResultsUrl = None
               BatchItems = batchItems }

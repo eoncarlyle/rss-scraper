@@ -1,0 +1,71 @@
+<DerivedSourceFeed> 
+    <SourceUrl>https://example.com/feed</SourceUrl>
+    <Batches>
+        <Batch>
+            <Id>batch-1</Id>
+            <ProcessingStatus>in_progress</ProcessingStatus>
+            <ResultsUrl/>
+            <BatchItems>
+                <BatchItem>
+                    <Guid>item-guid-1</Guid>
+                    <Included>true</Included>
+                    <Result>result-1</Result>
+                    <Item>
+                        <Title>Article Title</Title>
+                        <Guid/>
+                        <Link/>
+                        <Description>Short description</Description>
+                        <Content>Full content here</Content>
+                        <PubDate/>
+                    </Item>
+                </BatchItem>
+                <BatchItem>
+                    <Guid>item-guid-2</Guid>
+                    <Included>false</Included>
+                    <Result/>
+                    <Item>
+                        <Title>Another Article</Title>
+                        <Guid>item-guid-2</Guid>
+                        <Link/>
+                        <Description>Another description</Description>
+                        <Content>More content here</Content>
+                        <PubDate>2025-01-02T00:00:00Z</PubDate>
+                    </Item>
+                </BatchItem>
+            </BatchItems>
+        </Batch>
+        <Batch>
+            <Id>batch-2</Id>
+            <ProcessingStatus>ended</ProcessingStatus>
+            <ResultsUrl>https://test.com/results</ResultsUrl>
+            <BatchItems>
+                <BatchItem>
+                    <Guid>item-guid-3</Guid>
+                    <Included>true</Included>
+                    <Result>result-2</Result>
+                    <Item>
+                        <Title>Third Article</Title>
+                        <Guid>item-guid-3</Guid>
+                        <Link>https://example.com/article3</Link>
+                        <Description>Third description</Description>
+                        <Content>Third content here</Content>
+                        <PubDate>2025-01-03T00:00:00Z</PubDate>
+                    </Item>
+                </BatchItem>
+                <BatchItem>
+                    <Guid>item-guid-4</Guid>
+                    <Included>true</Included>
+                    <Result>result-4</Result>
+                    <Item>
+                        <Title>Fourth Article</Title>
+                        <Guid>item-guid-4</Guid>
+                        <Link>https://example.com/article4</Link>
+                        <Description>Fourth description</Description>
+                        <Content>Fourth content here</Content>
+                        <PubDate>2025-01-04T00:00:00Z</PubDate>
+                    </Item>
+                </BatchItem>
+            </BatchItems>
+        </Batch>
+    </Batches>
+</DerivedSourceFeed>

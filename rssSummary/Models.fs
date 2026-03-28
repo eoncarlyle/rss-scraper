@@ -19,17 +19,15 @@ type BatchRssItem =
       Result: String option }
 
 type SourceFeedSummaryRequestBatch =
-    { ID: String
+    { Id: String
       ProcessingStatus: ProcessingStatus
       ResultsUrl: String option
       BatchItems: BatchRssItem array }
 
-type DerivedSourceFeedInternal =
+type DerivedSourceFeed =
     { SourceUrl: String
       Batches: SourceFeedSummaryRequestBatch array }
 
-type DerivedSourceFeed = { Channel: DerivedSourceFeedInternal }
+type SourcesConfiguration = XmlProvider<"schema/SourcesConfiguration.xml">
 
-type SourcesConfiguration = XmlProvider<"SourcesConfiguration.xml">
-
-type ProviderDerivedSourceFeed = XmlProvider<"DerivedSourceFeed.xml">
+type ProviderDerivedSourceFeed = XmlProvider<"schema/DerivedSourceFeed.xml">

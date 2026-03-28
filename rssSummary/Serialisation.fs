@@ -1,5 +1,6 @@
 module Serialisation
 
+open AngleSharp.Common
 open Models
 open Anthropic.Models.Messages.Batches
 open Giraffe.ViewEngine
@@ -13,13 +14,13 @@ let serializeProcessingStatus (status: ProcessingStatus) =
 
 let serializeItem (item: MinimalRssItem) =
     tag
-        "item"
+        "Item"
         []
-        [ tag "title" [] [ str item.Title ]
-          tag "description" [] [ str item.Description ]
-          tag "content" [] [ str item.Content ]
-          yield! item.Guid |> Option.map (fun g -> tag "guid" [] [ str g ]) |> Option.toList
-          yield! item.Link |> Option.map (fun l -> tag "link" [] [ str l ]) |> Option.toList
+        [ tag "Title" [] [ str item.Title ]
+          tag "Description" [] [ str item.Description ]
+          tag "Content" [] [ str item.Content ]
+          yield! item.Guid |> Option.map (fun g -> tag "Guid" [] [ str g ]) |> Option.toList
+          yield! item.Link |> Option.map (fun l -> tag "Link" [] [ str l ]) |> Option.toList
           yield!
               item.PubDate
               |> Option.map (fun d -> tag "pubDate" [] [ str (d.ToString("R")) ])
@@ -27,53 +28,66 @@ let serializeItem (item: MinimalRssItem) =
 
 let serializeBatchItem (batchItem: BatchRssItem) =
     tag
-        "batchItem"
+        "BatchItem"
         []
-        [ tag "guid" [] [ str batchItem.Guid ]
-          tag "included" [] [ str (if batchItem.Included then "true" else "false") ]
+        [ tag "Guid" [] [ str batchItem.Guid ]
+          tag "Included" [] [ str (if batchItem.Included then "true" else "false") ]
           serializeItem batchItem.Item
           yield!
               batchItem.Result
-              |> Option.map (fun r -> tag "result" [] [ str r ])
+              |> Option.map (fun r -> tag "Result" [] [ str r ])
               |> Option.toList ]
 
 let serializeBatch (batch: SourceFeedSummaryRequestBatch) =
     tag
-        "batch"
+        "Batch"
         []
-        [ tag "id" [] [ str batch.ID ]
-          tag "processingStatus" [] [ str (serializeProcessingStatus batch.ProcessingStatus) ]
+        [ tag "Id" [] [ str batch.Id ]
+          tag "ProcessingStatus" [] [ str (serializeProcessingStatus batch.ProcessingStatus) ]
           yield!
               batch.ResultsUrl
               |> Option.map (fun u -> tag "resultsUrl" [] [ str u ])
               |> Option.toList
           yield! batch.BatchItems |> Array.map serializeBatchItem ]
 
-let parseFeed (xml: string) : DerivedSourceFeed =
-    let doc = ProviderDerivedSourceFeed.Parse(xml)
-    let channel = doc.Channel
+let serializeDerivedSourceFeed (feed: DerivedSourceFeed) =
+    tag
+        "derivedSourceFeed"
+        []
+        [ tag "sourceUrl" [] [ str feed.SourceUrl ]
+          yield! feed.Batches |> Array.map serializeBatch ]
 
-    { Channel =
-        { Link =
-            channel.Link Batches = channel.Batches.Batches
-            |> Array.map (fun batch ->
-                { ID =
-                    batch.Id ProcessingStatus
-                    = parseStatus batch.ProcessingStatus ResultsUrl
-                    = batch.ResultsUrl BatchItems
-                    = batch.BatchItems.BatchItems
-                    |> Array.map (fun bi ->
-                        let item = bi.Item
+let deserialiseProcessingStatus s =
+    match s with
+    | "in_progress" -> ProcessingStatus.InProgress
+    | "canceling" -> ProcessingStatus.Canceling
+    | "ended" -> ProcessingStatus.Ended
+    | unknown -> failwith $"Unknown ProcessingStatus: {unknown}"
 
-                        { Guid =
-                            bi.Guid Included
-                            = bi.Included Result
-                            = bi.Result Item
-                            = { Title =
-                                  item.Title Guid
-                                  = item.Guid Link
-                                  = item.Link Description
-                                  = item.Description Content
-                                  = item.Content PubDate
-                                  = item.PubDate
-                                  |> Option.map DateTimeOffset.Parse } }) }) } }
+
+let sanitized (s: string) =
+    let doc = HtmlAgilityPack.HtmlDocument()
+    doc.LoadHtml s
+    doc.DocumentNode.InnerText
+    
+let deserialiseToDerivedSourceFeed (providerFeed: ProviderDerivedSourceFeed.DerivedSourceFeed) : DerivedSourceFeed =
+    { SourceUrl = providerFeed.SourceUrl
+      Batches =
+        providerFeed.Batches
+        |> Array.map (fun batch ->
+            { Id = batch.Id
+              ProcessingStatus = deserialiseProcessingStatus batch.ProcessingStatus
+              ResultsUrl = batch.ResultsUrl
+              BatchItems =
+                batch.BatchItems
+                |> Array.map (fun batchItem ->
+                    { Guid = batchItem.Guid
+                      Included = batchItem.Included
+                      Result = batchItem.Result
+                      Item =
+                        { Title = batchItem.Item.Title
+                          Guid = batchItem.Item.Guid
+                          Link = batchItem.Item.Link
+                          Description = batchItem.Item.Description
+                          Content = batchItem.Item.Content
+                          PubDate = batchItem.Item.PubDate } }) }) }

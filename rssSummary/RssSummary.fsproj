@@ -19,11 +19,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models.fs" />
-    <Compile Include="XmlParsing.fs" />
     <Compile Include="Serialisation.fs" />
     <Compile Include="OriginalSourceFeeds.fs" />
     <Compile Include="DerivedSourceFeeds.fs" />
+    <Compile Include="Queries.fs" />
     <Compile Include="Anthropic.fs" />
     <Compile Include="Program.fs" />
+    <Content Include="Schema\SourcesConfiguration.xml" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Schema\DerivedSourceFeed.xml" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Schema\artemis.rss" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Schema" />
   </ItemGroup>
 </Project>
