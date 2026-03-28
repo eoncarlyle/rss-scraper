@@ -1,0 +1,9 @@
+# Notes
+- Seperate sources from sinks
+- Place all feeds in object storage to be able to run anywhere (use Tigris, make use of eTags if possible)
+- Consider if makes sense to seperate normalisation in source feed setup
+- Place the Quartz scheduling inside the dependency injection (although the Giraffe server could be seperated out)
+- If necessary, run some stuff from residential IP address
+- Basten async inference doesn't store jobs, but is about 1/https://docs.baseten.co/inference/async
+- https://docs.mistral.ai/capabilities/batch#inline-batching
+- https://docs.mistral.ai/api/endpoint/beta/conversations

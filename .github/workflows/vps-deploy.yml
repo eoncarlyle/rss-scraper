@@ -43,7 +43,7 @@ jobs:
           VERSION="${{ steps.version.outputs.version }}"
 
           # Build with the version tag
-          sudo podman build -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${VERSION} .
+          sudo podman build -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${VERSION} ./server
           sudo podman tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${VERSION} ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
           sudo podman push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${VERSION}
           sudo podman push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest

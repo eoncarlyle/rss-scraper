@@ -1,0 +1,27 @@
+<DerivedSourceFeed>
+  <Channel>
+    <Link>https://example.com/feed</Link>
+    <Batches>
+      <Batch>
+        <ID>batch-1</ID>
+        <ProcessingStatus>Pending</ProcessingStatus>
+        <ResultsUrl>https://example.com/results/1</ResultsUrl>
+        <BatchItems>
+          <BatchItem>
+            <Guid>item-guid-1</Guid>
+            <Included>true</Included>
+            <Result>Some result</Result>
+            <Item>
+              <Title>Article Title</Title>
+              <Guid>item-guid-1</Guid>
+              <Link>https://example.com/article</Link>
+              <Description>Short description</Description>
+              <Content>Full content here</Content>
+              <PubDate>2025-01-01T00:00:00Z</PubDate>
+            </Item>
+          </BatchItem>
+        </BatchItems>
+      </Batch>
+    </Batches>
+  </Channel>
+</DerivedSourceFeed>
