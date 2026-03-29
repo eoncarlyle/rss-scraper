@@ -1,4 +1,4 @@
-module Models
+module DomainModels
 
 open System
 open FSharp.Data

@@ -18,12 +18,12 @@
     <PackageReference Include="Tiktoken" Version="3.1.4" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models.fs" />
+    <Compile Include="DomainModels.fs" />
     <Compile Include="Serialisation.fs" />
     <Compile Include="OriginalSourceFeeds.fs" />
-    <Compile Include="DerivedSourceFeeds.fs" />
     <Compile Include="Queries.fs" />
-    <Compile Include="Anthropic.fs" />
+    <Compile Include="AppAnthropic.fs" />
+    <Compile Include="DerivedSourceFeeds.fs" />
     <Compile Include="Program.fs" />
     <Content Include="Schema\SourcesConfiguration.xml" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Schema\DerivedSourceFeed.xml" CopyToOutputDirectory="PreserveNewest" />

@@ -1,6 +1,6 @@
 module Queries
 
-let getStructuredQuery (item: Models.MinimalRssItem) =
+let getStructuredQuery (item: DomainModels.MinimalRssItem) =
     $"<description>{item.Description}</description><content>{item.Content}</content>"
 
 let systemPrompt =

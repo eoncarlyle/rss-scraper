@@ -3,19 +3,14 @@
         <sourceUrl>https://www.artemis.bm/feed/</sourceUrl>
         <systemPrompt />
         <sourceSlug>artemis</sourceSlug>
-        <modelParams />
+        <maximumInitialLookback>15</maximumInitialLookback>
         <enabled>true</enabled>
     </source>
     <source>
         <sourceUrl>https://www.grocerydive.com/feeds/news/</sourceUrl>
         <sourceSlug>https://www.grocerydive.com/feeds/news/</sourceSlug>
         <systemPrompt />
-        <modelParams>
-            <!-->supertype is vendor, subtype is model</-->
-            <supertype>claude</supertype>
-            <subtype>"claude-4-6-sonnet"</subtype>
-            <tokenCutoff>20000</tokenCutoff>
-        </modelParams>
+        <maximumInitialLookback>15</maximumInitialLookback>
         <enabled>false</enabled>
     </source>
 </sources>

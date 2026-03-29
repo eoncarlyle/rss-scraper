@@ -1,7 +1,7 @@
 module OriginalSourceFeeds
 
 open FsHttp // Did not know you could scope this way, which is nice
-open Models
+open DomainModels
 open Serialisation
 open FSharp.Data
 
@@ -15,8 +15,8 @@ module Artemis =
         { Title = item.Title
           Guid = Some item.Guid.Value
           Link = Some item.Link
-          Description = sanitized item.Description
-          Content = sanitized item.Encoded
+          Description = htmlSanitized item.Description |> firstSentenceRemove
+          Content = htmlSanitized item.Encoded |> firstSentenceRemove
           PubDate = Some item.PubDate }
 
     let localArtemisItems =

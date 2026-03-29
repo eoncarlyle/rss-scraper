@@ -8,13 +8,16 @@ let main args =
 
     let firstSource = Array.get sourcesConfiguration.Sources 0
     
+    
+    
     task {
         let! incomingRssItems = OriginalSourceFeeds.Artemis.getRssItems firstSource.SourceUrl
-        // let! requestBatch = Anthropic.submitStandardBatch rssItems systemPrompt
+        //let! requestBatch = Anthropic.submitStandardBatch incomingRssItems systemPrompt
         
-        let m = getRssItemsAbsentFromDerivedFeed firstSource incomingRssItems
-        Console.WriteLine(m)    
+        let! a = getFeedUpdate firstSource
         
+           
+        Console.WriteLine()
         // TODO: assessing if request *should* be made
         //updateDerivedSourceFeed firstSource requestBatch
         ()

@@ -7,3 +7,6 @@
 - Basten async inference doesn't store jobs, but is about 1/https://docs.baseten.co/inference/async
 - https://docs.mistral.ai/capabilities/batch#inline-batching
 - https://docs.mistral.ai/api/endpoint/beta/conversations
+- Figure out multi-model later
+  - It would be way simpler if everything under my perview - the deserialisation and serialisation is becoming a 
+    nightmare.

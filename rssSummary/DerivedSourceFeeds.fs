@@ -1,10 +1,13 @@
 module DerivedSourceFeeds
 
+open System.Threading.Tasks
+open Anthropic.Models.Messages.Batches
 open Giraffe.ViewEngine
 open FSharp.Data
 open System.IO
 open Serialisation
-open Models
+open DomainModels
+open Anthropic
 
 type SourcesConfiguration = XmlProvider<"schema/SourcesConfiguration.xml">
 
@@ -17,7 +20,8 @@ let getDerivedSourceFeedFileName (source: SourcesConfiguration.Source) =
 let getTempDerivedSourceFeedFileName (source: SourcesConfiguration.Source) =
     $"{getDerivedSourceFeedFileName source}.tmp"
 
-let updateDerivedSourceFeed (source: SourcesConfiguration.Source) (incomingBatch: SourceFeedSummaryRequestBatch) =
+
+let appendFeed (source: SourcesConfiguration.Source) (incomingBatch: SourceFeedSummaryRequestBatch) =
     let feedFileName = getDerivedSourceFeedFileName source
     let tempFeedFileName = getTempDerivedSourceFeedFileName source
 
@@ -35,11 +39,37 @@ let updateDerivedSourceFeed (source: SourcesConfiguration.Source) (incomingBatch
     else
         // Note: gave misleading error mesage before Giraffe.ViewEngine was imported:
         // feedback was about type resolution of File.WriteAllText instead of the, you know, missing import
-        let derivedSourceFeed = { SourceUrl = source.SourceUrl; Batches = [| incomingBatch |]  }
+        let derivedSourceFeed =
+            { SourceUrl = source.SourceUrl
+              Batches = [| incomingBatch |] }
+
         File.WriteAllText(feedFileName, serializeDerivedSourceFeed derivedSourceFeed |> RenderView.AsString.xmlNode)
 
     // This will change once object storage is here
     ()
+
+let getFeedUpdate (source: SourcesConfiguration.Source) =
+    let feedFileName = getDerivedSourceFeedFileName source
+
+    if File.Exists feedFileName then
+        let intermediate = ProviderDerivedSourceFeed.Load feedFileName 
+        let existingDerivedFeed = intermediate |> deserialiseToDerivedSourceFeed
+
+        let inProgressBatches =
+            existingDerivedFeed.Batches
+            |> Array.filter (fun batch -> batch.ProcessingStatus = ProcessingStatus.InProgress)
+        
+        task {
+            let! messageBatches = inProgressBatches |> Array.map (fun batch -> AppAnthropic.getBatch batch.Id) |> Task.WhenAll
+            let finishedBatches = messageBatches |> Array.filter (fun batch -> batch.ProcessingStatus = ProcessingStatus.Ended)
+            return Ok(finishedBatches)
+        }
+        
+    else
+        task {
+            return Error()
+        }
+
 
 
 let getRssItemsAbsentFromDerivedFeed (source: SourcesConfiguration.Source) (incomingRssItems: MinimalRssItem array) =

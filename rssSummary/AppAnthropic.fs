@@ -1,8 +1,10 @@
-module Anthropic
+module AppAnthropic
 
+open System.Threading.Tasks
+open System.Threading
 open Tiktoken.Encodings
 open Tiktoken
-open Models
+open DomainModels
 open Anthropic
 open Anthropic.Models.Messages
 open Anthropic.Models.Messages.Batches
@@ -10,7 +12,9 @@ open System
 open Queries
 
 let internal client = new AnthropicClient()
+let internal modelSubmitSemaphore = new SemaphoreSlim(1)
 let internal encoder = Encoder(O200KBase())
+let internal clientCooldown = 100
 
 type ItemTokenRecord =
     { MinimalRssItem: MinimalRssItem
@@ -56,7 +60,13 @@ let internal getRequestsWithExcludes (items: (MinimalRssItem * Guid) array) mode
     requests, Array.filter (filterPredicate >> not) requestsWithTokenCount
 
 let internal clientBatchRequest (requests: Request array) =
-    task { return! client.Messages.Batches.Create(BatchCreateParams(Requests = requests)) }
+    task {
+        modelSubmitSemaphore.Wait()
+        let messageBatch = client.Messages.Batches.Create(BatchCreateParams(Requests = requests))
+        Thread.Sleep(clientCooldown)
+        modelSubmitSemaphore.Release() |> ignore
+        return! messageBatch
+    }
 
 
 let internal submitBatch maybeTokenCutoff maybeModel (items: MinimalRssItem array) systemPrompt =
@@ -101,5 +111,8 @@ let internal submitBatch maybeTokenCutoff maybeModel (items: MinimalRssItem arra
 let submitStandardBatch (items: MinimalRssItem array) systemPrompt =
     submitBatch None None items systemPrompt
 
-let submitSpecialBatchFactory tokenCutoff model =
+let submitSpecialBatchFactory =
     fun tokenCutoff model -> submitBatch (Some tokenCutoff) (Some model)
+
+let getBatch messageBatchId =
+    client.Messages.Batches.Retrieve(BatchRetrieveParams(MessageBatchID = messageBatchId))

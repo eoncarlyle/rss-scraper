@@ -1,7 +1,8 @@
 module Serialisation
 
+open System.Text.RegularExpressions
 open AngleSharp.Common
-open Models
+open DomainModels
 open Anthropic.Models.Messages.Batches
 open Giraffe.ViewEngine
 
@@ -46,15 +47,15 @@ let serializeBatch (batch: SourceFeedSummaryRequestBatch) =
           tag "ProcessingStatus" [] [ str (serializeProcessingStatus batch.ProcessingStatus) ]
           yield!
               batch.ResultsUrl
-              |> Option.map (fun u -> tag "resultsUrl" [] [ str u ])
+              |> Option.map (fun u -> tag "ResultsUrl" [] [ str u ])
               |> Option.toList
-          yield! batch.BatchItems |> Array.map serializeBatchItem ]
+          tag "a" [] [ batch.BatchItems |> Array.map serializeBatchItem ]]
 
 let serializeDerivedSourceFeed (feed: DerivedSourceFeed) =
     tag
-        "derivedSourceFeed"
+        "DerivedSourceFeed"
         []
-        [ tag "sourceUrl" [] [ str feed.SourceUrl ]
+        [ tag "SourceUrl" [] [ str feed.SourceUrl ]
           yield! feed.Batches |> Array.map serializeBatch ]
 
 let deserialiseProcessingStatus s =
@@ -65,10 +66,16 @@ let deserialiseProcessingStatus s =
     | unknown -> failwith $"Unknown ProcessingStatus: {unknown}"
 
 
-let sanitized (s: string) =
+let htmlSanitized (s: string) =
     let doc = HtmlAgilityPack.HtmlDocument()
     doc.LoadHtml s
     doc.DocumentNode.InnerText
+   
+let firstSentenceRemove (s: string) =
+    // TODO: this parsing is bad and you know it
+    let secondMatch = Regex.Matches(s, "^(.+)")[0]
+    let firstSentence = secondMatch.Groups[1].Value
+    s.Replace(firstSentence, "")
     
 let deserialiseToDerivedSourceFeed (providerFeed: ProviderDerivedSourceFeed.DerivedSourceFeed) : DerivedSourceFeed =
     { SourceUrl = providerFeed.SourceUrl
