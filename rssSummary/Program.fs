@@ -17,10 +17,9 @@ let main args =
         let modelActions =
             firstSource.Model
             |> Option.map (fun m ->
-                if m = ClaudeHaiku45 then
-                    AppAnthropic.Haiku45Actions
-                else
-                    failwith "not implemented")
+                match m with
+                | ClaudeHaiku45 -> AppAnthropic.Haiku45Actions
+                | Gemini25FlashLite -> AppGemini.AppGeminiActions)
             |> Option.defaultValue AppAnthropic.Haiku45Actions
 
         if firstSource.SourceSlug = "artemis" then
