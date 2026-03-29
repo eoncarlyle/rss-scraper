@@ -6,7 +6,7 @@ let submitBatch (items: MinimalRssItem array) systemPrompt =
     failwith "not implemented"
 
 
-let getUpdatedDerivedFeed (source: SourceConfig) (derivedSourceFeed: DerivedSourceFeed) : DerivedSourceFeed =
+let getUpdatedDerivedFeed (source: SourceConfig) (derivedSourceFeed: DerivedSourceFeed) : System.Threading.Tasks.Task<DerivedSourceFeed option> =
     failwith "not implemented"
 
 let AppGeminiActions: LangaugeModelActions =

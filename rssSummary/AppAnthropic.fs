@@ -139,6 +139,40 @@ let collectAsyncEnumerable (asyncEnum: IAsyncEnumerable<'t>) =
         return results.ToArray()
     }
 
+let applyBatchResult (batchResponses: Map<string, MessageBatchIndividualResponse>) (batchItem: BatchRssItem) =
+    if not (batchResponses.ContainsKey batchItem.Guid) then
+        batchItem
+    else
+        let batchResponse =
+            Map.find batchItem.Guid batchResponses
+            |> _.Result
+            |> _.Match(
+                succeeded = (fun s -> Ok(s.Message)),
+                errored = (fun er -> Error(Some er)),
+                canceled = (fun _ -> Error(None)),
+                expired = (fun _ -> Error(None))
+            )
+
+        let parsedText =
+            batchResponse
+            |> Result.map (fun okResponse ->
+                let block = okResponse.Content |> Seq.head
+                let mutable tb = Unchecked.defaultof<TextBlock>
+                block.TryPickText(&tb) |> ignore
+                tb.Text)
+
+        let resultText =
+            parsedText
+            |> Result.defaultWith (fun err ->
+                err
+                |> Option.map _.Error.Error.Message
+                |> Option.defaultValue "Unknown error")
+
+        if batchResponse.IsOk then
+            { batchItem with Result = Some resultText }
+        else
+            batchItem
+
 let getUpdatedDerivedFeed
     (source: SourceConfig)
     (derivedSourceFeed: DerivedSourceFeed)
@@ -184,52 +218,7 @@ let getUpdatedDerivedFeed
                                 |> Map
 
                             let newBatchItems =
-                                batch.BatchItems
-                                |> Array.map (fun batchItem ->
-                                    if batchResponses.ContainsKey batchItem.Guid then
-
-                                        let batchResponse =
-                                            Map.find batchItem.Guid batchResponses
-                                            |> _.Result
-                                            |> _.Match(
-                                                succeeded = (fun s -> Ok(s.Message)),
-                                                errored = (fun er -> Error(Some er)),
-                                                canceled = (fun _ -> Error(None)),
-                                                expired = (fun _ -> Error(None))
-                                            )
-
-                                        let parseTextResponse =
-                                            batchResponse
-                                            |> Result.map (fun okResponse ->
-                                                let block = okResponse.Content |> Seq.head
-                                                let mutable tb = Unchecked.defaultof<TextBlock>
-                                                block.TryPickText(&tb) |> ignore
-                                                tb.Text)
-
-                                        let batchItemResult =
-                                            parseTextResponse
-                                            |> Result.defaultWith (fun a ->
-                                                a
-                                                |> Option.map _.Error.Error.Message
-                                                |> Option.defaultValue "Unknown error")
-
-                                        if batchResponse.IsOk then
-                                            { Guid = batchItem.Guid
-                                              Included = batchItem.Included
-                                              Item = batchItem.Item
-                                              Result = Some batchItemResult }
-
-                                        else
-                                            { Guid = batchItem.Guid
-                                              Included = batchItem.Included
-                                              Item = batchItem.Item
-                                              Result = None }
-
-                                    else
-                                        { Guid = batchItem.Guid
-                                          Included = batchItem.Included
-                                          Item = batchItem.Item
-                                          Result = None })
+                                batch.BatchItems |> Array.map (applyBatchResult batchResponses)
 
                             { Id = batch.Id
                               ProcessingStatus = DomainModels.ProcessingStatus.Ended
