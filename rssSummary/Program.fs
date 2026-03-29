@@ -8,7 +8,10 @@ open Queries
 [<EntryPoint>]
 let main args =
 
-    let firstSource = Array.get sourcesConfiguration.Sources 0
+    let firstSource =
+        sourcesConfiguration.Sources
+        |> Array.tryFind (fun s -> s.Enabled)
+        |> Option.defaultWith (fun () -> failwith "No enabled sources configured")
 
     task {
         let modelActions =

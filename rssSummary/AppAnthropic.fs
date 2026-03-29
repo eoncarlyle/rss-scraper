@@ -69,13 +69,14 @@ let internal getRequestsWithExcludes (items: (MinimalRssItem * Guid) array) mode
 let internal clientBatchRequest (requests: Request array) =
     task {
         modelSubmitSemaphore.Wait()
+        try
+            let messageBatch =
+                client.Messages.Batches.Create(BatchCreateParams(Requests = requests))
 
-        let messageBatch =
-            client.Messages.Batches.Create(BatchCreateParams(Requests = requests))
-
-        Thread.Sleep(clientCooldown)
-        modelSubmitSemaphore.Release() |> ignore
-        return! messageBatch
+            do! Task.Delay(clientCooldown)
+            return! messageBatch
+        finally
+            modelSubmitSemaphore.Release() |> ignore
     }
 
 
@@ -125,7 +126,7 @@ let submitSpecialBatchFactory =
 let collectAsyncEnumerable (asyncEnum: IAsyncEnumerable<'t>) =
     task {
         let results = ResizeArray()
-        let enumerator = asyncEnum.GetAsyncEnumerator()
+        use enumerator = asyncEnum.GetAsyncEnumerator()
         let mutable hasMore = true
 
         while hasMore do
@@ -155,11 +156,13 @@ let applyBatchResult (batchResponses: Map<string, MessageBatchIndividualResponse
 
         let parsedText =
             batchResponse
-            |> Result.map (fun okResponse ->
-                let block = okResponse.Content |> Seq.head
-                let mutable tb = Unchecked.defaultof<TextBlock>
-                block.TryPickText(&tb) |> ignore
-                tb.Text)
+            |> Result.bind (fun okResponse ->
+                match okResponse.Content |> Seq.tryHead with
+                | Some block ->
+                    let mutable tb = Unchecked.defaultof<TextBlock>
+                    block.TryPickText(&tb) |> ignore
+                    Ok tb.Text
+                | None -> Error None)
 
         let resultText =
             parsedText

@@ -13,7 +13,7 @@ module Artemis =
 
     let deserialiseRssItem (item: ArtemisRss.Item) : MinimalRssItem =
         { Title = item.Title
-          Guid = Some item.Guid.Value
+          Guid = if isNull (box item.Guid) then None else Some item.Guid.Value
           Link = Some item.Link
           Description = htmlSanitized item.Description |> firstSentenceRemove
           Content = htmlSanitized item.Encoded |> firstSentenceRemove

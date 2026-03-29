@@ -1,5 +1,6 @@
 module DerivedSourceFeeds
 
+open System
 open System.Threading.Tasks
 open System.IO
 open Giraffe.ViewEngine
@@ -11,7 +12,7 @@ let sourcesConfiguration =
     File.ReadAllText "Schema/sources.json" |> deserializeSourcesConfiguration
 
 let getDerivedSourceFeedFileName (source: SourceConfig) =
-    $"/Users/iain/code/rss-scraper/rssSummary/{source.SourceSlug}.derived.json"
+    Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"{source.SourceSlug}.derived.json")
 
 let getTempDerivedSourceFeedFileName (source: SourceConfig) =
     $"{getDerivedSourceFeedFileName source}.tmp"

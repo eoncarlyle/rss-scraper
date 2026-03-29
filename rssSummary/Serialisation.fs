@@ -1,5 +1,6 @@
 module Serialisation
 
+open System
 open System.Text.Json
 open System.Text.Json.Serialization
 open System.Text.RegularExpressions
@@ -40,12 +41,15 @@ let fromAnthropicStatus (status: Anthropic.Models.Messages.Batches.ProcessingSta
     | _ -> Ended
 
 let htmlSanitized (s: string) =
-    let doc = HtmlAgilityPack.HtmlDocument()
-    doc.LoadHtml s
-    doc.DocumentNode.InnerText
+    if isNull s then ""
+    else
+        let doc = HtmlAgilityPack.HtmlDocument()
+        doc.LoadHtml s
+        doc.DocumentNode.InnerText
 
 let firstSentenceRemove (s: string) =
-    // TODO: this parsing is bad and you know it
-    let secondMatch = Regex.Matches(s, "^(.+)")[0]
-    let firstSentence = secondMatch.Groups[1].Value
-    s.Replace(firstSentence, "")
+    if String.IsNullOrEmpty(s) then s
+    else
+        // Match first sentence ending with period, exclamation, or question mark
+        let m = Regex.Match(s, @"^[^.!?]+[.!?]\s*")
+        if m.Success then s.Substring(m.Length) else s
