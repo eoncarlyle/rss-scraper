@@ -14,6 +14,7 @@
     <PackageReference Include="FsHttp" Version="15.0.3" />
     <PackageReference Include="Giraffe" Version="6.4.0" />
     <PackageReference Include="Giraffe.ViewEngine" Version="2.0.0-alpha-1" />
+    <PackageReference Include="FSharp.SystemTextJson" Version="1.3.13" />
     <PackageReference Include="HtmlAgilityPack" Version="1.12.4" />
     <PackageReference Include="Tiktoken" Version="3.1.4" />
   </ItemGroup>
@@ -23,10 +24,10 @@
     <Compile Include="OriginalSourceFeeds.fs" />
     <Compile Include="Queries.fs" />
     <Compile Include="AppAnthropic.fs" />
+    <Compile Include="AppGemini.fs" />
     <Compile Include="DerivedSourceFeeds.fs" />
     <Compile Include="Program.fs" />
-    <Content Include="Schema\SourcesConfiguration.xml" CopyToOutputDirectory="PreserveNewest" />
-    <Content Include="Schema\DerivedSourceFeed.xml" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="Schema\sources.json" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Schema\artemis.rss" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 

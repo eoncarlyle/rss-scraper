@@ -1,93 +1,131 @@
 module DerivedSourceFeeds
 
 open System.Threading.Tasks
-open Anthropic.Models.Messages.Batches
-open Giraffe.ViewEngine
-open FSharp.Data
 open System.IO
+open Giraffe.ViewEngine
+open Queries
 open Serialisation
 open DomainModels
-open Anthropic
-
-type SourcesConfiguration = XmlProvider<"schema/SourcesConfiguration.xml">
 
 let sourcesConfiguration =
-    SourcesConfiguration.Load "schema/SourcesConfiguration.xml"
+    File.ReadAllText "Schema/sources.json" |> deserializeSourcesConfiguration
 
-let getDerivedSourceFeedFileName (source: SourcesConfiguration.Source) =
-    $"/Users/iain/code/rss-scraper/rssSummary/{source.SourceSlug}.derived.xml"
+let getDerivedSourceFeedFileName (source: SourceConfig) =
+    $"/Users/iain/code/rss-scraper/rssSummary/{source.SourceSlug}.derived.json"
 
-let getTempDerivedSourceFeedFileName (source: SourcesConfiguration.Source) =
+let getTempDerivedSourceFeedFileName (source: SourceConfig) =
     $"{getDerivedSourceFeedFileName source}.tmp"
 
+let isEquivalent (sourceItem: MinimalRssItem) (batchItem: BatchRssItem) =
+    sourceItem.Title = batchItem.Item.Title
+    && sourceItem.Guid = batchItem.Item.Guid
+    && sourceItem.Link = batchItem.Item.Link
 
-let appendFeed (source: SourcesConfiguration.Source) (incomingBatch: SourceFeedSummaryRequestBatch) =
+let getSourceItemsToSubmit (source: SourceConfig) (incomingRssItems: MinimalRssItem array) =
+    let feedFileName = getDerivedSourceFeedFileName source
+
+    if File.Exists feedFileName then
+        let existingDerivedFeed =
+            File.ReadAllText feedFileName |> deserializeDerivedSourceFeed
+
+        let submittedBatchItems =
+            existingDerivedFeed.Batches |> Array.map _.BatchItems |> Array.concat
+
+        if Array.length submittedBatchItems = 0 then
+            Array.truncate source.MaximumLookback incomingRssItems
+        else
+
+            let truncationIndex = // Don't resubmit anything, respect maximum lookback
+                submittedBatchItems
+                |> Array.tryFindIndexBack (fun batchItem ->
+                    incomingRssItems
+                    |> Array.tryFind (fun sourceItem -> isEquivalent sourceItem batchItem)
+                    |> Option.isSome)
+                |> Option.defaultValue source.MaximumLookback
+
+            incomingRssItems
+            |> Array.truncate truncationIndex
+            |> Array.filter (fun sourceItem ->
+                let maybeMatch =
+                    submittedBatchItems
+                    |> Array.tryFind (fun batchItem -> isEquivalent sourceItem batchItem)
+
+                maybeMatch.IsNone)
+    else
+        Array.truncate source.MaximumLookback incomingRssItems
+
+let parseSourceWithSubmitBatch
+    source
+    (fetchSource: string -> Task<MinimalRssItem array>)
+    (modelActions: LangaugeModelActions)
+    =
+    task {
+        let! incomingSourceItems = fetchSource source.SourceUrl
+
+        // Don't resubmit something, don't blow past maximum lookback
+        let submittedSourceItems = getSourceItemsToSubmit source incomingSourceItems
+
+        if Array.length submittedSourceItems > 0 then
+            let! requestBatch =
+                modelActions.SubmitBatch submittedSourceItems
+                <| Option.defaultValue defaultSystemPrompt source.SystemPrompt
+
+            return Some requestBatch
+        else
+            return None
+    }
+
+let writeUpdatedDerivedSourceFeed (source: SourceConfig) (updatedDerivedFeed: DerivedSourceFeed) =
+    let feedFileName = getDerivedSourceFeedFileName source
+
+    if File.Exists feedFileName |> not then
+        failwith $"Derived feed {feedFileName} does not exist"
+
+    let tempFeedFileName = getTempDerivedSourceFeedFileName source
+    File.WriteAllText(tempFeedFileName, serializeDerivedSourceFeed updatedDerivedFeed)
+    File.Move(tempFeedFileName, feedFileName, true)
+
+
+let appendBatchToFeed (source: SourceConfig) (incomingSubmitBatch: SourceFeedSummaryRequestBatch) =
     let feedFileName = getDerivedSourceFeedFileName source
     let tempFeedFileName = getTempDerivedSourceFeedFileName source
 
     if File.Exists feedFileName then
         let existingDerivedFeed =
-            ProviderDerivedSourceFeed.Load feedFileName |> deserialiseToDerivedSourceFeed
+            File.ReadAllText feedFileName |> deserializeDerivedSourceFeed
 
-        let nextDerivedFeed =
+        let updatedDerivedFeed =
             { SourceUrl = existingDerivedFeed.SourceUrl
-              Batches = Array.append existingDerivedFeed.Batches [| incomingBatch |] }
+              Batches = Array.append existingDerivedFeed.Batches [| incomingSubmitBatch |] }
 
-        File.WriteAllText(tempFeedFileName, serializeDerivedSourceFeed nextDerivedFeed |> RenderView.AsString.xmlNode)
-        File.Move(tempFeedFileName, feedFileName)
+        writeUpdatedDerivedSourceFeed source updatedDerivedFeed
         ()
     else
-        // Note: gave misleading error mesage before Giraffe.ViewEngine was imported:
-        // feedback was about type resolution of File.WriteAllText instead of the, you know, missing import
         let derivedSourceFeed =
             { SourceUrl = source.SourceUrl
-              Batches = [| incomingBatch |] }
+              Batches = [| incomingSubmitBatch |] }
 
-        File.WriteAllText(feedFileName, serializeDerivedSourceFeed derivedSourceFeed |> RenderView.AsString.xmlNode)
+        File.WriteAllText(feedFileName, serializeDerivedSourceFeed derivedSourceFeed)
 
-    // This will change once object storage is here
     ()
 
-let getFeedUpdate (source: SourcesConfiguration.Source) =
+let pollSource source fetchSource modelActions =
+    task {
+        let! maybeSubmitBatch = parseSourceWithSubmitBatch source fetchSource modelActions
+        maybeSubmitBatch |> Option.iter (appendBatchToFeed source)
+    }
+
+let getFeedUpdate (source: SourceConfig) (modelActions: LangaugeModelActions) =
     let feedFileName = getDerivedSourceFeedFileName source
 
     if File.Exists feedFileName then
-        let intermediate = ProviderDerivedSourceFeed.Load feedFileName 
-        let existingDerivedFeed = intermediate |> deserialiseToDerivedSourceFeed
+        let derivedSourceFeed =
+            File.ReadAllText feedFileName |> deserializeDerivedSourceFeed
 
-        let inProgressBatches =
-            existingDerivedFeed.Batches
-            |> Array.filter (fun batch -> batch.ProcessingStatus = ProcessingStatus.InProgress)
-        
         task {
-            let! messageBatches = inProgressBatches |> Array.map (fun batch -> AppAnthropic.getBatch batch.Id) |> Task.WhenAll
-            let finishedBatches = messageBatches |> Array.filter (fun batch -> batch.ProcessingStatus = ProcessingStatus.Ended)
-            return Ok(finishedBatches)
-        }
-        
-    else
-        task {
-            return Error()
+            let! maybeUpdatedDerivedSourceFeed = modelActions.GetUpdatedDerivedFeed source derivedSourceFeed
+            maybeUpdatedDerivedSourceFeed |> Option.iter (writeUpdatedDerivedSourceFeed source)
+            return maybeUpdatedDerivedSourceFeed.IsSome
         }
 
-
-
-let getRssItemsAbsentFromDerivedFeed (source: SourcesConfiguration.Source) (incomingRssItems: MinimalRssItem array) =
-    let feedFileName = getDerivedSourceFeedFileName source
-
-    let existingDerivedFeed =
-        ProviderDerivedSourceFeed.Load feedFileName |> deserialiseToDerivedSourceFeed
-
-    let existingBatchItems =
-        existingDerivedFeed.Batches |> Array.map _.BatchItems |> Array.concat
-
-    incomingRssItems
-    |> Array.filter (fun incomingItem ->
-        let maybeMatch =
-            existingBatchItems
-            |> Array.tryFind (fun existingItem ->
-                existingItem.Item.Title = incomingItem.Title
-                && existingItem.Item.Guid = incomingItem.Guid
-                && existingItem.Item.Link = incomingItem.Link)
-
-        maybeMatch.IsSome)
+    else failwith $"Derived feed {feedFileName} does not exist"

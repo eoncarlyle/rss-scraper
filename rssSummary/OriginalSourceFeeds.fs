@@ -22,7 +22,7 @@ module Artemis =
     let localArtemisItems =
         localArtemisRss.Channel.Items |> Array.map deserialiseRssItem
 
-    let getRssItems url =
+    let fetchSource url =
         let request =
             http {
                 GET url

@@ -1,8 +1,13 @@
 module DomainModels
 
 open System
-open FSharp.Data
-open Anthropic.Models.Messages.Batches
+open System.Text.Json.Serialization
+open System.Threading.Tasks
+
+type ProcessingStatus =
+    | InProgress
+    | Canceling
+    | Ended
 
 type MinimalRssItem =
     { Title: String
@@ -21,13 +26,27 @@ type BatchRssItem =
 type SourceFeedSummaryRequestBatch =
     { Id: String
       ProcessingStatus: ProcessingStatus
-      ResultsUrl: String option
       BatchItems: BatchRssItem array }
 
 type DerivedSourceFeed =
     { SourceUrl: String
       Batches: SourceFeedSummaryRequestBatch array }
 
-type SourcesConfiguration = XmlProvider<"schema/SourcesConfiguration.xml">
+type LangaugeModel =
+    | [<JsonName "claude-haiku-4-5">] ClaudeHaiku45
+    | [<JsonName "gemini-2-5-flash-lite">] Gemini25FlashLite
 
-type ProviderDerivedSourceFeed = XmlProvider<"schema/DerivedSourceFeed.xml">
+type SourceConfig =
+    { SourceUrl: string
+      SystemPrompt: string option
+      SourceSlug: string
+      MaximumLookback: int
+      Model: LangaugeModel option
+      Enabled: bool }
+
+type SourcesConfiguration = { Sources: SourceConfig array }
+
+type LangaugeModelActions =
+    {
+      SubmitBatch: MinimalRssItem array -> string -> Task<SourceFeedSummaryRequestBatch>
+      GetUpdatedDerivedFeed: SourceConfig -> DerivedSourceFeed -> Task<DerivedSourceFeed option> }

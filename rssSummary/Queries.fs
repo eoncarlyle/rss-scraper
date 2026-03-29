@@ -3,7 +3,7 @@ module Queries
 let getStructuredQuery (item: DomainModels.MinimalRssItem) =
     $"<description>{item.Description}</description><content>{item.Content}</content>"
 
-let systemPrompt =
+let defaultSystemPrompt =
     """
         You are summarising material for someone not working in the field who wants to stay up to speed with the
         content. Use only ASCII characters and format in plain text, do not format in Markdown. Draw inspiration from Matt
