@@ -2,10 +2,6 @@ module AppAnthropic
 
 open System.Threading.Tasks
 open System.Threading
-open Anthropic.Models.Beta.Messages.Batches
-open FsHttp.Helper
-open Giraffe.ComputationExpressions
-open Giraffe.ViewEngine
 open System.Collections.Generic
 open Microsoft.FSharp.Collections
 open Microsoft.FSharp.Core
@@ -28,7 +24,7 @@ type ItemTokenRecord =
       TokenCount: Int32
       Guid: Guid }
 
-let internal getRequestsWithExcludes (items: (MinimalRssItem * Guid) array) model systemPrompt (tokenCutoff: int) =
+let internal getRequestsWithExcludes (items: (MinimalRssItem * Guid) array) model submitBatchParameters =
 
     let requestsWithTokenCount: ItemTokenRecord array =
         items
@@ -38,7 +34,7 @@ let internal getRequestsWithExcludes (items: (MinimalRssItem * Guid) array) mode
               Guid = snd item })
 
     let filterPredicate =
-        fun (itemTokenGuid: ItemTokenRecord) -> itemTokenGuid.TokenCount < tokenCutoff
+        fun (itemTokenGuid: ItemTokenRecord) -> itemTokenGuid.TokenCount < submitBatchParameters.InputTokenCutoff
 
     let requests =
         requestsWithTokenCount
@@ -50,11 +46,14 @@ let internal getRequestsWithExcludes (items: (MinimalRssItem * Guid) array) mode
                 CustomID = customID.ToString(),
                 Params =
                     Params(
-                        MaxTokens = 1024L,
+                        MaxTokens = submitBatchParameters.OutputTokenCutoff,
                         Model = model,
                         System =
                             ParamsSystem(
-                                [ TextBlockParam(Text = systemPrompt, CacheControl = CacheControlEphemeral()) ]
+                                [ TextBlockParam(
+                                      Text = submitBatchParameters.SystemPrompt,
+                                      CacheControl = CacheControlEphemeral()
+                                  ) ]
                             ),
                         Messages =
                             [ MessageParam(
@@ -69,6 +68,7 @@ let internal getRequestsWithExcludes (items: (MinimalRssItem * Guid) array) mode
 let internal clientBatchRequest (requests: Request array) =
     task {
         modelSubmitSemaphore.Wait()
+
         try
             let messageBatch =
                 client.Messages.Batches.Create(BatchCreateParams(Requests = requests))
@@ -80,16 +80,15 @@ let internal clientBatchRequest (requests: Request array) =
     }
 
 
-let internal submitModelAgnosticBatch maybeTokenCutoff maybeModel (items: MinimalRssItem array) systemPrompt =
+let internal submitModelAgnosticBatch maybeModel (items: MinimalRssItem array) submitBatchParameters =
     let model = Option.defaultValue "claude-haiku-4-5" maybeModel
-    let tokenCutoff = Option.defaultValue 50000 maybeTokenCutoff
 
     // TODO internal semaphroe thing
     task {
         let itemsWithRequestGuids = Array.map (fun item -> item, Guid.NewGuid()) items
 
         let requestWithExcludes =
-            getRequestsWithExcludes itemsWithRequestGuids model systemPrompt tokenCutoff
+            getRequestsWithExcludes itemsWithRequestGuids model submitBatchParameters
 
         let! response = clientBatchRequest <| fst requestWithExcludes
         let excludes = snd requestWithExcludes |> Array.map _.MinimalRssItem
@@ -113,15 +112,14 @@ let internal submitModelAgnosticBatch maybeTokenCutoff maybeModel (items: Minima
 
         return
             { Id = response.ID
-              ProcessingStatus = DomainModels.InProgress
+              ProcessingStatus = InProgress
               BatchItems = batchItems }
     }
 
-let submitBatch (items: MinimalRssItem array) systemPrompt =
-    submitModelAgnosticBatch None None items systemPrompt
+let submitBatch (items: MinimalRssItem array) (submitBatchParameters: SubmitBatchParameters) =
+    submitModelAgnosticBatch (Some "claude-haiku-4-5") items submitBatchParameters
 
-let submitSpecialBatchFactory =
-    fun tokenCutoff model -> submitModelAgnosticBatch (Some tokenCutoff) (Some model)
+let submitSpecialBatchFactory = fun model -> submitModelAgnosticBatch (Some model)
 
 let collectAsyncEnumerable (asyncEnum: IAsyncEnumerable<'t>) =
     task {
@@ -167,12 +165,11 @@ let applyBatchResult (batchResponses: Map<string, MessageBatchIndividualResponse
         let resultText =
             parsedText
             |> Result.defaultWith (fun err ->
-                err
-                |> Option.map _.Error.Error.Message
-                |> Option.defaultValue "Unknown error")
+                err |> Option.map _.Error.Error.Message |> Option.defaultValue "Unknown error")
 
         if batchResponse.IsOk then
-            { batchItem with Result = Some resultText }
+            { batchItem with
+                Result = Some resultText }
         else
             batchItem
 
@@ -220,8 +217,7 @@ let getUpdatedDerivedFeed
                                 |> Array.map (fun result -> result.CustomID, result)
                                 |> Map
 
-                            let newBatchItems =
-                                batch.BatchItems |> Array.map (applyBatchResult batchResponses)
+                            let newBatchItems = batch.BatchItems |> Array.map (applyBatchResult batchResponses)
 
                             { Id = batch.Id
                               ProcessingStatus = DomainModels.ProcessingStatus.Ended
@@ -229,7 +225,9 @@ let getUpdatedDerivedFeed
                         else
                             batch)
 
-                Some { SourceUrl = derivedSourceFeed.SourceUrl; Batches = newBatches }
+                Some
+                    { SourceUrl = derivedSourceFeed.SourceUrl
+                      Batches = newBatches }
     }
 
 let Haiku45Actions: LangaugeModelActions =

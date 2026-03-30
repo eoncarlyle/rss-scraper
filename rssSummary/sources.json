@@ -2,18 +2,22 @@
   "sources": [
     {
       "sourceUrl": "https://www.artemis.bm/feed/",
-      "systemPrompt": null,
       "sourceSlug": "artemis",
+      "model": "gemini-2-5-flash-lite",
+      "systemPrompt": null,
+      "inputTokenCutoff": 50000,
+      "outputTokenCutoff": 896,
       "maximumLookback": 15,
-      "model": null,
       "enabled": true
     },
     {
       "sourceUrl": "https://www.grocerydive.com/feeds/news/",
-      "systemPrompt": null,
       "sourceSlug": "grocerydive",
-      "maximumLookback": 15,
       "model": "gemini-2-5-flash-lite",
+      "systemPrompt": null,
+      "inputTokenCutoff": 50000,
+      "outputTokenCutoff": 896,
+      "maximumLookback": 15,
       "enabled": false
     }
   ]

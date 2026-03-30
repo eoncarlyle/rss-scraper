@@ -21,7 +21,10 @@ type ItemTokenRecord =
       TokenCount: Int32
       Guid: Guid }
 
-let internal getRequestsWithExcludes (items: (MinimalRssItem * Guid) array) systemPrompt (tokenCutoff: int) =
+let internal getRequestsWithExcludes
+    (items: (MinimalRssItem * Guid) array)
+    submitBatchParameters
+    =
 
     let requestsWithTokenCount: ItemTokenRecord array =
         items
@@ -31,7 +34,7 @@ let internal getRequestsWithExcludes (items: (MinimalRssItem * Guid) array) syst
               Guid = snd item })
 
     let filterPredicate =
-        fun (itemTokenGuid: ItemTokenRecord) -> itemTokenGuid.TokenCount < tokenCutoff
+        fun (itemTokenGuid: ItemTokenRecord) -> itemTokenGuid.TokenCount < submitBatchParameters.InputTokenCutoff
 
     let requests =
         requestsWithTokenCount
@@ -49,13 +52,6 @@ let internal getRequestsWithExcludes (items: (MinimalRssItem * Guid) array) syst
                                       [ Part(Text = getStructuredQuery itemTokenRecord.MinimalRssItem) ]
                                   )
                           ) ]
-                    ),
-                Metadata = Dictionary<string, string>(dict [ "key", customID.ToString() ]),
-                Config =
-                    GenerateContentConfig(
-                        MaxOutputTokens = Nullable<int>(1024),
-                        SystemInstruction =
-                            Content(Parts = ResizeArray<Part>([ Part(Text = systemPrompt) ]))
                     )
             ))
 
@@ -64,13 +60,12 @@ let internal getRequestsWithExcludes (items: (MinimalRssItem * Guid) array) syst
 let internal clientBatchRequest model (requests: InlinedRequest array) =
     task {
         modelSubmitSemaphore.Wait()
+
         try
-            let src =
-                BatchJobSource(InlinedRequests = ResizeArray<InlinedRequest>(requests))
+            let src = BatchJobSource(InlinedRequests = ResizeArray<InlinedRequest>(requests))
 
             let timestamp = DateTime.UtcNow.ToString("yyyyMMdd-HHmmss")
-            let config =
-                CreateBatchJobConfig(DisplayName = $"rss-batch-{timestamp}")
+            let config = CreateBatchJobConfig(DisplayName = $"rss-batch-{timestamp}")
 
             let! batchJob = client.Batches.CreateAsync(model, src, config)
 
@@ -80,15 +75,18 @@ let internal clientBatchRequest model (requests: InlinedRequest array) =
             modelSubmitSemaphore.Release() |> ignore
     }
 
-let internal submitModelAgnosticBatch maybeTokenCutoff maybeModel (items: MinimalRssItem array) systemPrompt =
+let internal submitModelAgnosticBatch
+    maybeModel
+    (items: MinimalRssItem array)
+    (submitBatchParameters: SubmitBatchParameters)
+    =
     let model = Option.defaultValue "gemini-2.5-flash-lite" maybeModel
-    let tokenCutoff = Option.defaultValue 50000 maybeTokenCutoff
 
     task {
         let itemsWithRequestGuids = Array.map (fun item -> item, Guid.NewGuid()) items
 
         let requestWithExcludes =
-            getRequestsWithExcludes itemsWithRequestGuids systemPrompt tokenCutoff
+            getRequestsWithExcludes itemsWithRequestGuids submitBatchParameters
 
         let! response = clientBatchRequest model <| fst requestWithExcludes
         let excludes = snd requestWithExcludes |> Array.map _.MinimalRssItem
@@ -112,15 +110,14 @@ let internal submitModelAgnosticBatch maybeTokenCutoff maybeModel (items: Minima
 
         return
             { Id = response.Name
-              ProcessingStatus = DomainModels.InProgress
+              ProcessingStatus = InProgress
               BatchItems = batchItems }
     }
 
-let submitBatch (items: MinimalRssItem array) systemPrompt =
-    submitModelAgnosticBatch None None items systemPrompt
+let submitBatch (items: MinimalRssItem array) (submitBatchParameters: SubmitBatchParameters) =
+    submitModelAgnosticBatch (Some "gemini-2.5-flash-lite") items submitBatchParameters
 
-let submitSpecialBatchFactory =
-    fun tokenCutoff model -> submitModelAgnosticBatch (Some tokenCutoff) (Some model)
+let submitSpecialBatchFactory = fun model -> submitModelAgnosticBatch (Some model)
 
 let internal isTerminalState (state: JobState) =
     state = JobState.JobStateSucceeded
@@ -138,7 +135,10 @@ let internal applyBatchResult (batchResponses: Map<string, InlinedResponse>) (ba
         let parsedText =
             if inlinedResponse.Error <> null then
                 Error(Some inlinedResponse.Error.Message)
-            elif inlinedResponse.Response <> null && not (String.IsNullOrEmpty inlinedResponse.Response.Text) then
+            elif
+                inlinedResponse.Response <> null
+                && not (String.IsNullOrEmpty inlinedResponse.Response.Text)
+            then
                 Ok inlinedResponse.Response.Text
             else
                 Error None
@@ -148,7 +148,8 @@ let internal applyBatchResult (batchResponses: Map<string, InlinedResponse>) (ba
             |> Result.defaultWith (fun err -> err |> Option.defaultValue "Unknown error")
 
         if Result.isOk parsedText then
-            { batchItem with Result = Some resultText }
+            { batchItem with
+                Result = Some resultText }
         else
             batchItem
 
@@ -196,16 +197,17 @@ let getUpdatedDerivedFeed
                         if finishedBatches.ContainsKey batch.Id then
                             let batchResponses = finishedBatches[batch.Id]
 
-                            let newBatchItems =
-                                batch.BatchItems |> Array.map (applyBatchResult batchResponses)
+                            let newBatchItems = batch.BatchItems |> Array.map (applyBatchResult batchResponses)
 
                             { Id = batch.Id
-                              ProcessingStatus = DomainModels.ProcessingStatus.Ended
+                              ProcessingStatus = ProcessingStatus.Ended
                               BatchItems = newBatchItems }
                         else
                             batch)
 
-                Some { SourceUrl = derivedSourceFeed.SourceUrl; Batches = newBatches }
+                Some
+                    { SourceUrl = derivedSourceFeed.SourceUrl
+                      Batches = newBatches }
     }
 
 let AppGeminiActions: LangaugeModelActions =

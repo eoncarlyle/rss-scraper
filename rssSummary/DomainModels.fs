@@ -38,15 +38,24 @@ type LangaugeModel =
 
 type SourceConfig =
     { SourceUrl: string
-      SystemPrompt: string option
       SourceSlug: string
-      MaximumLookback: int
       Model: LangaugeModel option
+      SystemPrompt: string option
+      InputTokenCutoff: int
+      OutputTokenCutoff: int
+      MaximumLookback: int
       Enabled: bool }
 
 type SourcesConfiguration = { Sources: SourceConfig array }
 
+type SubmitBatchParameters = {
+    SystemPrompt: string
+    InputTokenCutoff: int
+    OutputTokenCutoff: int
+}
+
+
 type LangaugeModelActions =
     {
-      SubmitBatch: MinimalRssItem array -> string -> Task<SourceFeedSummaryRequestBatch>
+      SubmitBatch: MinimalRssItem array -> SubmitBatchParameters -> Task<SourceFeedSummaryRequestBatch>
       GetUpdatedDerivedFeed: SourceConfig -> DerivedSourceFeed -> Task<DerivedSourceFeed option> }

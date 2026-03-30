@@ -1,21 +1,16 @@
 module DerivedSourceFeeds
 
-open System
-open System.Threading.Tasks
 open System.IO
-open Giraffe.ViewEngine
+open System.Threading.Tasks
 open Queries
 open Serialisation
 open DomainModels
 
+
 let sourcesConfiguration =
-    File.ReadAllText "Schema/sources.json" |> deserializeSourcesConfiguration
+    File.ReadAllText "sources.json" |> deserializeSourcesConfiguration
 
-let getDerivedSourceFeedFileName (source: SourceConfig) =
-    Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"{source.SourceSlug}.derived.json")
-
-let getTempDerivedSourceFeedFileName (source: SourceConfig) =
-    $"{getDerivedSourceFeedFileName source}.tmp"
+let getDerivedSourceFeedKey (source: SourceConfig) = $"{source.SourceSlug}.derived.json"
 
 let isEquivalent (sourceItem: MinimalRssItem) (batchItem: BatchRssItem) =
     sourceItem.Title = batchItem.Item.Title
@@ -23,37 +18,39 @@ let isEquivalent (sourceItem: MinimalRssItem) (batchItem: BatchRssItem) =
     && sourceItem.Link = batchItem.Item.Link
 
 let getSourceItemsToSubmit (source: SourceConfig) (incomingRssItems: MinimalRssItem array) =
-    let feedFileName = getDerivedSourceFeedFileName source
+    task {
+        let feedKey = getDerivedSourceFeedKey source
+        let! maybeContent = ObjectStorage.getObjectAsync feedKey
 
-    if File.Exists feedFileName then
-        let existingDerivedFeed =
-            File.ReadAllText feedFileName |> deserializeDerivedSourceFeed
+        match maybeContent with
+        | Some content ->
+            let existingDerivedFeed = deserializeDerivedSourceFeed content
 
-        let submittedBatchItems =
-            existingDerivedFeed.Batches |> Array.map _.BatchItems |> Array.concat
+            let submittedBatchItems =
+                existingDerivedFeed.Batches |> Array.map _.BatchItems |> Array.concat
 
-        if Array.length submittedBatchItems = 0 then
-            Array.truncate source.MaximumLookback incomingRssItems
-        else
-
-            let truncationIndex = // Don't resubmit anything, respect maximum lookback
-                submittedBatchItems
-                |> Array.tryFindIndexBack (fun batchItem ->
-                    incomingRssItems
-                    |> Array.tryFind (fun sourceItem -> isEquivalent sourceItem batchItem)
-                    |> Option.isSome)
-                |> Option.defaultValue source.MaximumLookback
-
-            incomingRssItems
-            |> Array.truncate truncationIndex
-            |> Array.filter (fun sourceItem ->
-                let maybeMatch =
+            if Array.length submittedBatchItems = 0 then
+                return Array.truncate source.MaximumLookback incomingRssItems
+            else
+                let truncationIndex =
                     submittedBatchItems
-                    |> Array.tryFind (fun batchItem -> isEquivalent sourceItem batchItem)
+                    |> Array.tryFindIndexBack (fun batchItem ->
+                        incomingRssItems
+                        |> Array.tryFind (fun sourceItem -> isEquivalent sourceItem batchItem)
+                        |> Option.isSome)
+                    |> Option.defaultValue source.MaximumLookback
 
-                maybeMatch.IsNone)
-    else
-        Array.truncate source.MaximumLookback incomingRssItems
+                return
+                    incomingRssItems
+                    |> Array.truncate truncationIndex
+                    |> Array.filter (fun sourceItem ->
+                        let maybeMatch =
+                            submittedBatchItems
+                            |> Array.tryFind (fun batchItem -> isEquivalent sourceItem batchItem)
+
+                        maybeMatch.IsNone)
+        | None -> return Array.truncate source.MaximumLookback incomingRssItems
+    }
 
 let parseSourceWithSubmitBatch
     source
@@ -62,14 +59,15 @@ let parseSourceWithSubmitBatch
     =
     task {
         let! incomingSourceItems = fetchSource source.SourceUrl
-
-        // Don't resubmit something, don't blow past maximum lookback
-        let submittedSourceItems = getSourceItemsToSubmit source incomingSourceItems
+        let! submittedSourceItems = getSourceItemsToSubmit source incomingSourceItems
 
         if Array.length submittedSourceItems > 0 then
-            let! requestBatch =
-                modelActions.SubmitBatch submittedSourceItems
-                <| Option.defaultValue defaultSystemPrompt source.SystemPrompt
+            let submitBatchParameters =
+                { SystemPrompt = Option.defaultValue defaultSystemPrompt source.SystemPrompt
+                  InputTokenCutoff = source.InputTokenCutoff
+                  OutputTokenCutoff = source.OutputTokenCutoff }
+
+            let! requestBatch = modelActions.SubmitBatch submittedSourceItems submitBatchParameters
 
             return Some requestBatch
         else
@@ -77,56 +75,61 @@ let parseSourceWithSubmitBatch
     }
 
 let writeUpdatedDerivedSourceFeed (source: SourceConfig) (updatedDerivedFeed: DerivedSourceFeed) =
-    let feedFileName = getDerivedSourceFeedFileName source
+    task {
+        let feedKey = getDerivedSourceFeedKey source
+        let! exists = ObjectStorage.objectExistsAsync feedKey
 
-    if File.Exists feedFileName |> not then
-        failwith $"Derived feed {feedFileName} does not exist"
+        if not exists then
+            failwith $"Derived feed {feedKey} does not exist"
 
-    let tempFeedFileName = getTempDerivedSourceFeedFileName source
-    File.WriteAllText(tempFeedFileName, serializeDerivedSourceFeed updatedDerivedFeed)
-    File.Move(tempFeedFileName, feedFileName, true)
-
+        do! ObjectStorage.putObjectAsync feedKey (serializeDerivedSourceFeed updatedDerivedFeed)
+    }
 
 let appendBatchToFeed (source: SourceConfig) (incomingSubmitBatch: SourceFeedSummaryRequestBatch) =
-    let feedFileName = getDerivedSourceFeedFileName source
-    let tempFeedFileName = getTempDerivedSourceFeedFileName source
+    task {
+        let feedKey = getDerivedSourceFeedKey source
+        let! maybeContent = ObjectStorage.getObjectAsync feedKey
 
-    if File.Exists feedFileName then
-        let existingDerivedFeed =
-            File.ReadAllText feedFileName |> deserializeDerivedSourceFeed
+        match maybeContent with
+        | Some content ->
+            let existingDerivedFeed = deserializeDerivedSourceFeed content
 
-        let updatedDerivedFeed =
-            { SourceUrl = existingDerivedFeed.SourceUrl
-              Batches = Array.append existingDerivedFeed.Batches [| incomingSubmitBatch |] }
+            let updatedDerivedFeed =
+                { SourceUrl = existingDerivedFeed.SourceUrl
+                  Batches = Array.append existingDerivedFeed.Batches [| incomingSubmitBatch |] }
 
-        writeUpdatedDerivedSourceFeed source updatedDerivedFeed
-        ()
-    else
-        let derivedSourceFeed =
-            { SourceUrl = source.SourceUrl
-              Batches = [| incomingSubmitBatch |] }
+            do! ObjectStorage.putObjectAsync feedKey (serializeDerivedSourceFeed updatedDerivedFeed)
+        | None ->
+            let derivedSourceFeed =
+                { SourceUrl = source.SourceUrl
+                  Batches = [| incomingSubmitBatch |] }
 
-        File.WriteAllText(feedFileName, serializeDerivedSourceFeed derivedSourceFeed)
-
-    ()
+            do! ObjectStorage.putObjectAsync feedKey (serializeDerivedSourceFeed derivedSourceFeed)
+    }
 
 let pollSource source fetchSource modelActions =
     task {
         let! maybeSubmitBatch = parseSourceWithSubmitBatch source fetchSource modelActions
-        maybeSubmitBatch |> Option.iter (appendBatchToFeed source)
+
+        match maybeSubmitBatch with
+        | Some batch -> do! appendBatchToFeed source batch
+        | None -> ()
     }
 
-let getFeedUpdate (source: SourceConfig) (modelActions: LangaugeModelActions) =
-    let feedFileName = getDerivedSourceFeedFileName source
+let tryPollFeedUpdate (source: SourceConfig) (modelActions: LangaugeModelActions) =
+    task {
+        let feedKey = getDerivedSourceFeedKey source
+        let! maybeContent = ObjectStorage.getObjectAsync feedKey
 
-    if File.Exists feedFileName then
-        let derivedSourceFeed =
-            File.ReadAllText feedFileName |> deserializeDerivedSourceFeed
-
-        task {
+        match maybeContent with
+        | Some content ->
+            let derivedSourceFeed = deserializeDerivedSourceFeed content
             let! maybeUpdatedDerivedSourceFeed = modelActions.GetUpdatedDerivedFeed source derivedSourceFeed
-            maybeUpdatedDerivedSourceFeed |> Option.iter (writeUpdatedDerivedSourceFeed source)
-            return maybeUpdatedDerivedSourceFeed.IsSome
-        }
 
-    else failwith $"Derived feed {feedFileName} does not exist"
+            match maybeUpdatedDerivedSourceFeed with
+            | Some updated ->
+                do! ObjectStorage.putObjectAsync feedKey (serializeDerivedSourceFeed updated)
+                return Ok true
+            | None -> return Ok false
+        | None -> return Error $"Derived feed {feedKey} does not exist"
+    }

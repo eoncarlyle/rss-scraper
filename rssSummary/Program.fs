@@ -2,8 +2,6 @@ open System
 open System.Threading.Tasks
 open DerivedSourceFeeds
 open DomainModels
-open Giraffe.ViewEngine
-open Queries
 
 [<EntryPoint>]
 let main args =
@@ -23,8 +21,12 @@ let main args =
             |> Option.defaultValue AppAnthropic.Haiku45Actions
 
         if firstSource.SourceSlug = "artemis" then
-            let! _ = parseSourceWithSubmitBatch firstSource OriginalSourceFeeds.Artemis.fetchSource modelActions
-            let! _ = getFeedUpdate firstSource modelActions
+            let! maybeRequestBatch =
+                parseSourceWithSubmitBatch firstSource OriginalSourceFeeds.Artemis.fetchSource modelActions
+
+            let maybeBatchAppend = maybeRequestBatch |> Option.map (appendBatchToFeed firstSource)
+            let! a = tryPollFeedUpdate firstSource modelActions
+            Console.WriteLine(a)
             ()
         else
             failwith "not implemented"
