@@ -1,6 +1,7 @@
 module DerivedSourceFeeds
 
 open System.IO
+open System
 open System.Threading.Tasks
 open Queries
 open Serialisation
@@ -20,11 +21,12 @@ let isEquivalent (sourceItem: MinimalRssItem) (batchItem: BatchRssItem) =
 let getSourceItemsToSubmit (source: SourceConfig) (incomingRssItems: MinimalRssItem array) =
     task {
         let feedKey = getDerivedSourceFeedKey source
-        let! maybeContent = ObjectStorage.getObjectAsync feedKey
+        let! maybeS3Object = ObjectStorage.getObjectAsync feedKey
 
-        match maybeContent with
-        | Some content ->
-            let existingDerivedFeed = deserializeDerivedSourceFeed content
+        match maybeS3Object with
+        | Some s3Object ->
+
+            let existingDerivedFeed = deserializeDerivedSourceFeed s3Object.Content
 
             let submittedBatchItems =
                 existingDerivedFeed.Batches |> Array.map _.BatchItems |> Array.concat
@@ -33,10 +35,10 @@ let getSourceItemsToSubmit (source: SourceConfig) (incomingRssItems: MinimalRssI
                 return Array.truncate source.MaximumLookback incomingRssItems
             else
                 let truncationIndex =
-                    submittedBatchItems
-                    |> Array.tryFindIndexBack (fun batchItem ->
-                        incomingRssItems
-                        |> Array.tryFind (fun sourceItem -> isEquivalent sourceItem batchItem)
+                    incomingRssItems
+                    |> Array.tryFindIndexBack (fun incomingItem ->
+                        submittedBatchItems
+                        |> Array.tryFind (fun batchItem -> isEquivalent incomingItem batchItem)
                         |> Option.isSome)
                     |> Option.defaultValue source.MaximumLookback
 
@@ -82,29 +84,29 @@ let writeUpdatedDerivedSourceFeed (source: SourceConfig) (updatedDerivedFeed: De
         if not exists then
             failwith $"Derived feed {feedKey} does not exist"
 
-        do! ObjectStorage.putObjectAsync feedKey (serializeDerivedSourceFeed updatedDerivedFeed)
+        return! ObjectStorage.putObjectAsync feedKey (serializeDerivedSourceFeed updatedDerivedFeed) None
     }
 
 let appendBatchToFeed (source: SourceConfig) (incomingSubmitBatch: SourceFeedSummaryRequestBatch) =
     task {
         let feedKey = getDerivedSourceFeedKey source
-        let! maybeContent = ObjectStorage.getObjectAsync feedKey
+        let! maybeS3Object = ObjectStorage.getObjectAsync feedKey
 
-        match maybeContent with
-        | Some content ->
-            let existingDerivedFeed = deserializeDerivedSourceFeed content
+        match maybeS3Object with
+        | Some s3Object ->
+            let existingDerivedFeed = deserializeDerivedSourceFeed s3Object.Content
 
             let updatedDerivedFeed =
                 { SourceUrl = existingDerivedFeed.SourceUrl
                   Batches = Array.append existingDerivedFeed.Batches [| incomingSubmitBatch |] }
 
-            do! ObjectStorage.putObjectAsync feedKey (serializeDerivedSourceFeed updatedDerivedFeed)
+            return! ObjectStorage.putObjectAsync feedKey (serializeDerivedSourceFeed updatedDerivedFeed) None
         | None ->
             let derivedSourceFeed =
                 { SourceUrl = source.SourceUrl
                   Batches = [| incomingSubmitBatch |] }
 
-            do! ObjectStorage.putObjectAsync feedKey (serializeDerivedSourceFeed derivedSourceFeed)
+            return! ObjectStorage.putObjectAsync feedKey (serializeDerivedSourceFeed derivedSourceFeed) None
     }
 
 let pollSource source fetchSource modelActions =
@@ -112,24 +114,26 @@ let pollSource source fetchSource modelActions =
         let! maybeSubmitBatch = parseSourceWithSubmitBatch source fetchSource modelActions
 
         match maybeSubmitBatch with
-        | Some batch -> do! appendBatchToFeed source batch
-        | None -> ()
+        | Some batch ->
+            let! b = appendBatchToFeed source batch
+            return Some b
+        | None -> return None
     }
 
 let tryPollFeedUpdate (source: SourceConfig) (modelActions: LangaugeModelActions) =
     task {
         let feedKey = getDerivedSourceFeedKey source
-        let! maybeContent = ObjectStorage.getObjectAsync feedKey
+        let! maybeS3Object = ObjectStorage.getObjectAsync feedKey
 
-        match maybeContent with
-        | Some content ->
-            let derivedSourceFeed = deserializeDerivedSourceFeed content
+        match maybeS3Object with
+        | Some s3Object ->
+            let derivedSourceFeed = deserializeDerivedSourceFeed s3Object.Content
             let! maybeUpdatedDerivedSourceFeed = modelActions.GetUpdatedDerivedFeed source derivedSourceFeed
 
             match maybeUpdatedDerivedSourceFeed with
             | Some updated ->
-                do! ObjectStorage.putObjectAsync feedKey (serializeDerivedSourceFeed updated)
-                return Ok true
+                let! putResult = ObjectStorage.putObjectAsync feedKey (serializeDerivedSourceFeed updated) None
+                return putResult |> Result.map (fun _ -> true)
             | None -> return Ok false
-        | None -> return Error $"Derived feed {feedKey} does not exist"
+        | None -> return Error Net.HttpStatusCode.NotFound
     }

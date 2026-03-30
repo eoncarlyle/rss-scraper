@@ -3,34 +3,50 @@ open System.Threading.Tasks
 open DerivedSourceFeeds
 open DomainModels
 
-[<EntryPoint>]
-let main args =
+let resultMessage (result: Result<'a, 'b>) = if result.IsOk then "Ok" else "Error"
 
-    let firstSource =
-        sourcesConfiguration.Sources
-        |> Array.tryFind (fun s -> s.Enabled)
-        |> Option.defaultWith (fun () -> failwith "No enabled sources configured")
-
+let summariseSource source =
     task {
         let modelActions =
-            firstSource.Model
+            source.Model
             |> Option.map (fun m ->
                 match m with
                 | ClaudeHaiku45 -> AppAnthropic.Haiku45Actions
                 | Gemini25FlashLite -> AppGemini.AppGeminiActions)
             |> Option.defaultValue AppAnthropic.Haiku45Actions
 
-        if firstSource.SourceSlug = "artemis" then
+        match source.SourceSlug with
+        | Artemis ->
             let! maybeRequestBatch =
-                parseSourceWithSubmitBatch firstSource OriginalSourceFeeds.Artemis.fetchSource modelActions
+                parseSourceWithSubmitBatch source OriginalSourceFeeds.Artemis.fetchSource modelActions
 
-            let maybeBatchAppend = maybeRequestBatch |> Option.map (appendBatchToFeed firstSource)
-            let! a = tryPollFeedUpdate firstSource modelActions
-            Console.WriteLine(a)
+            match maybeRequestBatch with
+            | Some requestBatch ->
+                Console.WriteLine $"Request batch update: {requestBatch.BatchItems.Length}, {requestBatch.Id}"
+                let! appendBatchResult = appendBatchToFeed source requestBatch
+                Console.WriteLine $"Request batch result: {resultMessage appendBatchResult}"
+                ()
+            | _ -> ()
+
+            let! pollFeedUpdateResult = tryPollFeedUpdate source modelActions
+            Console.WriteLine $"Poll feed update result: {resultMessage pollFeedUpdateResult}"
             ()
-        else
-            failwith "not implemented"
+        | GroceryDive ->
+            let! a = OriginalSourceFeeds.GroceryDive.fetchSource source.SourceUrl
+            Console.WriteLine a
+            ()
+        | _ -> failwith "not implemented"
     }
-    |> Task.WaitAll
+
+[<EntryPoint>]
+let main args =
+
+
+    let firstSource =
+        sourcesConfiguration.Sources
+        |> Array.tryFind (fun s -> s.SourceSlug = "grocery-dive")
+        |> Option.defaultWith (fun () -> failwith "No enabled sources configured")
+
+    summariseSource firstSource |> Task.WaitAll
 
     0

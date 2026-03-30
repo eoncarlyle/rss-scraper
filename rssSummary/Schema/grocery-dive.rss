@@ -1,0 +1,2087 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+      <id>urn:kill-the-newsletter:ym7qmh96s4dsaouxnq2c</id>
+      <link rel="self" href="https://kill-the-newsletter.com/feeds/ym7qmh96s4dsaouxnq2c.xml" />
+      <link rel="hub" href="https://kill-the-newsletter.com/feeds/ym7qmh96s4dsaouxnq2c/websub" />
+      <icon>https://bounce.divenewsletter.com/favicon.ico</icon>
+      <updated>2026-03-30T15:29:14.774Z</updated>
+      <title>Grocery Dive</title>
+
+          <entry>
+            <id>urn:kill-the-newsletter:zy3zp9zjyy0p6ekxe5zi</id>
+            <link
+            rel="alternate"
+            type="text/html"
+            href="https://kill-the-newsletter.com/feeds/ym7qmh96s4dsaouxnq2c/entries/zy3zp9zjyy0p6ekxe5zi.html"
+        />
+
+            <published>2026-03-30T15:29:14.774Z</published>
+            <updated>2026-03-30T15:29:14.774Z</updated>
+            <author>
+              <name>delivery_20260330112911.44964476.33407@bounce.divenewsletter.com</name>
+              <email>delivery_20260330112911.44964476.33407@bounce.divenewsletter.com</email>
+            </author>
+            <title>March 30 - Sprouts CEO pushes for better ‘value’ | The Raley’s Companies names new CEO</title>
+            <content type="html">
+              &lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;
+&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
+&lt;head&gt;
+&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot;&gt;
+&lt;!--[if !mso]&gt;&lt;!--&gt;
+&lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+&lt;!--&lt;![endif]--&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+&lt;title&gt;
+March 30 - Sprouts CEO pushes for better &amp;lsquo;value&amp;rsquo; | The Raley&amp;rsquo;s Companies names new CEO
+&lt;/title&gt;
+&lt;style type=&quot;text/css&quot;&gt;.linked-header:visited {text-decoration:none !important}
+.linked-header:active {text-decoration:none !important}
+@media screen and (max-width: 605px) {
+/* three column layout */
+.three-column .column {
+display: inline-block !important;
+max-width: 150px !important;
+vertical-align: top !important;
+width: 100% !important
+}
+.three-column .contents {
+font-size: 14px !important;
+max-width: 145px !important;
+width: 100% !important
+}
+}
+@media screen and (max-width: 480px) {
+.hide-for-small {
+display: none !important
+}
+.header-image {
+border-top-left-radius: 0 !important;
+border-top-right-radius: 0 !important
+}
+.one-column h1 {
+font-size: 24px !important
+}
+.three-column .contents, .three-column .column {
+max-width: 100% !important
+}
+.three-column .topic-item {
+display: table !important;
+width: 100% !important
+}
+.featured-article-desktop {
+display: none !important
+}
+}
+@media screen and (min-width: 480px) {
+.featured-article-mobile {
+display: none !important
+}
+}&lt;/style&gt;
+&lt;!--[if (gte mso 9)|(IE)]&gt;
+&lt;style type=&quot;text/css&quot;&gt;
+table {border-collapse: collapse;}
+&lt;/style&gt;
+&lt;![endif]--&gt;
+&lt;style type=&quot;text/css&quot;&gt;
+@import url(&quot;https://use.typekit.net/yfq4mjy.css&quot;);
+&lt;/style&gt;
+&lt;!-- newsletter_css_path --&gt;
+&lt;style type=&quot;text/css&quot;&gt;:root { !important}
+@media screen and (min-width: 40em) {
+.display-heading-04 {
+font-size: 2.75rem !important
+}
+}
+.display-heading-04--loud::before {border-top:4px solid #e0002b !important;content:&quot;&quot; !important;display:block !important;padding-bottom:0.75rem !important;width:80px !important}
+.display-heading-04--loud-centered::before {margin:0 auto !important;border-top:4px solid #e0002b !important;content:&quot;&quot; !important;display:block !important;padding-bottom:0.75rem !important;width:80px !important}
+@media screen and (min-width: 40em) {
+.display-heading-03 {
+font-size: 1.875rem !important;
+line-height: 1.2 !important
+}
+}
+@media screen and (min-width: 64em) {
+.display-heading-03 {
+font-size: 2.125rem !important;
+line-height: 1.2 !important
+}
+}
+.display-heading-03--loud::before {border-top:4px solid #e0002b !important;content:&quot;&quot; !important;display:block !important;padding-bottom:0.75rem !important;width:80px !important}
+.display-heading-03--loud-centered::before {margin:0 auto !important;border-top:4px solid #e0002b !important;content:&quot;&quot; !important;display:block !important;padding-bottom:0.75rem !important;width:80px !important}
+@media screen and (min-width: 64em) {
+.display-heading-02 {
+font-size: 1.625rem !important;
+line-height: 1.3 !important
+}
+}
+.display-heading-02--loud::before {border-top:4px solid #e0002b !important;content:&quot;&quot; !important;display:block !important;padding-bottom:0.75rem !important;width:80px !important}
+.display-heading-02--loud-centered::before {margin:0 auto !important;border-top:4px solid #e0002b !important;content:&quot;&quot; !important;display:block !important;padding-bottom:0.75rem !important;width:80px !important}
+.display-heading-01--loud::before {border-top:4px solid #e0002b !important;content:&quot;&quot; !important;display:block !important;padding-bottom:0.75rem !important;width:80px !important}
+.display-heading-01--loud-centered::before {margin:0 auto !important;border-top:4px solid #e0002b !important;content:&quot;&quot; !important;display:block !important;padding-bottom:0.75rem !important;width:80px !important}
+@media (min-width: 40em) {
+.label__icon {
+width: 12px !important
+}
+}
+.call-out-link:hover {color:#e0002b !important;text-decoration:underline !important}
+.call-out-link--inverse:hover {color:#fff !important;text-decoration:underline !important}
+.call-out-link--primary:hover {color:#414192 !important}
+.row::before {content:&quot; &quot; !important;display:table !important}
+.row::after {content:&quot; &quot; !important;display:table !important}
+.row::after {clear:both !important}
+.column:last-child:not(:first-child) {float:right !important}
+.columns:last-child:not(:first-child) {float:right !important}
+.column.end:last-child:last-child {float:left !important}
+.end.columns:last-child:last-child {float:left !important}
+.small-up-1 &gt; .column:nth-of-type(1n) {clear:none !important}
+.small-up-1 &gt; .columns:nth-of-type(1n) {clear:none !important}
+.small-up-1 &gt; .column:nth-of-type(1n+1) {clear:both !important}
+.small-up-1 &gt; .columns:nth-of-type(1n+1) {clear:both !important}
+.small-up-2 &gt; .column:nth-of-type(1n) {clear:none !important}
+.small-up-2 &gt; .columns:nth-of-type(1n) {clear:none !important}
+.small-up-2 &gt; .column:nth-of-type(2n+1) {clear:both !important}
+.small-up-2 &gt; .columns:nth-of-type(2n+1) {clear:both !important}
+.small-up-3 &gt; .column:nth-of-type(1n) {clear:none !important}
+.small-up-3 &gt; .columns:nth-of-type(1n) {clear:none !important}
+.small-up-3 &gt; .column:nth-of-type(3n+1) {clear:both !important}
+.small-up-3 &gt; .columns:nth-of-type(3n+1) {clear:both !important}
+.small-up-4 &gt; .column:nth-of-type(1n) {clear:none !important}
+.small-up-4 &gt; .columns:nth-of-type(1n) {clear:none !important}
+.small-up-4 &gt; .column:nth-of-type(4n+1) {clear:both !important}
+.small-up-4 &gt; .columns:nth-of-type(4n+1) {clear:both !important}
+.small-up-5 &gt; .column:nth-of-type(1n) {clear:none !important}
+.small-up-5 &gt; .columns:nth-of-type(1n) {clear:none !important}
+.small-up-5 &gt; .column:nth-of-type(5n+1) {clear:both !important}
+.small-up-5 &gt; .columns:nth-of-type(5n+1) {clear:both !important}
+.small-up-6 &gt; .column:nth-of-type(1n) {clear:none !important}
+.small-up-6 &gt; .columns:nth-of-type(1n) {clear:none !important}
+.small-up-6 &gt; .column:nth-of-type(6n+1) {clear:both !important}
+.small-up-6 &gt; .columns:nth-of-type(6n+1) {clear:both !important}
+.small-up-7 &gt; .column:nth-of-type(1n) {clear:none !important}
+.small-up-7 &gt; .columns:nth-of-type(1n) {clear:none !important}
+.small-up-7 &gt; .column:nth-of-type(7n+1) {clear:both !important}
+.small-up-7 &gt; .columns:nth-of-type(7n+1) {clear:both !important}
+.small-up-8 &gt; .column:nth-of-type(1n) {clear:none !important}
+.small-up-8 &gt; .columns:nth-of-type(1n) {clear:none !important}
+.small-up-8 &gt; .column:nth-of-type(8n+1) {clear:both !important}
+.small-up-8 &gt; .columns:nth-of-type(8n+1) {clear:both !important}
+@media screen and (min-width: 40em) {
+.medium-1 {
+width: 8.33333% !important
+}
+.medium-push-1 {
+position: relative !important;
+left: 8.33333% !important
+}
+.medium-pull-1 {
+position: relative !important;
+left: -8.33333% !important
+}
+.medium-offset-0 {
+margin-left: 0% !important
+}
+.medium-2 {
+width: 16.66667% !important
+}
+.medium-push-2 {
+position: relative !important;
+left: 16.66667% !important
+}
+.medium-pull-2 {
+position: relative !important;
+left: -16.66667% !important
+}
+.medium-offset-1 {
+margin-left: 8.33333% !important
+}
+.medium-3 {
+width: 25% !important
+}
+.medium-push-3 {
+position: relative !important;
+left: 25% !important
+}
+.medium-pull-3 {
+position: relative !important;
+left: -25% !important
+}
+.medium-offset-2 {
+margin-left: 16.66667% !important
+}
+.medium-4 {
+width: 33.33333% !important
+}
+.medium-push-4 {
+position: relative !important;
+left: 33.33333% !important
+}
+.medium-pull-4 {
+position: relative !important;
+left: -33.33333% !important
+}
+.medium-offset-3 {
+margin-left: 25% !important
+}
+.medium-5 {
+width: 41.66667% !important
+}
+.medium-push-5 {
+position: relative !important;
+left: 41.66667% !important
+}
+.medium-pull-5 {
+position: relative !important;
+left: -41.66667% !important
+}
+.medium-offset-4 {
+margin-left: 33.33333% !important
+}
+.medium-6 {
+width: 50% !important
+}
+.medium-push-6 {
+position: relative !important;
+left: 50% !important
+}
+.medium-pull-6 {
+position: relative !important;
+left: -50% !important
+}
+.medium-offset-5 {
+margin-left: 41.66667% !important
+}
+.medium-7 {
+width: 58.33333% !important
+}
+.medium-push-7 {
+position: relative !important;
+left: 58.33333% !important
+}
+.medium-pull-7 {
+position: relative !important;
+left: -58.33333% !important
+}
+.medium-offset-6 {
+margin-left: 50% !important
+}
+.medium-8 {
+width: 66.66667% !important
+}
+.medium-push-8 {
+position: relative !important;
+left: 66.66667% !important
+}
+.medium-pull-8 {
+position: relative !important;
+left: -66.66667% !important
+}
+.medium-offset-7 {
+margin-left: 58.33333% !important
+}
+.medium-9 {
+width: 75% !important
+}
+.medium-push-9 {
+position: relative !important;
+left: 75% !important
+}
+.medium-pull-9 {
+position: relative !important;
+left: -75% !important
+}
+.medium-offset-8 {
+margin-left: 66.66667% !important
+}
+.medium-10 {
+width: 83.33333% !important
+}
+.medium-push-10 {
+position: relative !important;
+left: 83.33333% !important
+}
+.medium-pull-10 {
+position: relative !important;
+left: -83.33333% !important
+}
+.medium-offset-9 {
+margin-left: 75% !important
+}
+.medium-11 {
+width: 91.66667% !important
+}
+.medium-push-11 {
+position: relative !important;
+left: 91.66667% !important
+}
+.medium-pull-11 {
+position: relative !important;
+left: -91.66667% !important
+}
+.medium-offset-10 {
+margin-left: 83.33333% !important
+}
+.medium-12 {
+width: 100% !important
+}
+.medium-offset-11 {
+margin-left: 91.66667% !important
+}
+.medium-up-1 &gt; .column, .medium-up-1 &gt; .columns {
+width: 100% !important;
+float: left !important
+}
+.medium-up-1 &gt; .column:nth-of-type(1n), .medium-up-1 &gt; .columns:nth-of-type(1n) {
+clear: none !important
+}
+.medium-up-1 &gt; .column:nth-of-type(1n+1), .medium-up-1 &gt; .columns:nth-of-type(1n+1) {
+clear: both !important
+}
+.medium-up-1 &gt; .column:last-child, .medium-up-1 &gt; .columns:last-child {
+float: left !important
+}
+.medium-up-2 &gt; .column, .medium-up-2 &gt; .columns {
+width: 50% !important;
+float: left !important
+}
+.medium-up-2 &gt; .column:nth-of-type(1n), .medium-up-2 &gt; .columns:nth-of-type(1n) {
+clear: none !important
+}
+.medium-up-2 &gt; .column:nth-of-type(2n+1), .medium-up-2 &gt; .columns:nth-of-type(2n+1) {
+clear: both !important
+}
+.medium-up-2 &gt; .column:last-child, .medium-up-2 &gt; .columns:last-child {
+float: left !important
+}
+.medium-up-3 &gt; .column, .medium-up-3 &gt; .columns {
+width: 33.33333% !important;
+float: left !important
+}
+.medium-up-3 &gt; .column:nth-of-type(1n), .medium-up-3 &gt; .columns:nth-of-type(1n) {
+clear: none !important
+}
+.medium-up-3 &gt; .column:nth-of-type(3n+1), .medium-up-3 &gt; .columns:nth-of-type(3n+1) {
+clear: both !important
+}
+.medium-up-3 &gt; .column:last-child, .medium-up-3 &gt; .columns:last-child {
+float: left !important
+}
+.medium-up-4 &gt; .column, .medium-up-4 &gt; .columns {
+width: 25% !important;
+float: left !important
+}
+.medium-up-4 &gt; .column:nth-of-type(1n), .medium-up-4 &gt; .columns:nth-of-type(1n) {
+clear: none !important
+}
+.medium-up-4 &gt; .column:nth-of-type(4n+1), .medium-up-4 &gt; .columns:nth-of-type(4n+1) {
+clear: both !important
+}
+.medium-up-4 &gt; .column:last-child, .medium-up-4 &gt; .columns:last-child {
+float: left !important
+}
+.medium-up-5 &gt; .column, .medium-up-5 &gt; .columns {
+width: 20% !important;
+float: left !important
+}
+.medium-up-5 &gt; .column:nth-of-type(1n), .medium-up-5 &gt; .columns:nth-of-type(1n) {
+clear: none !important
+}
+.medium-up-5 &gt; .column:nth-of-type(5n+1), .medium-up-5 &gt; .columns:nth-of-type(5n+1) {
+clear: both !important
+}
+.medium-up-5 &gt; .column:last-child, .medium-up-5 &gt; .columns:last-child {
+float: left !important
+}
+.medium-up-6 &gt; .column, .medium-up-6 &gt; .columns {
+width: 16.66667% !important;
+float: left !important
+}
+.medium-up-6 &gt; .column:nth-of-type(1n), .medium-up-6 &gt; .columns:nth-of-type(1n) {
+clear: none !important
+}
+.medium-up-6 &gt; .column:nth-of-type(6n+1), .medium-up-6 &gt; .columns:nth-of-type(6n+1) {
+clear: both !important
+}
+.medium-up-6 &gt; .column:last-child, .medium-up-6 &gt; .columns:last-child {
+float: left !important
+}
+.medium-up-7 &gt; .column, .medium-up-7 &gt; .columns {
+width: 14.28571% !important;
+float: left !important
+}
+.medium-up-7 &gt; .column:nth-of-type(1n), .medium-up-7 &gt; .columns:nth-of-type(1n) {
+clear: none !important
+}
+.medium-up-7 &gt; .column:nth-of-type(7n+1), .medium-up-7 &gt; .columns:nth-of-type(7n+1) {
+clear: both !important
+}
+.medium-up-7 &gt; .column:last-child, .medium-up-7 &gt; .columns:last-child {
+float: left !important
+}
+.medium-up-8 &gt; .column, .medium-up-8 &gt; .columns {
+width: 12.5% !important;
+float: left !important
+}
+.medium-up-8 &gt; .column:nth-of-type(1n), .medium-up-8 &gt; .columns:nth-of-type(1n) {
+clear: none !important
+}
+.medium-up-8 &gt; .column:nth-of-type(8n+1), .medium-up-8 &gt; .columns:nth-of-type(8n+1) {
+clear: both !important
+}
+.medium-up-8 &gt; .column:last-child, .medium-up-8 &gt; .columns:last-child {
+float: left !important
+}
+.medium-collapse &gt; .column, .medium-collapse &gt; .columns {
+padding-left: 0 !important;
+padding-right: 0 !important
+}
+.medium-collapse .row, .expanded.row .medium-collapse.row {
+margin-left: 0 !important;
+margin-right: 0 !important
+}
+.medium-uncollapse &gt; .column, .medium-uncollapse &gt; .columns {
+padding-left: 0.9375rem !important;
+padding-right: 0.9375rem !important
+}
+.medium-centered {
+float: none !important;
+margin-left: auto !important;
+margin-right: auto !important
+}
+.medium-uncentered, .medium-push-0, .medium-pull-0 {
+position: static !important;
+margin-left: 0 !important;
+margin-right: 0 !important;
+float: left !important
+}
+}
+@media screen and (min-width: 64em) {
+.large-1 {
+width: 8.33333% !important
+}
+.large-push-1 {
+position: relative !important;
+left: 8.33333% !important
+}
+.large-pull-1 {
+position: relative !important;
+left: -8.33333% !important
+}
+.large-offset-0 {
+margin-left: 0% !important
+}
+.large-2 {
+width: 16.66667% !important
+}
+.large-push-2 {
+position: relative !important;
+left: 16.66667% !important
+}
+.large-pull-2 {
+position: relative !important;
+left: -16.66667% !important
+}
+.large-offset-1 {
+margin-left: 8.33333% !important
+}
+.large-3 {
+width: 25% !important
+}
+.large-push-3 {
+position: relative !important;
+left: 25% !important
+}
+.large-pull-3 {
+position: relative !important;
+left: -25% !important
+}
+.large-offset-2 {
+margin-left: 16.66667% !important
+}
+.large-4 {
+width: 33.33333% !important
+}
+.large-push-4 {
+position: relative !important;
+left: 33.33333% !important
+}
+.large-pull-4 {
+position: relative !important;
+left: -33.33333% !important
+}
+.large-offset-3 {
+margin-left: 25% !important
+}
+.large-5 {
+width: 41.66667% !important
+}
+.large-push-5 {
+position: relative !important;
+left: 41.66667% !important
+}
+.large-pull-5 {
+position: relative !important;
+left: -41.66667% !important
+}
+.large-offset-4 {
+margin-left: 33.33333% !important
+}
+.large-6 {
+width: 50% !important
+}
+.large-push-6 {
+position: relative !important;
+left: 50% !important
+}
+.large-pull-6 {
+position: relative !important;
+left: -50% !important
+}
+.large-offset-5 {
+margin-left: 41.66667% !important
+}
+.large-7 {
+width: 58.33333% !important
+}
+.large-push-7 {
+position: relative !important;
+left: 58.33333% !important
+}
+.large-pull-7 {
+position: relative !important;
+left: -58.33333% !important
+}
+.large-offset-6 {
+margin-left: 50% !important
+}
+.large-8 {
+width: 66.66667% !important
+}
+.large-push-8 {
+position: relative !important;
+left: 66.66667% !important
+}
+.large-pull-8 {
+position: relative !important;
+left: -66.66667% !important
+}
+.large-offset-7 {
+margin-left: 58.33333% !important
+}
+.large-9 {
+width: 75% !important
+}
+.large-push-9 {
+position: relative !important;
+left: 75% !important
+}
+.large-pull-9 {
+position: relative !important;
+left: -75% !important
+}
+.large-offset-8 {
+margin-left: 66.66667% !important
+}
+.large-10 {
+width: 83.33333% !important
+}
+.large-push-10 {
+position: relative !important;
+left: 83.33333% !important
+}
+.large-pull-10 {
+position: relative !important;
+left: -83.33333% !important
+}
+.large-offset-9 {
+margin-left: 75% !important
+}
+.large-11 {
+width: 91.66667% !important
+}
+.large-push-11 {
+position: relative !important;
+left: 91.66667% !important
+}
+.large-pull-11 {
+position: relative !important;
+left: -91.66667% !important
+}
+.large-offset-10 {
+margin-left: 83.33333% !important
+}
+.large-12 {
+width: 100% !important
+}
+.large-offset-11 {
+margin-left: 91.66667% !important
+}
+.large-up-1 &gt; .column, .large-up-1 &gt; .columns {
+width: 100% !important;
+float: left !important
+}
+.large-up-1 &gt; .column:nth-of-type(1n), .large-up-1 &gt; .columns:nth-of-type(1n) {
+clear: none !important
+}
+.large-up-1 &gt; .column:nth-of-type(1n+1), .large-up-1 &gt; .columns:nth-of-type(1n+1) {
+clear: both !important
+}
+.large-up-1 &gt; .column:last-child, .large-up-1 &gt; .columns:last-child {
+float: left !important
+}
+.large-up-2 &gt; .column, .large-up-2 &gt; .columns {
+width: 50% !important;
+float: left !important
+}
+.large-up-2 &gt; .column:nth-of-type(1n), .large-up-2 &gt; .columns:nth-of-type(1n) {
+clear: none !important
+}
+.large-up-2 &gt; .column:nth-of-type(2n+1), .large-up-2 &gt; .columns:nth-of-type(2n+1) {
+clear: both !important
+}
+.large-up-2 &gt; .column:last-child, .large-up-2 &gt; .columns:last-child {
+float: left !important
+}
+.large-up-3 &gt; .column, .large-up-3 &gt; .columns {
+width: 33.33333% !important;
+float: left !important
+}
+.large-up-3 &gt; .column:nth-of-type(1n), .large-up-3 &gt; .columns:nth-of-type(1n) {
+clear: none !important
+}
+.large-up-3 &gt; .column:nth-of-type(3n+1), .large-up-3 &gt; .columns:nth-of-type(3n+1) {
+clear: both !important
+}
+.large-up-3 &gt; .column:last-child, .large-up-3 &gt; .columns:last-child {
+float: left !important
+}
+.large-up-4 &gt; .column, .large-up-4 &gt; .columns {
+width: 25% !important;
+float: left !important
+}
+.large-up-4 &gt; .column:nth-of-type(1n), .large-up-4 &gt; .columns:nth-of-type(1n) {
+clear: none !important
+}
+.large-up-4 &gt; .column:nth-of-type(4n+1), .large-up-4 &gt; .columns:nth-of-type(4n+1) {
+clear: both !important
+}
+.large-up-4 &gt; .column:last-child, .large-up-4 &gt; .columns:last-child {
+float: left !important
+}
+.large-up-5 &gt; .column, .large-up-5 &gt; .columns {
+width: 20% !important;
+float: left !important
+}
+.large-up-5 &gt; .column:nth-of-type(1n), .large-up-5 &gt; .columns:nth-of-type(1n) {
+clear: none !important
+}
+.large-up-5 &gt; .column:nth-of-type(5n+1), .large-up-5 &gt; .columns:nth-of-type(5n+1) {
+clear: both !important
+}
+.large-up-5 &gt; .column:last-child, .large-up-5 &gt; .columns:last-child {
+float: left !important
+}
+.large-up-6 &gt; .column, .large-up-6 &gt; .columns {
+width: 16.66667% !important;
+float: left !important
+}
+.large-up-6 &gt; .column:nth-of-type(1n), .large-up-6 &gt; .columns:nth-of-type(1n) {
+clear: none !important
+}
+.large-up-6 &gt; .column:nth-of-type(6n+1), .large-up-6 &gt; .columns:nth-of-type(6n+1) {
+clear: both !important
+}
+.large-up-6 &gt; .column:last-child, .large-up-6 &gt; .columns:last-child {
+float: left !important
+}
+.large-up-7 &gt; .column, .large-up-7 &gt; .columns {
+width: 14.28571% !important;
+float: left !important
+}
+.large-up-7 &gt; .column:nth-of-type(1n), .large-up-7 &gt; .columns:nth-of-type(1n) {
+clear: none !important
+}
+.large-up-7 &gt; .column:nth-of-type(7n+1), .large-up-7 &gt; .columns:nth-of-type(7n+1) {
+clear: both !important
+}
+.large-up-7 &gt; .column:last-child, .large-up-7 &gt; .columns:last-child {
+float: left !important
+}
+.large-up-8 &gt; .column, .large-up-8 &gt; .columns {
+width: 12.5% !important;
+float: left !important
+}
+.large-up-8 &gt; .column:nth-of-type(1n), .large-up-8 &gt; .columns:nth-of-type(1n) {
+clear: none !important
+}
+.large-up-8 &gt; .column:nth-of-type(8n+1), .large-up-8 &gt; .columns:nth-of-type(8n+1) {
+clear: both !important
+}
+.large-up-8 &gt; .column:last-child, .large-up-8 &gt; .columns:last-child {
+float: left !important
+}
+.large-collapse &gt; .column, .large-collapse &gt; .columns {
+padding-left: 0 !important;
+padding-right: 0 !important
+}
+.large-collapse .row, .expanded.row .large-collapse.row {
+margin-left: 0 !important;
+margin-right: 0 !important
+}
+.large-uncollapse &gt; .column, .large-uncollapse &gt; .columns {
+padding-left: 0.9375rem !important;
+padding-right: 0.9375rem !important
+}
+.large-centered {
+float: none !important;
+margin-left: auto !important;
+margin-right: auto !important
+}
+.large-uncentered, .large-push-0, .large-pull-0 {
+position: static !important;
+margin-left: 0 !important;
+margin-right: 0 !important;
+float: left !important
+}
+}
+@media only screen and (max-width: 40.063em) {
+.inner {
+padding: 15px !important
+}
+.topics .inner {
+padding: 0 !important
+}
+.inner-small {
+padding: 10px 15px !important
+}
+.three-column .topic-item, .three-column .topic-item td {
+text-align: left !important
+}
+}
+@media only screen and (max-width: 40.063em) {
+.pub-logo {
+display: block !important
+}
+}
+@media only screen and (min-width: 40.063em) {
+.masthead {
+font-size: 32px !important;
+line-height: 140% !important
+}
+.newsletter-item.feature-story .linked-header {
+font-size: 28px !important
+}
+}
+.button.cta.active td a:hover {color:#fff !important;text-align:center !important}
+.button.cta.active td a:visited {color:#fff !important;text-align:center !important}
+.button.cta.active td a:active {color:#fff !important;text-align:center !important}
+html table.button.cta td:hover {background-color:#4949a4 !important;box-shadow:0 2px 2px 0 rgba(0, 0, 0, 0.05), 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 2px 1px -2px rgba(0, 0, 0, 0.1) !important;color:#fff !important;text-decoration:none !important}
+html table.button.cta td.cfo-dark-background:hover {background-color:#0096a4 !important;box-shadow:0 2px 2px 0 rgba(0, 0, 0, 0.05), 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 2px 1px -2px rgba(0, 0, 0, 0.1) !important;color:#fff !important;text-decoration:none !important}
+html table.button.cta td.cfodotcom:hover {background-color:#00adbe !important;box-shadow:0 2px 2px 0 rgba(0, 0, 0, 0.05), 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 2px 1px -2px rgba(0, 0, 0, 0.1) !important;color:#fff !important;text-decoration:none !important}
+html table.button.cta td:hover a {color:#fff !important}
+html table.button.cta td:hover a:visited {color:#fff !important}
+html table.button.cta td a:visited {color:#333 !important}
+@media only screen and (max-width: 40.063em) {
+h2.masthead-rebranded {
+font-size: 48px !important;
+line-height: 140% !important
+}
+}
+@media only screen and (max-width: 40.063em) {
+.masthead-rebranded--small {
+font-size: 26px !important;
+line-height: 120% !important;
+margin: 5px 0 0 0 !important
+}
+}
+@media only screen and (max-width: 40.063em) {
+h2.masthead-rebranded--centered {
+font-size: 28px !important;
+line-height: 140% !important
+}
+}
+.event-title:hover {text-decoration:underline !important}&lt;/style&gt;
+&lt;style type=&quot;text/css&quot;&gt;.button.cta.simple td a:hover {color:#fff !important;text-align:center !important}
+.button.cta.simple td a:visited {color:#fff !important;text-align:center !important}
+.button.cta.simple td a:active {color:#fff !important;text-align:center !important}
+html table.button.cta.simple td:hover {background:#000 !important;border:solid 1px #222 !important}&lt;/style&gt;
+&lt;!--[if mso]&gt;
+&lt;style type=&apos;text/css&apos;&gt;
+h2.masthead-rebranded {
+font-family: Arial, sans-serif !important;
+}
+&lt;/style&gt;
+&lt;![endif]--&gt;
+&lt;/head&gt;
+&lt;body style=&quot;background-color:#fff; box-sizing:border-box; margin:0; min-width:100%; padding:0; -moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; mso-line-height-rule:exactly; text-align:left; color:#333; font-family:Helvetica, Arial, sans-serif; font-size:15px; letter-spacing:0.4px&quot; bgcolor=&quot;#ffffff&quot;&gt;
+&lt;center class=&quot;wrapper&quot; style=&quot;-ms-text-size-adjust:100%; -webkit-text-size-adjust:100%; table-layout:fixed; width:100%&quot;&gt;
+&lt;table class=&quot;header-bar header-bar-rebranded header-bar-rebranded--white&quot; width=&quot;100%&quot; style=&quot;border-spacing:0; font-family:Helvetica, Arial, sans-serif; font-size:12px; letter-spacing:1px; line-height:160%; background:#fff; font-weight:100&quot;&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;padding:0; -moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; text-align:left; color:#b9bac6; font-family:Helvetica, Arial, sans-serif; font-size:15px; letter-spacing:0.4px&quot;&gt;
+&lt;table class=&quot;outer&quot; style=&quot;border-spacing:0; font-family:Helvetica, Arial, sans-serif; font-size:14px; letter-spacing:0.4px; line-height:160%; margin:0 auto; max-width:600px; width:100%&quot;&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td class=&quot;inner-small contents&quot; style=&quot;padding:10px 20px; -moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; text-align:left; color:#b9bac6; font-family:Helvetica, Arial, sans-serif; font-size:15px; letter-spacing:0.4px; width:100%&quot;&gt;
+&lt;div class=&quot;preheader&quot; style=&quot;font-size:1px; line-height:1px; max-height:0; max-width:0; mso-hide:all; opacity:0; overflow:hidden; visibility:hidden; display:none !important&quot;&gt;
+Raley&amp;rsquo;s CEO departs after 11 years with the grocer; Aldi revamps website and mobile app; Homeland to close 4 stores, consolidate others
+&lt;/div&gt;
+&lt;table width=&quot;100%&quot; class=&quot;header-bar
+header-bar-rebranded
+header-bar-rebranded--white
+&quot; style=&quot;border-spacing:0; font-family:Helvetica, Arial, sans-serif; font-size:12px; letter-spacing:1px; line-height:160%; background:#fff; font-weight:100&quot;&gt;
+&lt;tr&gt;
+&lt;td class=&quot;top-links&quot; style=&apos;padding:0; -moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; text-align:right; color:#000; font-family:&quot;Satoshi&quot;, Arial, Helvetica, sans-serif; font-size:16px; letter-spacing:normal; font-weight:400; text-transform:none&apos;&gt;
+&lt;img src=&quot;https://link.grocerydive.com/img/69c9e9a92ac7111409071decqrqt8.prz/7f66c51c.gif&quot; align=&quot;right&quot; width=&quot;2&quot; height=&quot;2&quot; border=&quot;0&quot; style=&quot;border:0; border-width:0; clear:none; float:right&quot;&gt;
+&lt;span class=&quot;hide-for-small&quot;&gt;
+&lt;a href=&quot;https://link.grocerydive.com/view/69c9e9a92ac7111409071decqrqt8.prz/aa2f2de4&quot; style=&quot;text-decoration:underline; color:#000&quot;&gt;View online&lt;/a&gt;
+|
+&lt;/span&gt;
+&lt;a href=&quot;https://link.grocerydive.com/click/44964476.33407/aHR0cHM6Ly93d3cuZ3JvY2VyeWRpdmUuY29tL3NpZ251cC8/69c9e9a92ac7111409071decBd76f6b6f&quot; style=&quot;text-decoration:underline; color:#000&quot;&gt;Signup&lt;/a&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;table class=&quot;spacer spacer-small&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;5&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:5px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;div class=&quot;webkit&quot; style=&quot;max-width:600px&quot;&gt;
+&lt;!--[if (gte mso 9)|(IE)]&gt;
+&lt;table width=&quot;600&quot; align=&quot;center&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; border=&quot;0&quot;&gt;
+&lt;tr&gt;
+&lt;td&gt;
+&lt;![endif]--&gt;
+&lt;table class=&quot;outer&quot; align=&quot;center&quot; style=&quot;border-spacing:0; font-family:Helvetica, Arial, sans-serif; font-size:14px; letter-spacing:0.4px; line-height:160%; margin:0 auto; max-width:600px; width:100%&quot;&gt;
+&lt;tr&gt;
+&lt;td class=&quot;one-column&quot; style=&quot;padding:0; -moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; text-align:left; color:#333; font-family:Helvetica, Arial, sans-serif; font-size:15px; letter-spacing:0.4px&quot;&gt;
+&lt;table width=&quot;100%&quot; style=&quot;border-spacing:0; font-family:Helvetica, Arial, sans-serif; font-size:14px; letter-spacing:0.4px; line-height:160%&quot;&gt;
+&lt;tr&gt;
+&lt;td class=&quot;inner contents&quot; style=&quot;padding:20px; -moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; text-align:left; color:#333; font-family:Helvetica, Arial, sans-serif; font-size:15px; letter-spacing:0.4px; width:100%&quot;&gt;
+&lt;!-- MASTHEAD --&gt;
+&lt;!-- note: overridden for weekender --&gt;
+&lt;table class=&quot;spacer&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;15&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:15px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;a href=&quot;https://link.grocerydive.com/click/44964476.33407/aHR0cHM6Ly93d3cuZ3JvY2VyeWRpdmUuY29t/69c9e9a92ac7111409071decB9f6e13bc&quot; style=&quot;text-decoration:underline; color:#333&quot;&gt;
+&lt;img src=&quot;https://imgproxy.divecdn.com/7Z0uzLrXrzReXeTAL4wW1vl4GEZz6zCXxEswKMr1PAo/raw:1/Z3M6Ly9kaXZlc2l0ZS1zdG9yYWdlL25ld3NsZXR0ZXIvZ3JvY2VyeS1sb2dvLTY0cHhfVjByd0djeS5wbmc=&quot; height=&quot;28&quot; alt=&quot;Grocery Dive&quot; border=&quot;0&quot; hspace=&quot;0&quot; vspace=&quot;0&quot; class=&quot;pub-logo&quot; style=&quot;border:0; height:28px&quot;&gt;
+&lt;/a&gt;
+&lt;h2 class=&quot;masthead-rebranded &quot; style=&apos;-moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; padding:0; text-align:left; line-height:120%; font-size:64px; color:#333; font-family:&quot;Satoshi&quot;, Arial, Helvetica, sans-serif; letter-spacing:normal; font-weight:800; text-transform:uppercase&apos;&gt; Daily Dive &lt;/h2&gt;
+&lt;div class=&quot;masthead-description-rebranded
+&quot; style=&apos;font-family:&quot;Satoshi&quot;, Arial, Helvetica, sans-serif; font-size:16px; font-weight:400; letter-spacing:normal; text-align:left&apos;&gt;
+&lt;span&gt;
+&lt;strong&gt;March&amp;#8203; 30,&amp;#8203; 2026&lt;/strong&gt;
+&lt;/span&gt;
+&lt;span&gt;
+| Today&amp;rsquo;s news and insights for grocery leaders
+&lt;/span&gt;
+&lt;/div&gt;
+&lt;table class=&quot;spacer spacer-small hide-for-small&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;5&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:5px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;table class=&quot;spacer spacer-small hide-for-small&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;5&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:5px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;table class=&quot;spacer spacer-small&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;5&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:5px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;table class=&quot;spacer spacer-medium&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;30&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:30px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;!-- TOP_SPOT --&gt;
+&lt;center class=&quot;top-sponsorship&quot;&gt;
+&lt;table class=&quot;newsletter-ad&quot; style=&quot;border-spacing:0; font-family:Helvetica, Arial, sans-serif; font-size:14px; letter-spacing:0.4px; line-height:160%&quot;&gt;
+&lt;tr&gt;&lt;td height=&quot;1&quot; style=&quot;padding:0; -moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; text-align:left; color:#333; font-family:Helvetica, Arial, sans-serif; font-size:15px; letter-spacing:0.4px; border-top:1px solid #dedede&quot;&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td height=&quot;15&quot; style=&quot;padding:0; -moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; text-align:left; color:#333; font-family:Helvetica, Arial, sans-serif; font-size:15px; letter-spacing:0.4px&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;sponsor-text&quot; style=&quot;padding:0; -moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; text-align:left; color:#333; font-family:Helvetica, Arial, sans-serif; font-size:14px; letter-spacing:0.4px; line-height:150%; overflow-wrap:anywhere; padding-bottom:0; max-width:480px&quot;&gt;
+&lt;a href=&quot;https://link.grocerydive.com/click/44964476.33407/aHR0cHM6Ly9kaXZlLnB1Yi80N0Q1RHdJP3V0bV9jb250ZW50PWFkLVRPUF9TUE9UJnV0bV90ZXJtPTg1NzE4JnByb2plY3RfdGFza19pZD1hMTJSZDAwMDAwM0lqb0FJQVMmY2xpZW50PUZyZWV6KyhBbHRvcitTb2x1dGlvbnMpJm5ld3NsZXR0ZXJfc2NoZWR1bGVfaWQ9ODU3MTgmbmV3c2xldHRlcl9hZF9sb2NhdGlvbj1UT1BfU1BPVCZuZXdzbGV0dGVyX2FkX3R5cGU9VE9QX05FV1NMRVRURVJfU1BPTlNPUlNISVAmbmV3c2xldHRlcl9hZF9zdGFydD0yMDI2LTAzLTMwJm5ld3NsZXR0ZXJfYWRfZW5kPTIwMjYtMDQtMDQ/69c9e9a92ac7111409071decB6a2351d2&quot; style=&quot;text-decoration:underline; color:#333&quot;&gt;
+&lt;img src=&quot;https://d12v9rtnomnebu.cloudfront.net/paychek/FreezLogo_Sq_200x200.png&quot; alt=&quot;Freez&quot; width=&quot;100&quot; height=&quot;100&quot; hspace=&quot;10&quot; vspace=&quot;5&quot; align=&quot;left&quot; style=&quot;border:solid 1px #ccc; display:block; max-width:100px; margin:5px 10px; width:100px&quot; class=&quot;&quot;&gt;
+&lt;/a&gt;
+&lt;span class=&quot;sponsor-name&quot; style=&apos;line-height:130%; color:#6e707c; font-family:&quot;Satoshi&quot;, Arial, Helvetica, sans-serif; font-size:12px; font-weight:normal; text-transform:initial&apos;&gt;BROUGHT TO YOU BY &amp;mdash; Freez&lt;/span&gt;
+&lt;table class=&quot;spacer spacer-xsmall&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;1&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:1px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;h4 style=&quot;-moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; padding:0; text-align:left; line-height:140%; font-size:15px; font-weight:bold; color:#333; font-family:Helvetica, Arial, sans-serif; letter-spacing:0.4px&quot;&gt;&lt;a href=&quot;https://link.grocerydive.com/click/44964476.33407/aHR0cHM6Ly9kaXZlLnB1Yi80N0Q1RHdJP3V0bV9jb250ZW50PWFkLVRPUF9TUE9UJnV0bV90ZXJtPTg1NzE4JnByb2plY3RfdGFza19pZD1hMTJSZDAwMDAwM0lqb0FJQVMmY2xpZW50PUZyZWV6KyhBbHRvcitTb2x1dGlvbnMpJm5ld3NsZXR0ZXJfc2NoZWR1bGVfaWQ9ODU3MTgmbmV3c2xldHRlcl9hZF9sb2NhdGlvbj1UT1BfU1BPVCZuZXdzbGV0dGVyX2FkX3R5cGU9VE9QX05FV1NMRVRURVJfU1BPTlNPUlNISVAmbmV3c2xldHRlcl9hZF9zdGFydD0yMDI2LTAzLTMwJm5ld3NsZXR0ZXJfYWRfZW5kPTIwMjYtMDQtMDQ/69c9e9a92ac7111409071decC6a2351d2&quot; style=&quot;text-decoration:underline; color:#333; font-size:16px; margin:0&quot;&gt;Introducing Freez Products!&lt;/a&gt;&lt;/h4&gt;
+Coming together under one brand, FreezPak ice substitutes and FreezKeeper convenience coolers are here to help you bring the chill with you!
+&lt;a href=&quot;https://link.grocerydive.com/click/44964476.33407/aHR0cHM6Ly9kaXZlLnB1Yi80N0Q1RHdJP3V0bV9jb250ZW50PWFkLVRPUF9TUE9UJnV0bV90ZXJtPTg1NzE4JnByb2plY3RfdGFza19pZD1hMTJSZDAwMDAwM0lqb0FJQVMmY2xpZW50PUZyZWV6KyhBbHRvcitTb2x1dGlvbnMpJm5ld3NsZXR0ZXJfc2NoZWR1bGVfaWQ9ODU3MTgmbmV3c2xldHRlcl9hZF9sb2NhdGlvbj1UT1BfU1BPVCZuZXdzbGV0dGVyX2FkX3R5cGU9VE9QX05FV1NMRVRURVJfU1BPTlNPUlNISVAmbmV3c2xldHRlcl9hZF9zdGFydD0yMDI2LTAzLTMwJm5ld3NsZXR0ZXJfYWRfZW5kPTIwMjYtMDQtMDQ/69c9e9a92ac7111409071decD6a2351d2&quot; style=&quot;text-decoration:underline; color:#333&quot;&gt;
+&lt;strong&gt;See what&amp;rsquo;s new!&lt;/strong&gt;
+&lt;/a&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td height=&quot;15&quot; style=&quot;padding:0; -moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; text-align:left; color:#333; font-family:Helvetica, Arial, sans-serif; font-size:15px; letter-spacing:0.4px&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td height=&quot;1&quot; style=&quot;padding:0; -moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; text-align:left; color:#333; font-family:Helvetica, Arial, sans-serif; font-size:15px; letter-spacing:0.4px; border-bottom:1px solid #dedede&quot;&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/center&gt;
+&lt;table class=&quot;spacer spacer-small hide-for-small&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;5&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:5px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;table class=&quot;spacer spacer-small&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;5&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:5px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;table class=&quot;spacer&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;15&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:15px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;!-- INTRO --&gt;
+&lt;!-- EDITOR&apos;S NOTE --&gt;
+&lt;!-- TOP NEWS --&gt;
+&lt;!-- note: overridden for weekender --&gt;
+&lt;!-- This checks if the content_item is an inline ad --&gt;
+&lt;table class=&quot;newsletter-item feature-story&quot; style=&quot;border-spacing:0; font-family:Helvetica, Arial, sans-serif; font-size:14px; letter-spacing:0.4px; line-height:160%; width:100%&quot;&gt;
+&lt;tr&gt;
+&lt;td class=&quot;zero-padding&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:15px&quot;&gt;
+&lt;table class=&quot;spacer&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;15&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:15px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;h3 style=&quot;-moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; padding:0; text-align:left; font-size:15px; font-weight:700; color:#333; font-family:Helvetica, Arial, sans-serif; letter-spacing:0.4px&quot;&gt;
+&lt;a href=&quot;https://link.grocerydive.com/click/44964476.33407/aHR0cHM6Ly93d3cuZ3JvY2VyeWRpdmUuY29tL25ld3Mvc3Byb3V0cy1mYXJtZXJzLW1hcmtldC1jZW8tamFjay1zaW5jbGFpci1jZm8tcm90aC1jb25mZXJlbmNlLXNlbGYtZGlzdHJpYnV0aW9uLXZhbHVlLWFmZm9yZGFiaWxpdHkvODE2MDMxLw/69c9e9a92ac7111409071decB20b9f3b5&quot; class=&quot;linked-header&quot; style=&quot;text-decoration:none; color:#333; font-size:22px; line-height:120%&quot;&gt;Sprouts&amp;rsquo; CEO says the chain needs to be a better &amp;lsquo;value&amp;rsquo; for shoppers&lt;/a&gt;
+&lt;/h3&gt;
+&lt;table class=&quot;spacer spacer-small&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;5&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:5px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;p style=&quot;margin:0; -moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; mso-line-height-rule:exactly; padding:0; text-align:left; color:#333; font-family:Helvetica, Arial, sans-serif; font-size:15px; letter-spacing:0.4px&quot;&gt;&amp;ldquo;It&amp;rsquo;s not so much about price investments. It&amp;rsquo;s about bringing real clarity to the products that we&amp;rsquo;re launching,&amp;rdquo; Jack Sinclair said during an event.&amp;nbsp;&lt;/p&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;table class=&quot;spacer&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;15&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:15px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;hr class=&quot;divider&quot; style=&quot;background-color:#dedede; border:none; color:#dedede; height:1px&quot; bgcolor=&quot;#dedede&quot;&gt;
+&lt;!-- This checks if the content_item is an inline ad --&gt;
+&lt;table class=&quot;newsletter-item &quot; style=&quot;border-spacing:0; font-family:Helvetica, Arial, sans-serif; font-size:14px; letter-spacing:0.4px; line-height:160%; width:100%&quot;&gt;
+&lt;tr&gt;
+&lt;td class=&quot;zero-padding&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:15px&quot;&gt;
+&lt;table class=&quot;spacer&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;15&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:15px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;h3 style=&quot;-moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; padding:0; text-align:left; font-size:15px; font-weight:700; color:#333; font-family:Helvetica, Arial, sans-serif; letter-spacing:0.4px&quot;&gt;
+&lt;a href=&quot;https://link.grocerydive.com/click/44964476.33407/aHR0cHM6Ly93d3cuZ3JvY2VyeWRpdmUuY29tL25ld3MvcmFsZXlzLWNlby10cmFuc2l0aW9uLW1pa2UtdGVlbC1rZWl0aC1rbm9wZi1ncm9jZXJ5LzgxNjA4My8/69c9e9a92ac7111409071decBa0672584&quot; class=&quot;linked-header&quot; style=&quot;text-decoration:none; color:#333; font-size:18px; line-height:120%&quot;&gt;Raley&amp;rsquo;s CEO departs after 11 years with the grocer&lt;/a&gt;
+&lt;/h3&gt;
+&lt;table class=&quot;spacer spacer-small&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;5&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:5px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;p style=&quot;margin:0; -moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; mso-line-height-rule:exactly; padding:0; text-align:left; color:#333; font-family:Helvetica, Arial, sans-serif; font-size:15px; letter-spacing:0.4px&quot;&gt;Keith Knopf, who served as chief executive since 2018, has handed the reins to Mike Teel, the grocer&amp;rsquo;s owner and chairman.&lt;/p&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;table class=&quot;spacer&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;15&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:15px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;hr class=&quot;divider&quot; style=&quot;background-color:#dedede; border:none; color:#dedede; height:1px&quot; bgcolor=&quot;#dedede&quot;&gt;
+&lt;!-- This checks if the content_item is an inline ad --&gt;
+&lt;table class=&quot;newsletter-item &quot; style=&quot;border-spacing:0; font-family:Helvetica, Arial, sans-serif; font-size:14px; letter-spacing:0.4px; line-height:160%; width:100%&quot;&gt;
+&lt;tr&gt;
+&lt;td class=&quot;zero-padding&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:15px&quot;&gt;
+&lt;table class=&quot;spacer&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;15&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:15px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;h3 style=&quot;-moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; padding:0; text-align:left; font-size:15px; font-weight:700; color:#333; font-family:Helvetica, Arial, sans-serif; letter-spacing:0.4px&quot;&gt;
+&lt;a href=&quot;https://link.grocerydive.com/click/44964476.33407/aHR0cHM6Ly93d3cuZ3JvY2VyeWRpdmUuY29tL25ld3MvYWxkaS1yZXZhbXBlZC13ZWJzaXRlLW1vYmlsZS1hcHAtaW5zdGFjYXJ0LzgxNjA3NC8/69c9e9a92ac7111409071decB73a526c8&quot; class=&quot;linked-header&quot; style=&quot;text-decoration:none; color:#333; font-size:18px; line-height:120%&quot;&gt;Aldi revamps website and mobile app&lt;/a&gt;
+&lt;/h3&gt;
+&lt;table class=&quot;spacer spacer-small&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;5&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:5px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;p style=&quot;margin:0; -moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; mso-line-height-rule:exactly; padding:0; text-align:left; color:#333; font-family:Helvetica, Arial, sans-serif; font-size:15px; letter-spacing:0.4px&quot;&gt;The upgrade marks another milestone in the discounter&amp;rsquo;s ambitious 2026 growth plans.&lt;/p&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;table class=&quot;spacer&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;15&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:15px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;hr class=&quot;divider&quot; style=&quot;background-color:#dedede; border:none; color:#dedede; height:1px&quot; bgcolor=&quot;#dedede&quot;&gt;
+&lt;!-- This checks if the content_item is an inline ad --&gt;
+&lt;table class=&quot;newsletter-item&quot; style=&quot;border-spacing:0; font-family:Helvetica, Arial, sans-serif; font-size:14px; letter-spacing:0.4px; line-height:160%; width:100%&quot;&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td class=&quot;zero-padding&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:15px&quot;&gt;
+&lt;table class=&quot;spacer&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tbody&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;15&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:15px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;span class=&quot;story-type sponsored&quot; style=&apos;color:#6e707c; font-size:13px; font-weight:700; text-transform:uppercase; display:inline-block; font-family:&quot;Satoshi&quot;, Arial, Helvetica, sans-serif&apos;&gt;Sponsored Content&lt;/span&gt; &lt;span class=&quot;sponsor-name&quot; style=&apos;line-height:130%; color:#323239; font-family:&quot;Satoshi&quot;, Arial, Helvetica, sans-serif; font-size:13px; font-weight:normal; text-transform:initial&apos;&gt;by Swiftly&lt;/span&gt;
+&lt;h3 class=&quot;sponsor-message-title&quot; style=&quot;-moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; padding:0; text-align:left; font-size:15px; font-weight:700; color:#333; font-family:Helvetica, Arial, sans-serif; letter-spacing:0.4px&quot;&gt;
+&lt;a href=&quot;https://link.grocerydive.com/click/44964476.33407/aHR0cHM6Ly9kaXZlLnB1Yi80dUNnWG1BP3V0bV9jb250ZW50PWFkLUlOTElORV9TUE9UXzEmdXRtX3Rlcm09ODY0NjAmcHJvamVjdF90YXNrX2lkPWExMlJkMDAwMDAzMmo5MUlBQSZjbGllbnQ9U3dpZnRseSZuZXdzbGV0dGVyX3NjaGVkdWxlX2lkPTg2NDYwJm5ld3NsZXR0ZXJfYWRfbG9jYXRpb249SU5MSU5FX1NQT1RfMSZuZXdzbGV0dGVyX2FkX3R5cGU9UFJPTU9URURfU1RPUlkmbmV3c2xldHRlcl9hZF9zdGFydD0yMDI2LTAzLTMwJm5ld3NsZXR0ZXJfYWRfZW5kPTIwMjYtMDMtMzA/69c9e9a92ac7111409071decB4434946f&quot; class=&quot;linked-header&quot; style=&quot;text-decoration:none; color:#333; font-size:18px; line-height:120%&quot;&gt;
+The grocery tech breakthrough happening at regional retailers
+&lt;/a&gt;
+&lt;/h3&gt;
+&lt;table class=&quot;spacer spacer-small&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tbody&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;5&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:5px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+The biggest advances in grocery tech are coming from unified platforms, not bigger budgets.
+&lt;table class=&quot;spacer&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tbody&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;15&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:15px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr class=&quot;divider&quot; style=&quot;background-color:#dedede; border:none; color:#dedede; height:1px&quot; bgcolor=&quot;#dedede&quot;&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;!-- This checks if the content_item is an inline ad --&gt;
+&lt;table class=&quot;newsletter-item &quot; style=&quot;border-spacing:0; font-family:Helvetica, Arial, sans-serif; font-size:14px; letter-spacing:0.4px; line-height:160%; width:100%&quot;&gt;
+&lt;tr&gt;
+&lt;td class=&quot;zero-padding&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:15px&quot;&gt;
+&lt;table class=&quot;spacer&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;15&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:15px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;h3 style=&quot;-moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; padding:0; text-align:left; font-size:15px; font-weight:700; color:#333; font-family:Helvetica, Arial, sans-serif; letter-spacing:0.4px&quot;&gt;
+&lt;a href=&quot;https://link.grocerydive.com/click/44964476.33407/aHR0cHM6Ly93d3cuZ3JvY2VyeWRpdmUuY29tL25ld3MvaG9tZWxhbmQtY2xvc2UtY29uc29saWRhdGUtc3RvcmVzLzgxNjA0Mi8/69c9e9a92ac7111409071decB57531740&quot; class=&quot;linked-header&quot; style=&quot;text-decoration:none; color:#333; font-size:18px; line-height:120%&quot;&gt;Homeland to close 4 stores, consolidate others&lt;/a&gt;
+&lt;/h3&gt;
+&lt;table class=&quot;spacer spacer-small&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;5&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:5px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;p style=&quot;margin:0; -moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; mso-line-height-rule:exactly; padding:0; text-align:left; color:#333; font-family:Helvetica, Arial, sans-serif; font-size:15px; letter-spacing:0.4px&quot;&gt;The Midwest grocer said the move, which also includes putting an undisclosed number of locations up for sale, will help to build a stronger foundation for the future.&lt;/p&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;table class=&quot;spacer&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;15&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:15px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;table cellspacing=&quot;0&quot; cellpadding=&quot;0&quot; class=&quot;button cta&quot; style=&quot;border-spacing:0; font-family:Helvetica, Arial, sans-serif; font-size:14px; letter-spacing:0.4px; line-height:160%; display:table; font-weight:bold; margin-top:10px; text-align:center; width:100%; overflow:visible&quot;&gt;
+&lt;tr&gt;
+&lt;td class=&quot;&quot; height=&quot;40&quot; style=&quot;padding:0; -moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; text-align:center; color:#333; font-family:Helvetica, Arial, sans-serif; font-size:15px; letter-spacing:0.4px; -moz-border-radius:5px; -webkit-border-radius:5px; background:none; border:solid 1px #ccc; border-radius:5px&quot;&gt;
+&lt;a href=&quot;https://link.grocerydive.com/click/44964476.33407/aHR0cHM6Ly93d3cuZ3JvY2VyeWRpdmUuY29t/69c9e9a92ac7111409071decC9f6e13bc&quot; style=&quot;text-decoration:none; color:#333; display:block; font-size:14px; font-weight:400; letter-spacing:1px; line-height:300%; text-align:center&quot;&gt;Read more news&lt;/a&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;table class=&quot;spacer spacer-medium&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;30&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:30px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;!-- MIDWAY_SPOT --&gt;
+&lt;!-- note: flexible formatting; no html wrapper as they use the custom_ad.html template--&gt;
+&lt;table class=&quot;newsletter-ad custom-ad &quot; style=&quot;border-spacing:0; font-family:Helvetica, Arial, sans-serif; font-size:14px; letter-spacing:0.4px; line-height:160%; background-color:#f5f5fa&quot; bgcolor=&quot;#f5f5fa&quot;&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;padding:10px 20px; -moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; text-align:left; color:#333; font-family:Helvetica, Arial, sans-serif; font-size:15px; letter-spacing:0.4px&quot;&gt;
+&lt;table class=&quot;spacer&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;15&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:15px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;center&gt;
+&lt;a href=&quot;https://link.grocerydive.com/click/44964476.33407/aHR0cHM6Ly9ncm9jZXJ5ZGl2ZS50cmFkZXB1Yi5jb20vYy9wdWJSRC5tcGw_c2VjdXJlPTEmc3I9cHAmX3Q9cHAlM0EmcWY9d19kZWZhMTAzMzkmY2g9R0ROTDJNYXJjaDIwJnV0bV9zb3VyY2U9R0QmdXRtX21lZGl1bT1OTDJNYXJjaDMwJnV0bV9jYW1wYWlnbj1NYXJrdFBPUyZza2lwd2M9MSZlbWFpbD15bTdxbWg5NnM0ZHNhb3V4bnEyY0BraWxsLXRoZS1uZXdzbGV0dGVyLmNvbSZmaXJzdD1MdWtlJmxhc3Q9U3RvdCZjb21wYW55PVN0b3QgTGFicyZ0aXRsZT1TZW5pb3IgU29mdHdhcmUgRW5naW5lZXImdXRtX2NvbnRlbnQ9YWQtTUlEV0FZX1NQT1QmdXRtX3Rlcm09ODY3NjE/69c9e9a92ac7111409071decB56f0c8b0&quot; style=&quot;text-decoration:underline; color:#333&quot;&gt;
+&lt;img src=&quot;https://d12v9rtnomnebu.cloudfront.net/paychek/marktpos-playbook---bstudio-82016_thumbnail.png&quot; width=&quot;100&quot; alt=&quot;image&quot; style=&quot;border:solid 1px #ccc; display:block; max-width:100px; border-width:0; margin-bottom:0; margin-left:auto; margin-right:auto; margin-top:0; width:100px&quot;&gt;
+&lt;/a&gt;
+&lt;/center&gt;
+&lt;table class=&quot;spacer spacer-custom-ad&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;15&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:0; line-height:0&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;table class=&quot;newsletter-item&quot; style=&quot;border-spacing:0; font-family:Helvetica, Arial, sans-serif; font-size:14px; letter-spacing:0.4px; line-height:160%; width:100%&quot;&gt;
+&lt;tr&gt;
+&lt;td class=&quot;zero-padding&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; text-align:center; font-size:15px&quot;&gt;
+&lt;h3 style=&quot;-moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; padding:0; text-align:center; font-size:15px; font-weight:700; color:#333; font-family:Helvetica, Arial, sans-serif; letter-spacing:0.4px&quot;&gt;
+&lt;a href=&quot;https://link.grocerydive.com/click/44964476.33407/aHR0cHM6Ly9ncm9jZXJ5ZGl2ZS50cmFkZXB1Yi5jb20vYy9wdWJSRC5tcGw_c2VjdXJlPTEmc3I9cHAmX3Q9cHAlM0EmcWY9d19kZWZhMTAzMzkmY2g9R0ROTDJNYXJjaDIwJnV0bV9zb3VyY2U9R0QmdXRtX21lZGl1bT1OTDJNYXJjaDMwJnV0bV9jYW1wYWlnbj1NYXJrdFBPUyZza2lwd2M9MSZlbWFpbD15bTdxbWg5NnM0ZHNhb3V4bnEyY0BraWxsLXRoZS1uZXdzbGV0dGVyLmNvbSZmaXJzdD1MdWtlJmxhc3Q9U3RvdCZjb21wYW55PVN0b3QgTGFicyZ0aXRsZT1TZW5pb3IgU29mdHdhcmUgRW5naW5lZXImdXRtX2NvbnRlbnQ9YWQtTUlEV0FZX1NQT1QmdXRtX3Rlcm09ODY3NjE/69c9e9a92ac7111409071decC56f0c8b0&quot; style=&quot;text-decoration:none; color:#333; font-size:18px&quot;&gt;
+How Family Grocers Can Stay Ahead by Modernizing
+&lt;/a&gt;
+&lt;/h3&gt;
+&lt;table class=&quot;spacer spacer-small&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;5&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:5px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+Although multi-generational grocery stores are rooted in community, new customers expect a level of service that goes beyond old-school operational methods. Discover new strategies in this playbook.
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;table class=&quot;spacer spacer-small&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;5&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:5px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;!-- button --&gt;
+&lt;table cellspacing=&quot;0&quot; cellpadding=&quot;0&quot; class=&quot;button cta cta-custom-ad active&quot; style=&quot;border-spacing:0; font-family:Helvetica, Arial, sans-serif; font-size:14px; letter-spacing:0.4px; line-height:160%; display:table; font-weight:bold; margin-top:10px; text-align:center; width:100%; overflow:visible&quot;&gt;
+&lt;tr&gt;
+&lt;td class=&quot;&quot; align=&quot;center&quot; valign=&quot;middle&quot; height=&quot;40&quot; style=&quot;padding:0; -moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; text-align:center; color:#333; font-family:Helvetica, Arial, sans-serif; font-size:15px; letter-spacing:0.4px; -moz-border-radius:5px; -webkit-border-radius:5px; background:#414192; border:solid 1px #ccc; border-radius:5px&quot;&gt;
+&lt;!--[if mso]&gt;
+&lt;v:rect xmlns:v=&quot;urn:schemas-microsoft-com:vml&quot; xmlns:w=&quot;urn:schemas-microsoft-com:office:word&quot; href=&quot;https://grocerydive.tradepub.com/c/pubRD.mpl?secure=1&amp;sr=pp&amp;_t=pp%3A&amp;qf=w_defa10339&amp;ch=GDNL2March20&amp;utm_source=GD&amp;utm_medium=NL2March30&amp;utm_campaign=MarktPOS&amp;skipwc=1&amp;email=ym7qmh96s4dsaouxnq2c@kill-the-newsletter.com&amp;first=Luke&amp;last=Stot&amp;company=Stot Labs&amp;title=Senior Software Engineer&amp;utm_content=ad-MIDWAY_SPOT&amp;utm_term=86761&quot; style=&quot;v-text-anchor:middle;width:560px;height:48px;&quot; fillcolor=&quot;#414192&quot; stroke=&quot;f&quot; filled=&quot;f&quot;&gt;
+&lt;w:anchorlock/&gt;
+&lt;center xmlns:v=&quot;urn:schemas-microsoft-com:vml&quot; xmlns:w=&quot;urn:schemas-microsoft-com:office:word&quot; style=&quot;color:#ffffff;font-family:Helvetica,Arial,sans-serif;font-size:16px;font-weight:400;mso-line-height-rule:exactly;line-height:32px; height:48px;&quot;&gt;
+Download Now
+&lt;/center&gt;
+&lt;/v:rect&gt;
+&lt;![endif]--&gt;
+&lt;!--[if !mso]&gt;&lt;!-- --&gt;
+&lt;a href=&quot;https://link.grocerydive.com/click/44964476.33407/aHR0cHM6Ly9ncm9jZXJ5ZGl2ZS50cmFkZXB1Yi5jb20vYy9wdWJSRC5tcGw_c2VjdXJlPTEmc3I9cHAmX3Q9cHAlM0EmcWY9d19kZWZhMTAzMzkmY2g9R0ROTDJNYXJjaDIwJnV0bV9zb3VyY2U9R0QmdXRtX21lZGl1bT1OTDJNYXJjaDMwJnV0bV9jYW1wYWlnbj1NYXJrdFBPUyZza2lwd2M9MSZlbWFpbD15bTdxbWg5NnM0ZHNhb3V4bnEyY0BraWxsLXRoZS1uZXdzbGV0dGVyLmNvbSZmaXJzdD1MdWtlJmxhc3Q9U3RvdCZjb21wYW55PVN0b3QgTGFicyZ0aXRsZT1TZW5pb3IgU29mdHdhcmUgRW5naW5lZXImdXRtX2NvbnRlbnQ9YWQtTUlEV0FZX1NQT1QmdXRtX3Rlcm09ODY3NjE/69c9e9a92ac7111409071decD56f0c8b0&quot; style=&quot;text-decoration:none; color:#fff; display:inline-block; font-size:14px; font-weight:400; letter-spacing:1px; line-height:40px; text-align:center; height:40px; mso-line-height-rule:exactly&quot;&gt;Download Now&lt;/a&gt;
+&lt;!--&lt;![endif]--&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;table class=&quot;spacer&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;15&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:15px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;table class=&quot;spacer spacer-custom-ad&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;15&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:0; line-height:0&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;!-- LIBRARY RESOURCES --&gt;
+&lt;table class=&quot;spacer spacer-medium&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;30&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:30px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;h2 class=&quot;&quot; style=&quot;-moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; padding:0; text-align:center; line-height:160%; font-size:20px; color:#333; font-family:Helvetica, Arial, sans-serif; letter-spacing:1px; font-weight:800; text-transform:uppercase&quot;&gt;
+From Our Library
+&lt;/h2&gt;
+&lt;center&gt;
+&lt;hr width=&quot;50&quot; class=&quot;section-header-divider  &quot; style=&quot;background-color:#e0002b; border:none; color:#e0002b; height:3px; background:#e0002b; max-width:50px; width:50px&quot; bgcolor=&quot;#e0002b&quot;&gt;
+&lt;/center&gt;
+&lt;table class=&quot;spacer spacer-small&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;5&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:5px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;table class=&quot;spacer spacer-small&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;5&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:5px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;table class=&quot;newsletter-item&quot; style=&quot;border-spacing:0; font-family:Helvetica, Arial, sans-serif; font-size:14px; letter-spacing:0.4px; line-height:160%; width:100%&quot;&gt;
+&lt;tr&gt;
+&lt;td style=&quot;padding:0; -moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; text-align:left; color:#666; font-family:Helvetica, Arial, sans-serif; font-size:15px; letter-spacing:0.4px&quot;&gt;
+&lt;table class=&quot;spacer&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;15&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:15px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;span class=&quot;library-type&quot; style=&quot;color:#000; font-size:13px; font-weight:100; text-transform:uppercase&quot;&gt;
+Playbook
+&lt;/span&gt;
+&lt;h3 style=&quot;-moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; padding:0; text-align:left; font-size:15px; font-weight:700; color:#333; font-family:Helvetica, Arial, sans-serif; letter-spacing:0.4px&quot;&gt;
+&lt;a href=&quot;https://link.grocerydive.com/click/44964476.33407/aHR0cHM6Ly9ncm9jZXJ5ZGl2ZS50cmFkZXB1Yi5jb20vYy9wdWJSRC5tcGw_c2VjdXJlPTEmc3I9cHAmX3Q9cHAlM0EmcWY9d19kZWZhMTAzMzkmY2g9TGlicmFyeSZ1dG1fc291cmNlPUdEJnV0bV9tZWRpdW09TGlicmFyeSZ1dG1fY2FtcGFpZ249TWFya3RQT1M/69c9e9a92ac7111409071decB2d417a75&quot; class=&quot;linked-header&quot; style=&quot;text-decoration:none; color:#333; font-size:18px; line-height:120%&quot;&gt;
+A Guide to Modernizing the Family Grocery Store
+&lt;/a&gt;
+&lt;/h3&gt;
+&lt;span class=&quot;library-company&quot; style=&quot;color:#6e707c; font-size:14px&quot;&gt;
+&lt;table class=&quot;spacer spacer-small&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;5&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:5px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+Custom content for Markt POS
+&lt;/span&gt;
+&lt;table class=&quot;spacer&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;15&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:15px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;hr style=&quot;background-color:#dedede; border:none; color:#dedede; height:1px&quot; bgcolor=&quot;#dedede&quot;&gt;
+&lt;table class=&quot;newsletter-item&quot; style=&quot;border-spacing:0; font-family:Helvetica, Arial, sans-serif; font-size:14px; letter-spacing:0.4px; line-height:160%; width:100%&quot;&gt;
+&lt;tr&gt;
+&lt;td style=&quot;padding:0; -moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; text-align:left; color:#666; font-family:Helvetica, Arial, sans-serif; font-size:15px; letter-spacing:0.4px&quot;&gt;
+&lt;table class=&quot;spacer&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;15&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:15px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;span class=&quot;library-type&quot; style=&quot;color:#000; font-size:13px; font-weight:100; text-transform:uppercase&quot;&gt;
+Playbook
+&lt;/span&gt;
+&lt;h3 style=&quot;-moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; padding:0; text-align:left; font-size:15px; font-weight:700; color:#333; font-family:Helvetica, Arial, sans-serif; letter-spacing:0.4px&quot;&gt;
+&lt;a href=&quot;https://link.grocerydive.com/click/44964476.33407/aHR0cHM6Ly9ncm9jZXJ5ZGl2ZS50cmFkZXB1Yi5jb20vYy9wdWJSRC5tcGw_c2VjdXJlPTEmc3I9cHAmX3Q9cHAlM0EmcWY9d19kZWZhMTAzNDgmY2g9TGlicmFyeSZ1dG1fc291cmNlPUdEJnV0bV9tZWRpdW09TGlicmFyeSZ1dG1fY2FtcGFpZ249S2FpdmFj/69c9e9a92ac7111409071decCd0a7975f&quot; class=&quot;linked-header&quot; style=&quot;text-decoration:none; color:#333; font-size:18px; line-height:120%&quot;&gt;
+How To Elevate Grocery Store Cleanliness and Performance
+&lt;/a&gt;
+&lt;/h3&gt;
+&lt;span class=&quot;library-company&quot; style=&quot;color:#6e707c; font-size:14px&quot;&gt;
+&lt;table class=&quot;spacer spacer-small&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;5&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:5px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+Custom content for Kaivac
+&lt;/span&gt;
+&lt;table class=&quot;spacer&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;15&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:15px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;hr style=&quot;background-color:#dedede; border:none; color:#dedede; height:1px&quot; bgcolor=&quot;#dedede&quot;&gt;
+&lt;table class=&quot;newsletter-item&quot; style=&quot;border-spacing:0; font-family:Helvetica, Arial, sans-serif; font-size:14px; letter-spacing:0.4px; line-height:160%; width:100%&quot;&gt;
+&lt;tr&gt;
+&lt;td style=&quot;padding:0; -moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; text-align:left; color:#666; font-family:Helvetica, Arial, sans-serif; font-size:15px; letter-spacing:0.4px&quot;&gt;
+&lt;table class=&quot;spacer&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;15&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:15px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;span class=&quot;library-type library-type--loud&quot; style=&quot;color:#414192; font-size:13px; font-weight:800; text-transform:uppercase&quot;&gt;
+Trendline
+&lt;/span&gt;
+&lt;h3 style=&quot;-moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; padding:0; text-align:left; font-size:15px; font-weight:700; color:#333; font-family:Helvetica, Arial, sans-serif; letter-spacing:0.4px&quot;&gt;
+&lt;a href=&quot;https://link.marketingdive.com/click/44964476.33407/aHR0cHM6Ly93d3cubWFya2V0aW5nZGl2ZS5jb20vdHJlbmRsaW5lL3JldGFpbC1tZWRpYS1uZXR3b3Jrcy8yNDYvP3V0bV9zb3VyY2U9R0QmdXRtX21lZGl1bT1MaWJyYXJ5JnV0bV9jYW1wYWlnbj1GZXRjaFJld2FyZHM/69c9e9a92ac7111409071decBf87ca3d2&quot; class=&quot;linked-header&quot; style=&quot;text-decoration:none; color:#333; font-size:18px; line-height:120%&quot;&gt;
+The marketing transition to retail media platforms
+&lt;/a&gt;
+&lt;/h3&gt;
+&lt;span class=&quot;library-company&quot; style=&quot;color:#6e707c; font-size:14px&quot;&gt;
+&lt;table class=&quot;spacer spacer-small&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;5&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:5px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+Supported by Fetch Rewards
+&lt;/span&gt;
+&lt;table class=&quot;spacer&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;15&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:15px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;hr style=&quot;background-color:#dedede; border:none; color:#dedede; height:1px&quot; bgcolor=&quot;#dedede&quot;&gt;
+&lt;table class=&quot;newsletter-item&quot; style=&quot;border-spacing:0; font-family:Helvetica, Arial, sans-serif; font-size:14px; letter-spacing:0.4px; line-height:160%; width:100%&quot;&gt;
+&lt;tr&gt;
+&lt;td style=&quot;padding:0; -moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; text-align:left; color:#666; font-family:Helvetica, Arial, sans-serif; font-size:15px; letter-spacing:0.4px&quot;&gt;
+&lt;table class=&quot;spacer&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;15&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:15px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;span class=&quot;library-type&quot; style=&quot;color:#000; font-size:13px; font-weight:100; text-transform:uppercase&quot;&gt;
+Playbook
+&lt;/span&gt;
+&lt;h3 style=&quot;-moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; padding:0; text-align:left; font-size:15px; font-weight:700; color:#333; font-family:Helvetica, Arial, sans-serif; letter-spacing:0.4px&quot;&gt;
+&lt;a href=&quot;https://link.grocerydive.com/click/44964476.33407/aHR0cHM6Ly9yZXRhaWxkaXZlLnRyYWRlcHViLmNvbS9jL3B1YlJELm1wbD9zZWN1cmU9MSZzcj1wcCZfdD1wcDomcWY9d19kZWZhMTA1NDkmY2g9TGlicmFyeSZ1dG1fc291cmNlPUdEJnV0bV9tZWRpdW09TGlicmFyeSZ1dG1fY2FtcGFpZ249U2l0ZWNvcmU/69c9e9a92ac7111409071decB8060c2b5&quot; class=&quot;linked-header&quot; style=&quot;text-decoration:none; color:#333; font-size:18px; line-height:120%&quot;&gt;
+The Retail CMO Playbook: From Follower to Frontier
+&lt;/a&gt;
+&lt;/h3&gt;
+&lt;span class=&quot;library-company&quot; style=&quot;color:#6e707c; font-size:14px&quot;&gt;
+&lt;table class=&quot;spacer spacer-small&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;5&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:5px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+Custom content for Sitecore
+&lt;/span&gt;
+&lt;table class=&quot;spacer&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;15&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:15px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;hr style=&quot;background-color:#dedede; border:none; color:#dedede; height:1px&quot; bgcolor=&quot;#dedede&quot;&gt;
+&lt;table class=&quot;spacer spacer-small&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;5&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:5px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;a href=&quot;https://link.grocerydive.com/click/44964476.33407/aHR0cHM6Ly93d3cuZ3JvY2VyeWRpdmUuY29tL2xpYnJhcnk/69c9e9a92ac7111409071decBe2df950e&quot; style=&quot;text-decoration:underline; color:#666&quot;&gt;&lt;em&gt;View all resources&lt;/em&gt;&lt;/a&gt;
+&lt;table class=&quot;spacer spacer-medium&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;30&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:30px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;!-- WHAT WE ARE READING --&gt;
+&lt;!-- note: overridden for weekender --&gt;
+&lt;table class=&quot;spacer spacer-medium&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;30&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:30px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;h2 class=&quot;&quot; style=&quot;-moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; padding:0; text-align:center; line-height:160%; font-size:20px; color:#333; font-family:Helvetica, Arial, sans-serif; letter-spacing:1px; font-weight:800; text-transform:uppercase&quot;&gt;
+What We&apos;re Reading
+&lt;/h2&gt;
+&lt;center&gt;
+&lt;hr width=&quot;50&quot; class=&quot;section-header-divider  &quot; style=&quot;background-color:#e0002b; border:none; color:#e0002b; height:3px; background:#e0002b; max-width:50px; width:50px&quot; bgcolor=&quot;#e0002b&quot;&gt;
+&lt;/center&gt;
+&lt;table class=&quot;spacer spacer-small&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;5&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:5px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;!-- This checks if the content_item is an inline ad --&gt;
+&lt;table class=&quot;newsletter-item &quot; style=&quot;border-spacing:0; font-family:Helvetica, Arial, sans-serif; font-size:14px; letter-spacing:0.4px; line-height:160%; width:100%&quot;&gt;
+&lt;tr&gt;
+&lt;td class=&quot;zero-padding&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:15px&quot;&gt;
+&lt;table class=&quot;spacer&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;15&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:15px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;img src=&quot;https://www.google.com/s2/favicons?domain=https://www.azcentral.com/picture-gallery/grocery/2026/03/30/osaka-marketplace-phoenix-photos/89336449007/&quot; width=&quot;16&quot; height=&quot;16&quot; class=&quot;source-publication-logo&quot; style=&quot;border:0; display:inline-block; vertical-align:middle; float:left&quot; valign=&quot;middle&quot; align=&quot;left&quot;&gt;
+&lt;span class=&quot;source-publication-website&quot; style=&quot;display:inline-block; font-size:12px; font-weight:200; margin:0; text-transform:uppercase; vertical-align:top; color:#999; margin-left:10px&quot; valign=&quot;top&quot;&gt;
+AZ Central
+&lt;/span&gt;
+&lt;table class=&quot;spacer spacer-small&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;5&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:5px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;h3 style=&quot;-moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; padding:0; text-align:left; font-size:15px; font-weight:700; color:#333; font-family:Helvetica, Arial, sans-serif; letter-spacing:0.4px&quot;&gt;
+&lt;a href=&quot;https://link.grocerydive.com/click/44964476.33407/aHR0cHM6Ly93d3cuYXpjZW50cmFsLmNvbS9waWN0dXJlLWdhbGxlcnkvZ3JvY2VyeS8yMDI2LzAzLzMwL29zYWthLW1hcmtldHBsYWNlLXBob2VuaXgtcGhvdG9zLzg5MzM2NDQ5MDA3Lw/69c9e9a92ac7111409071decBfff1a020&quot; class=&quot;linked-header&quot; style=&quot;text-decoration:none; color:#333; font-size:18px; line-height:120%&quot;&gt;Japanese grocery store to open its first Arizona location&lt;/a&gt;
+&lt;/h3&gt;
+&lt;table class=&quot;spacer spacer-small&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;5&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:5px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;table class=&quot;spacer&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;15&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:15px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;hr class=&quot;divider&quot; style=&quot;background-color:#dedede; border:none; color:#dedede; height:1px&quot; bgcolor=&quot;#dedede&quot;&gt;
+&lt;!-- This checks if the content_item is an inline ad --&gt;
+&lt;table class=&quot;newsletter-item &quot; style=&quot;border-spacing:0; font-family:Helvetica, Arial, sans-serif; font-size:14px; letter-spacing:0.4px; line-height:160%; width:100%&quot;&gt;
+&lt;tr&gt;
+&lt;td class=&quot;zero-padding&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:15px&quot;&gt;
+&lt;table class=&quot;spacer&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;15&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:15px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;img src=&quot;https://www.google.com/s2/favicons?domain=https://www.nytimes.com/2026/03/27/dining/raspberry-prices.html&quot; width=&quot;16&quot; height=&quot;16&quot; class=&quot;source-publication-logo&quot; style=&quot;border:0; display:inline-block; vertical-align:middle; float:left&quot; valign=&quot;middle&quot; align=&quot;left&quot;&gt;
+&lt;span class=&quot;source-publication-website&quot; style=&quot;display:inline-block; font-size:12px; font-weight:200; margin:0; text-transform:uppercase; vertical-align:top; color:#999; margin-left:10px&quot; valign=&quot;top&quot;&gt;
+The New York Times
+&lt;/span&gt;
+&lt;table class=&quot;spacer spacer-small&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;5&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:5px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;h3 style=&quot;-moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; padding:0; text-align:left; font-size:15px; font-weight:700; color:#333; font-family:Helvetica, Arial, sans-serif; letter-spacing:0.4px&quot;&gt;
+&lt;a href=&quot;https://link.grocerydive.com/click/44964476.33407/aHR0cHM6Ly93d3cubnl0aW1lcy5jb20vMjAyNi8wMy8yNy9kaW5pbmcvcmFzcGJlcnJ5LXByaWNlcy5odG1s/69c9e9a92ac7111409071decBd31413af&quot; class=&quot;linked-header&quot; style=&quot;text-decoration:none; color:#333; font-size:18px; line-height:120%&quot;&gt;Where Might the Iran War Hit Your Grocery Bill? Start With Raspberries.&lt;/a&gt;
+&lt;/h3&gt;
+&lt;table class=&quot;spacer spacer-small&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;5&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:5px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;table class=&quot;spacer&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;15&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:15px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;hr class=&quot;divider&quot; style=&quot;background-color:#dedede; border:none; color:#dedede; height:1px&quot; bgcolor=&quot;#dedede&quot;&gt;
+&lt;!-- This checks if the content_item is an inline ad --&gt;
+&lt;table class=&quot;newsletter-item &quot; style=&quot;border-spacing:0; font-family:Helvetica, Arial, sans-serif; font-size:14px; letter-spacing:0.4px; line-height:160%; width:100%&quot;&gt;
+&lt;tr&gt;
+&lt;td class=&quot;zero-padding&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:15px&quot;&gt;
+&lt;table class=&quot;spacer&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;15&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:15px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;img src=&quot;https://www.google.com/s2/favicons?domain=https://www.manufacturingdive.com/news/food-manufacturers-ai-automation-robotics-technologies-deloitte-stealth/815727/&quot; width=&quot;16&quot; height=&quot;16&quot; class=&quot;source-publication-logo&quot; style=&quot;border:0; display:inline-block; vertical-align:middle; float:left&quot; valign=&quot;middle&quot; align=&quot;left&quot;&gt;
+&lt;span class=&quot;source-publication-website&quot; style=&quot;display:inline-block; font-size:12px; font-weight:200; margin:0; text-transform:uppercase; vertical-align:top; color:#999; margin-left:10px&quot; valign=&quot;top&quot;&gt;
+Manufacturing Dive
+&lt;/span&gt;
+&lt;table class=&quot;spacer spacer-small&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;5&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:5px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;h3 style=&quot;-moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; padding:0; text-align:left; font-size:15px; font-weight:700; color:#333; font-family:Helvetica, Arial, sans-serif; letter-spacing:0.4px&quot;&gt;
+&lt;a href=&quot;https://link.manufacturingdive.com/click/44964476.33407/aHR0cHM6Ly93d3cubWFudWZhY3R1cmluZ2RpdmUuY29tL25ld3MvZm9vZC1tYW51ZmFjdHVyZXJzLWFpLWF1dG9tYXRpb24tcm9ib3RpY3MtdGVjaG5vbG9naWVzLWRlbG9pdHRlLXN0ZWFsdGgvODE1NzI3Lw/69c9e9a92ac7111409071decB74faf3a5&quot; class=&quot;linked-header&quot; style=&quot;text-decoration:none; color:#333; font-size:18px; line-height:120%&quot;&gt;How food manufacturers can benefit from AI and other technologies&lt;/a&gt;
+&lt;/h3&gt;
+&lt;table class=&quot;spacer spacer-small&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;5&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:5px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;table class=&quot;spacer&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;15&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:15px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;table cellspacing=&quot;0&quot; cellpadding=&quot;0&quot; class=&quot;button cta&quot; style=&quot;border-spacing:0; font-family:Helvetica, Arial, sans-serif; font-size:14px; letter-spacing:0.4px; line-height:160%; display:table; font-weight:bold; margin-top:10px; text-align:center; width:100%; overflow:visible&quot;&gt;
+&lt;tr&gt;
+&lt;td class=&quot;&quot; height=&quot;40&quot; style=&quot;padding:0; -moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; text-align:center; color:#333; font-family:Helvetica, Arial, sans-serif; font-size:15px; letter-spacing:0.4px; -moz-border-radius:5px; -webkit-border-radius:5px; background:none; border:solid 1px #ccc; border-radius:5px&quot;&gt;
+&lt;a href=&quot;https://link.grocerydive.com/click/44964476.33407/aHR0cHM6Ly93d3cuZ3JvY2VyeWRpdmUuY29tL2ZlZWRiYWNrLw/69c9e9a92ac7111409071decB23ed6655&quot; style=&quot;text-decoration:none; color:#333; display:block; font-size:14px; font-weight:400; letter-spacing:1px; line-height:300%; text-align:center&quot;&gt;Suggest a story we should read&lt;/a&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;table class=&quot;spacer spacer-medium&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;30&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:30px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;!-- BOTTOM_SPOT --&gt;
+&lt;!-- e.g. NEWS FROM SEPA and ESNA --&gt;
+&lt;!-- EVENTS --&gt;
+&lt;table class=&quot;spacer spacer-medium&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;30&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:30px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;h2 class=&quot;&quot; style=&quot;-moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; padding:0; text-align:center; line-height:160%; font-size:20px; color:#333; font-family:Helvetica, Arial, sans-serif; letter-spacing:1px; font-weight:800; text-transform:uppercase&quot;&gt;
+Upcoming Event
+&lt;/h2&gt;
+&lt;center&gt;
+&lt;hr width=&quot;50&quot; class=&quot;section-header-divider  &quot; style=&quot;background-color:#e0002b; border:none; color:#e0002b; height:3px; background:#e0002b; max-width:50px; width:50px&quot; bgcolor=&quot;#e0002b&quot;&gt;
+&lt;/center&gt;
+&lt;table class=&quot;spacer spacer-small&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;5&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:5px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;table class=&quot;spacer spacer-small&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;5&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:5px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;table class=&quot;spacer&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;15&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:15px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;table class=&quot;event-list-item&quot; style=&quot;border-spacing:0; font-family:Helvetica, Arial, sans-serif; font-size:14px; letter-spacing:0.4px; line-height:1.3; display:block&quot;&gt;
+&lt;tr&gt;
+&lt;td class=&quot;event-date-top-align&quot; style=&quot;padding:0; -moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; text-align:left; color:#333; font-family:Helvetica, Arial, sans-serif; font-size:15px; letter-spacing:0.4px; vertical-align:top&quot; valign=&quot;top&quot;&gt;
+&lt;div class=&quot;event-date
+&quot; style=&quot;background-color:#f5f5fa; border-radius:6px; margin-right:16px; min-height:70px; min-width:55px&quot; bgcolor=&quot;#f5f5fa&quot;&gt;
+&lt;div class=&quot;event-date__wrapper&quot; style=&quot;padding-top:10px&quot;&gt;
+&lt;div class=&quot;event-date__day &quot; style=&quot;font-size:20px; font-weight:700; text-align:center&quot;&gt;31&lt;/div&gt;
+&lt;div class=&quot;event-date__month &quot; style=&quot;font-size:14px; text-align:center&quot;&gt;MAR&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/td&gt;
+&lt;td style=&quot;padding:0; -moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; text-align:left; color:#333; font-family:Helvetica, Arial, sans-serif; font-size:15px; letter-spacing:0.4px&quot;&gt;
+&lt;div class=&quot;label label--soft
+&quot; style=&quot;color:#6e707c; font-size:0.75rem; letter-spacing:0.02rem; overflow-wrap:break-word; text-decoration:none; text-transform:uppercase; word-wrap:break-word; font-weight:500&quot;&gt;
+Webinar
+| 2 p.m. ET
+&lt;/div&gt;
+&lt;table class=&quot;spacer spacer-small&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;5&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:5px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;a class=&quot;event-title&quot; href=&quot;https://link.grocerydive.com/click/44964476.33407/aHR0cDovL3Jlc291cmNlcy5pbmR1c3RyeWRpdmUuY29tL0JyaWRnaW5nLXRoZS1FeGVjdXRpb24tR2FwLWZyb20tSFEtdG8tU3RvcmUtRmxvb3I_dXRtX3NvdXJjZT1HRCZ1dG1fbWVkaXVtPUV2ZW50JnV0bV9jYW1wYWlnbj1aaXBsaW5l/69c9e9a92ac7111409071decB437554ab&quot; target=&quot;_blank&quot; rel=&quot;noopener noreferrer&quot; style=&apos;text-decoration:none; color:#333; display:block; font-family:&quot;Satoshi&quot;, Helvetica, Arial, sans-serif; font-size:1.125rem; font-weight:700; letter-spacing:0.3px; line-height:1.3; list-style-type:none; margin:0&apos;&gt;Bridging the Execution Gap from HQ to Store Floor&lt;/a&gt;
+&lt;table class=&quot;spacer spacer-small&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;5&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:5px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;span class=&quot;label label--weak-italic&quot; style=&quot;color:#323239; font-size:0.75rem; letter-spacing:0.02rem; overflow-wrap:break-word; text-decoration:none; text-transform:none; word-wrap:break-word; font-style:italic; font-weight:400&quot;&gt;Presented by Studio by Informa TechTarget and Zipline&lt;/span&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;table class=&quot;spacer spacer-medium&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;30&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:30px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;!-- PRESS RELEASES --&gt;
+&lt;!-- TOPICS --&gt;
+&lt;table class=&quot;spacer spacer-medium&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;30&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:30px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;h2 class=&quot;&quot; style=&quot;-moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; padding:0; text-align:center; line-height:160%; font-size:20px; color:#333; font-family:Helvetica, Arial, sans-serif; letter-spacing:1px; font-weight:800; text-transform:uppercase&quot;&gt;Dive Into a Topic&lt;/h2&gt;
+&lt;center&gt;
+&lt;hr width=&quot;50&quot; class=&quot;section-header-divider  &quot; style=&quot;background-color:#e0002b; border:none; color:#e0002b; height:3px; background:#e0002b; max-width:50px; width:50px&quot; bgcolor=&quot;#e0002b&quot;&gt;
+&lt;/center&gt;
+&lt;table class=&quot;spacer spacer-small&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;5&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:5px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;table class=&quot;spacer spacer-small&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;5&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:5px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;table width=&quot;100%&quot; class=&quot;topics topics-nl&quot; style=&quot;border-spacing:0; font-family:Helvetica, Arial, sans-serif; font-size:14px; letter-spacing:0.4px; line-height:160%&quot;&gt;
+&lt;tr&gt;
+&lt;td class=&quot;three-column&quot; style=&quot;padding:0; -moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; text-align:left; color:#333; font-family:Helvetica, Arial, sans-serif; font-size:15px; letter-spacing:0.4px&quot;&gt;
+&lt;!--[if (gte mso 9)|(IE)]&gt;
+&lt;table width=&quot;100%&quot;&gt;
+&lt;tr&gt;
+&lt;td width=&quot;30%&quot; valign=&quot;top&quot;&gt;
+&lt;![endif]--&gt;
+&lt;div class=&quot;column&quot; style=&quot;float:left; padding-left:0.9375rem; padding-right:0.9375rem; width:100%; display:inline-block; max-width:180px; vertical-align:top; padding:0 !important&quot; valign=&quot;top&quot;&gt;
+&lt;table class=&quot;contents&quot; width=&quot;100%&quot; style=&quot;border-spacing:0; font-family:Helvetica, Arial, sans-serif; font-size:14px; letter-spacing:0.4px; line-height:160%; text-align:left; width:100%; max-width:175px&quot;&gt;
+&lt;tr&gt;
+&lt;td style=&quot;padding:0; -moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; text-align:left; color:#333; font-family:Helvetica, Arial, sans-serif; font-size:15px; letter-spacing:0.4px&quot;&gt;
+&lt;table cellspacing=&quot;0&quot; cellpadding=&quot;0&quot; class=&quot;topic-item&quot; style=&quot;border-spacing:0; font-family:Helvetica, Arial, sans-serif; font-size:14px; letter-spacing:0.4px; line-height:160%&quot;&gt;
+&lt;tr&gt;
+&lt;td height=&quot;30&quot; style=&quot;padding:0; -moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; text-align:left; color:#333; font-family:Helvetica, Arial, sans-serif; font-size:15px; letter-spacing:0.4px&quot;&gt;
+&lt;a href=&quot;https://link.grocerydive.com/click/44964476.33407/aHR0cHM6Ly93d3cuZ3JvY2VyeWRpdmUuY29tL3RvcGljL3RlY2hub2xvZ3kv/69c9e9a92ac7111409071decB9702deb2&quot; class=&quot;topic-links&quot; style=&quot;text-decoration:underline; color:#333&quot;&gt;Technology&lt;/a&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;table class=&quot;spacer spacer-small&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;5&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:5px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;table cellspacing=&quot;0&quot; cellpadding=&quot;0&quot; class=&quot;topic-item&quot; style=&quot;border-spacing:0; font-family:Helvetica, Arial, sans-serif; font-size:14px; letter-spacing:0.4px; line-height:160%&quot;&gt;
+&lt;tr&gt;
+&lt;td height=&quot;30&quot; style=&quot;padding:0; -moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; text-align:left; color:#333; font-family:Helvetica, Arial, sans-serif; font-size:15px; letter-spacing:0.4px&quot;&gt;
+&lt;a href=&quot;https://link.grocerydive.com/click/44964476.33407/aHR0cHM6Ly93d3cuZ3JvY2VyeWRpdmUuY29tL3RvcGljL2ZpbmFuY2lhbC1uZXdzLw/69c9e9a92ac7111409071decB3790e9db&quot; class=&quot;topic-links&quot; style=&quot;text-decoration:underline; color:#333&quot;&gt;Finances &amp;amp; Deals&lt;/a&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;table class=&quot;spacer spacer-small&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;5&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:5px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;table cellspacing=&quot;0&quot; cellpadding=&quot;0&quot; class=&quot;topic-item&quot; style=&quot;border-spacing:0; font-family:Helvetica, Arial, sans-serif; font-size:14px; letter-spacing:0.4px; line-height:160%&quot;&gt;
+&lt;tr&gt;
+&lt;td height=&quot;30&quot; style=&quot;padding:0; -moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; text-align:left; color:#333; font-family:Helvetica, Arial, sans-serif; font-size:15px; letter-spacing:0.4px&quot;&gt;
+&lt;a href=&quot;https://link.grocerydive.com/click/44964476.33407/aHR0cHM6Ly93d3cuZ3JvY2VyeWRpdmUuY29tL3RvcGljL2Rpc2NvdW50LWdyb2NlcnMv/69c9e9a92ac7111409071decB4ef91bf0&quot; class=&quot;topic-links&quot; style=&quot;text-decoration:underline; color:#333&quot;&gt;Discount Grocers&lt;/a&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;!--mobile spacing--&gt;
+&lt;table class=&quot;spacer&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;15&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:15px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;!--[if (gte mso 9)|(IE)]&gt;
+&lt;/td&gt;&lt;td width=&quot;30%&quot; valign=&quot;top&quot;&gt;
+&lt;![endif]--&gt;
+&lt;div class=&quot;column&quot; style=&quot;float:left; padding-left:0.9375rem; padding-right:0.9375rem; width:100%; display:inline-block; max-width:180px; vertical-align:top; padding:0 !important&quot; valign=&quot;top&quot;&gt;
+&lt;table class=&quot;contents&quot; width=&quot;100%&quot; style=&quot;border-spacing:0; font-family:Helvetica, Arial, sans-serif; font-size:14px; letter-spacing:0.4px; line-height:160%; text-align:left; width:100%; max-width:175px&quot;&gt;
+&lt;tr&gt;
+&lt;td style=&quot;padding:0; -moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; text-align:left; color:#333; font-family:Helvetica, Arial, sans-serif; font-size:15px; letter-spacing:0.4px&quot;&gt;
+&lt;table cellspacing=&quot;0&quot; cellpadding=&quot;0&quot; class=&quot;topic-item&quot; style=&quot;border-spacing:0; font-family:Helvetica, Arial, sans-serif; font-size:14px; letter-spacing:0.4px; line-height:160%&quot;&gt;
+&lt;tr&gt;
+&lt;td height=&quot;30&quot; style=&quot;padding:0; -moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; text-align:left; color:#333; font-family:Helvetica, Arial, sans-serif; font-size:15px; letter-spacing:0.4px&quot;&gt;
+&lt;a href=&quot;https://link.grocerydive.com/click/44964476.33407/aHR0cHM6Ly93d3cuZ3JvY2VyeWRpdmUuY29tL3RvcGljL2UtY29tbWVyY2Uv/69c9e9a92ac7111409071decB420299bc&quot; class=&quot;topic-links&quot; style=&quot;text-decoration:underline; color:#333&quot;&gt;E-commerce&lt;/a&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;table class=&quot;spacer spacer-small&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;5&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:5px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;table cellspacing=&quot;0&quot; cellpadding=&quot;0&quot; class=&quot;topic-item&quot; style=&quot;border-spacing:0; font-family:Helvetica, Arial, sans-serif; font-size:14px; letter-spacing:0.4px; line-height:160%&quot;&gt;
+&lt;tr&gt;
+&lt;td height=&quot;30&quot; style=&quot;padding:0; -moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; text-align:left; color:#333; font-family:Helvetica, Arial, sans-serif; font-size:15px; letter-spacing:0.4px&quot;&gt;
+&lt;a href=&quot;https://link.grocerydive.com/click/44964476.33407/aHR0cHM6Ly93d3cuZ3JvY2VyeWRpdmUuY29tL3RvcGljL2ZyZXNoLWZvb2Qv/69c9e9a92ac7111409071decBbcacce3d&quot; class=&quot;topic-links&quot; style=&quot;text-decoration:underline; color:#333&quot;&gt;Fresh Food&lt;/a&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;table class=&quot;spacer spacer-small&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;5&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:5px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;table cellspacing=&quot;0&quot; cellpadding=&quot;0&quot; class=&quot;topic-item&quot; style=&quot;border-spacing:0; font-family:Helvetica, Arial, sans-serif; font-size:14px; letter-spacing:0.4px; line-height:160%&quot;&gt;
+&lt;tr&gt;
+&lt;td height=&quot;30&quot; style=&quot;padding:0; -moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; text-align:left; color:#333; font-family:Helvetica, Arial, sans-serif; font-size:15px; letter-spacing:0.4px&quot;&gt;
+&lt;a href=&quot;https://link.grocerydive.com/click/44964476.33407/aHR0cHM6Ly93d3cuZ3JvY2VyeWRpdmUuY29tL3RvcGljL3ByZXBhcmVkLWZvb2RzLw/69c9e9a92ac7111409071decB9c9ed78d&quot; class=&quot;topic-links&quot; style=&quot;text-decoration:underline; color:#333&quot;&gt;Foodservice&lt;/a&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;!--mobile spacing--&gt;
+&lt;table class=&quot;spacer&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;15&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:15px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;!--[if (gte mso 9)|(IE)]&gt;
+&lt;/td&gt;&lt;td width=&quot;30%&quot; valign=&quot;top&quot;&gt;
+&lt;![endif]--&gt;
+&lt;div class=&quot;column&quot; style=&quot;float:left; padding-left:0.9375rem; padding-right:0.9375rem; width:100%; display:inline-block; max-width:180px; vertical-align:top; padding:0 !important&quot; valign=&quot;top&quot;&gt;
+&lt;table class=&quot;contents&quot; width=&quot;100%&quot; style=&quot;border-spacing:0; font-family:Helvetica, Arial, sans-serif; font-size:14px; letter-spacing:0.4px; line-height:160%; text-align:left; width:100%; max-width:175px&quot;&gt;
+&lt;tr&gt;
+&lt;td style=&quot;padding:0; -moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; text-align:left; color:#333; font-family:Helvetica, Arial, sans-serif; font-size:15px; letter-spacing:0.4px&quot;&gt;
+&lt;table cellspacing=&quot;0&quot; cellpadding=&quot;0&quot; class=&quot;topic-item&quot; style=&quot;border-spacing:0; font-family:Helvetica, Arial, sans-serif; font-size:14px; letter-spacing:0.4px; line-height:160%&quot;&gt;
+&lt;tr&gt;
+&lt;td height=&quot;30&quot; style=&quot;padding:0; -moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; text-align:left; color:#333; font-family:Helvetica, Arial, sans-serif; font-size:15px; letter-spacing:0.4px&quot;&gt;
+&lt;a href=&quot;https://link.grocerydive.com/click/44964476.33407/aHR0cHM6Ly93d3cuZ3JvY2VyeWRpdmUuY29tL3RvcGljL2NvcnBvcmF0ZS8/69c9e9a92ac7111409071decBa29bd9fa&quot; class=&quot;topic-links&quot; style=&quot;text-decoration:underline; color:#333&quot;&gt;Corporate Operations&lt;/a&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;table class=&quot;spacer spacer-small&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;5&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:5px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;table cellspacing=&quot;0&quot; cellpadding=&quot;0&quot; class=&quot;topic-item&quot; style=&quot;border-spacing:0; font-family:Helvetica, Arial, sans-serif; font-size:14px; letter-spacing:0.4px; line-height:160%&quot;&gt;
+&lt;tr&gt;
+&lt;td height=&quot;30&quot; style=&quot;padding:0; -moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; text-align:left; color:#333; font-family:Helvetica, Arial, sans-serif; font-size:15px; letter-spacing:0.4px&quot;&gt;
+&lt;a href=&quot;https://link.grocerydive.com/click/44964476.33407/aHR0cHM6Ly93d3cuZ3JvY2VyeWRpdmUuY29tL3RvcGljL2NlbnRlci1zdG9yZS8/69c9e9a92ac7111409071decB751a6a2f&quot; class=&quot;topic-links&quot; style=&quot;text-decoration:underline; color:#333&quot;&gt;Center Store&lt;/a&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;!--[if (gte mso 9)|(IE)]&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;![endif]--&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;!-- DIVE INSIDER COUNTER --&gt;
+&lt;table class=&quot;spacer spacer-medium&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;30&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:30px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;table class=&quot;spacer&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;15&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:15px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;h2 class=&quot;&quot; style=&quot;-moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; padding:0; text-align:center; line-height:160%; font-size:20px; color:#333; font-family:Helvetica, Arial, sans-serif; letter-spacing:1px; font-weight:800; text-transform:uppercase&quot;&gt;
+&lt;/h2&gt;
+&lt;table class=&quot;insider-counter&quot; style=&quot;border-spacing:0; font-family:Helvetica, Arial, sans-serif; font-size:14px; letter-spacing:0.4px; line-height:160%; margin:0 auto&quot;&gt;
+&lt;tr&gt;
+&lt;td style=&quot;padding:0; -moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; text-align:center; color:#333; font-family:Helvetica, Arial, sans-serif; font-size:15px; letter-spacing:0.4px&quot;&gt;
+&lt;img src=&quot;https://d12v9rtnomnebu.cloudfront.net/newsletter/insider/dive_insider_1000.png&quot; width=&quot;200&quot; style=&quot;border:0; max-width:100%&quot;&gt;
+&lt;table class=&quot;spacer&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;15&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:15px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;h3 style=&quot;-moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; padding:0; text-align:center; font-size:18px; font-weight:normal; color:#333; font-family:Helvetica, Arial, sans-serif; letter-spacing:0.4px&quot;&gt;Share Grocery Dive: Daily Dive and &lt;a href=&quot;https://link.grocerydive.com/click/44964476.33407/aHR0cHM6Ly93d3cuaW5kdXN0cnlkaXZlLmNvbS9pbnNpZGVycy8/69c9e9a92ac7111409071decBbebc221d&quot; style=&quot;text-decoration:underline; color:#333&quot;&gt;get rewarded&lt;/a&gt;.&lt;/h3&gt;
+&lt;table class=&quot;spacer&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;15&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:15px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;p style=&quot;margin:0; -moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; mso-line-height-rule:exactly; padding:0; text-align:center; color:#333; font-family:Helvetica, Arial, sans-serif; font-size:16px; letter-spacing:0.4px&quot;&gt;You&amp;rsquo;ve referred &lt;strong&gt;0/10&lt;/strong&gt; readers.&lt;/p&gt;
+&lt;table class=&quot;spacer&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;15&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:15px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;img src=&quot;https://d12v9rtnomnebu.cloudfront.net/newsletter/insider/0-referred.png&quot; width=&quot;340&quot; style=&quot;border:0; max-width:100%&quot;&gt;
+&lt;table class=&quot;spacer&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;15&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:15px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;p style=&quot;margin:0; -moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; mso-line-height-rule:exactly; padding:0; text-align:center; color:#333; font-family:Helvetica, Arial, sans-serif; font-size:16px; letter-spacing:0.4px&quot;&gt;Share your link: &lt;a class=&quot;referral_share_link&quot; href=&quot;https://link.grocerydive.com/click/44964476.33407/aHR0cHM6Ly93d3cuZ3JvY2VyeWRpdmUuY29tL3NpZ251cC9pbnNpZGVycy8_c2lnbnVwX3JlZmVycmVkX2J5PTY5YzllOWE5MmFjNzExMTQwOTA3MWRlYw/69c9e9a92ac7111409071decB4c246ec7&quot; style=&quot;text-decoration:underline; color:#6e707c; display:block; font-size:1rem&quot;&gt;https://www.grocerydive.com/signup/insiders/?signup_referred_by=69c9e9a92ac7111409071dec&lt;/a&gt;&lt;/p&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;!--[if (gte mso 9)|(IE)]&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;![endif]--&gt;
+&lt;/div&gt;
+&lt;table class=&quot;spacer spacer-medium&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;30&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:30px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;table class=&quot;footer-wrapper&quot; width=&quot;100%&quot; style=&quot;border-spacing:0; font-family:Helvetica, Arial, sans-serif; font-size:14px; letter-spacing:0.4px; line-height:160%; background:#f5f5fa&quot;&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;padding:0; -moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; text-align:left; color:#333; font-family:Helvetica, Arial, sans-serif; font-size:15px; letter-spacing:0.4px&quot;&gt;
+&lt;table class=&quot;spacer&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;15&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:15px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;!--[if (gte mso 9)|(IE)]&gt;
+&lt;table width=&quot;600&quot; align=&quot;center&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; border=&quot;0&quot;&gt;
+&lt;tr&gt;
+&lt;td&gt;
+&lt;![endif]--&gt;
+&lt;table class=&quot;outer&quot; style=&quot;border-spacing:0; font-family:Helvetica, Arial, sans-serif; font-size:14px; letter-spacing:0.4px; line-height:160%; margin:0 auto; max-width:600px; width:100%&quot;&gt;
+&lt;tbody&gt;
+&lt;!-- ABOUT PARTNERSHIP SECTION --&gt;
+&lt;tr&gt;
+&lt;td class=&quot;inner-small contents about-section&quot; style=&quot;padding:10px 20px; -moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; text-align:left; color:#333; font-family:Helvetica, Arial, sans-serif; font-size:15px; letter-spacing:0.4px; width:100%&quot;&gt;
+&lt;table class=&quot;spacer&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;15&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:15px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;h2 class=&quot;section-heading&quot; style=&quot;-moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; padding:0; text-align:center; line-height:160%; font-size:20px; color:#333; font-family:Helvetica, Arial, sans-serif; letter-spacing:1px; font-weight:800; text-transform:uppercase&quot;&gt;
+More Than A Newsletter
+&lt;/h2&gt;
+&lt;center&gt;
+&lt;hr width=&quot;50&quot; class=&quot;section-header-divider  &quot; style=&quot;background-color:#e0002b; border:none; color:#e0002b; height:3px; background:#e0002b; max-width:50px; width:50px&quot; bgcolor=&quot;#e0002b&quot;&gt;
+&lt;/center&gt;
+&lt;table class=&quot;spacer spacer-small&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;5&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:5px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;table class=&quot;spacer spacer-small&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;5&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:5px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;h3 style=&quot;-moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; padding:0; text-align:left; font-size:18px; font-weight:700; color:#333; font-family:Helvetica, Arial, sans-serif; letter-spacing:0.4px&quot;&gt;Related Publications&lt;/h3&gt;
+&lt;a href=&quot;https://link.fooddive.com/click/44964476.33407/aHR0cHM6Ly93d3cuZm9vZGRpdmUuY29t/69c9e9a92ac7111409071decB41a24a89&quot; style=&quot;text-decoration:underline; color:#333; font-size:15px&quot;&gt;Food Dive&lt;/a&gt;
+|
+&lt;a href=&quot;https://link.restaurantdive.com/click/44964476.33407/aHR0cHM6Ly93d3cucmVzdGF1cmFudGRpdmUuY29t/69c9e9a92ac7111409071decB9855120b&quot; style=&quot;text-decoration:underline; color:#333; font-size:15px&quot;&gt;Restaurant Dive&lt;/a&gt;
+&lt;table class=&quot;spacer&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;15&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:15px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;h3 style=&quot;-moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; padding:0; text-align:left; font-size:18px; font-weight:700; color:#333; font-family:Helvetica, Arial, sans-serif; letter-spacing:0.4px&quot;&gt;Connect With Us&lt;/h3&gt;
+&lt;a href=&quot;https://link.grocerydive.com/click/44964476.33407/aHR0cHM6Ly90d2l0dGVyLmNvbS9ncm9jZXJ5ZGl2ZQ/69c9e9a92ac7111409071decB68f5a914&quot; style=&quot;text-decoration:underline; color:#333; font-size:15px&quot;&gt;X/Twitter&lt;/a&gt;
+| &lt;a href=&quot;https://link.grocerydive.com/click/44964476.33407/aHR0cHM6Ly93d3cuZmFjZWJvb2suY29tL0dyb2NlcnktRGl2ZS0yOTkwOTUxNjA4MjE0NzI/69c9e9a92ac7111409071decB3f1c7ab6&quot; style=&quot;text-decoration:underline; color:#333; font-size:15px&quot;&gt;Facebook&lt;/a&gt;
+| &lt;a href=&quot;https://link.grocerydive.com/click/44964476.33407/aHR0cHM6Ly93d3cubGlua2VkaW4uY29tL3Nob3djYXNlL2dyb2NlcnktZGl2ZS8/69c9e9a92ac7111409071decB91fb04c2&quot; target=&quot;_blank&quot; style=&quot;text-decoration:underline; color:#333; font-size:15px&quot;&gt;LinkedIn&lt;/a&gt;
+&lt;div&gt;&lt;a href=&quot;https://link.grocerydive.com/click/44964476.33407/aHR0cHM6Ly93d3cuZ29vZ2xlLmNvbS9wcmVmZXJlbmNlcy9zb3VyY2U_cT1odHRwczovL3d3dy5ncm9jZXJ5ZGl2ZS5jb20/69c9e9a92ac7111409071decBbe5058a7&quot; target=&quot;_blank&quot; style=&quot;text-decoration:underline; color:#333; font-size:15px&quot;&gt;Add us as a Preferred Source on Google&lt;/a&gt;&lt;/div&gt;
+&lt;table class=&quot;spacer&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;15&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:15px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;h3 style=&quot;-moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; padding:0; text-align:left; font-size:18px; font-weight:700; color:#333; font-family:Helvetica, Arial, sans-serif; letter-spacing:0.4px&quot;&gt;Editorial&lt;/h3&gt;
+&lt;a href=&quot;https://link.grocerydive.com/click/44964476.33407/aHR0cHM6Ly93d3cuZ3JvY2VyeWRpdmUuY29tL2ZlZWRiYWNrLw/69c9e9a92ac7111409071decC23ed6655&quot; style=&quot;text-decoration:underline; color:#333; font-size:15px&quot;&gt;Contact an editor&lt;/a&gt; | &lt;a href=&quot;https://link.grocerydive.com/click/44964476.33407/aHR0cHM6Ly93d3cuZ3JvY2VyeWRpdmUuY29tL2VkaXRvcnM/69c9e9a92ac7111409071decB2dc7884d&quot; style=&quot;text-decoration:underline; color:#333; font-size:15px&quot;&gt;Meet the team&lt;/a&gt;
+&lt;table class=&quot;spacer&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;15&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:15px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;h3 style=&quot;-moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; padding:0; text-align:left; font-size:18px; font-weight:700; color:#333; font-family:Helvetica, Arial, sans-serif; letter-spacing:0.4px&quot;&gt;Advertising&lt;/h3&gt;
+&lt;a href=&quot;https://link.grocerydive.com/click/44964476.33407/aHR0cHM6Ly93d3cuZ3JvY2VyeWRpdmUuY29tL2FkdmVydGlzZS8_c2FpbHRocnVfbGlzdHNbQWR2ZXJ0aXNlJTIwSW50ZXJlc3QlMjAtJTIwR3JvY2VyeSUyMERpdmVdPTEmZW1haWw9eW03cW1oOTZzNGRzYW91eG5xMmMlNDBraWxsLXRoZS1uZXdzbGV0dGVyLmNvbSZ1dG1fY2FtcGFpZ249TkwtRm9vdGVyJnV0bV9zb3VyY2U9U2FpbHRocnUmdXRtX21lZGl1bT1lbWFpbA/69c9e9a92ac7111409071decBafab7cfe&quot; style=&quot;text-decoration:underline; color:#333; font-size:15px&quot;&gt;Contact our team&lt;/a&gt;
+&lt;table class=&quot;spacer&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;15&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:15px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;h3 style=&quot;-moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; padding:0; text-align:left; font-size:18px; font-weight:700; color:#333; font-family:Helvetica, Arial, sans-serif; letter-spacing:0.4px&quot;&gt;About Grocery Dive&lt;/h3&gt;
+&lt;p style=&quot;margin:0; -moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; mso-line-height-rule:exactly; padding:0; text-align:left; color:#333; font-family:Helvetica, Arial, sans-serif; font-size:15px; letter-spacing:0.4px&quot;&gt;Grocery Dive provides in-depth journalism and insight into the most impactful news and trends shaping the grocery industry. The newsletters and website cover topics such as shopper behavior, omnichannel, e-commerce, pricing and discounting, store formats, and more.&lt;/p&gt;
+&lt;br&gt;
+&lt;p style=&quot;margin:0; -moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; mso-line-height-rule:exactly; padding:0; text-align:left; color:#333; font-family:Helvetica, Arial, sans-serif; font-size:15px; letter-spacing:0.4px&quot;&gt;Grocery Dive is a leading publication operated by Informa TechTarget. Our business journalists spark ideas and shape agendas for&amp;nbsp;14&amp;nbsp;million decision makers in competitive industries.&lt;/p&gt;
+&lt;table class=&quot;spacer&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;15&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:15px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;table cellspacing=&quot;0&quot; cellpadding=&quot;0&quot; class=&quot;button cta active&quot; style=&quot;border-spacing:0; font-family:Helvetica, Arial, sans-serif; font-size:14px; letter-spacing:0.4px; line-height:160%; display:table; font-weight:bold; margin-top:10px; text-align:center; width:100%; overflow:visible&quot;&gt;
+&lt;tr&gt;
+&lt;td class=&quot;&quot; height=&quot;40&quot; style=&quot;padding:0; -moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; text-align:center; color:#333; font-family:Helvetica, Arial, sans-serif; font-size:15px; letter-spacing:0.4px; -moz-border-radius:5px; -webkit-border-radius:5px; background:#414192; border:solid 1px #ccc; border-radius:5px&quot;&gt;
+&lt;a href=&quot;https://link.grocerydive.com/click/44964476.33407/aHR0cHM6Ly93d3cuZ3JvY2VyeWRpdmUuY29tL3NpZ251cC8/69c9e9a92ac7111409071decCd76f6b6f&quot; style=&quot;text-decoration:none; color:#fff; display:block; font-size:15px; font-weight:400; letter-spacing:1px; line-height:300%; text-align:center&quot;&gt;Sign up for the newsletter&lt;/a&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&quot;inner-small contents disclaimer&quot; style=&quot;padding:10px 20px; -moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; text-align:left; color:#777; font-family:Helvetica, Arial, sans-serif; font-size:12px; letter-spacing:0.4px; width:100%&quot;&gt;
+&lt;table class=&quot;spacer&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;15&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:15px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;h2 class=&quot;&quot; style=&quot;-moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; padding:0; text-align:center; line-height:160%; font-size:20px; color:#333; font-family:Helvetica, Arial, sans-serif; letter-spacing:1px; font-weight:800; text-transform:uppercase&quot;&gt;
+&lt;/h2&gt;
+&lt;hr class=&quot;divider&quot; style=&quot;background-color:#dedede; border:none; color:#dedede; height:1px&quot; bgcolor=&quot;#dedede&quot;&gt;
+This email is optimized for display on mobile phones. Grocery Dive: Daily Dive is a product of TechTarget, Inc. and its subsidiaries,   275&amp;#8203; Grove St. Newton, MA, 02466 US. We value your privacy. We won&amp;rsquo;t share your email address with anyone else without your permission. This message was sent to ym7qmh96s4dsaouxnq2c@kill-the-newsletter.com. You can &lt;a href=&quot;https://link.grocerydive.com/oc/69c9e9a92ac7111409071decqrqt8.prz/34d37f77&quot; style=&quot;text-decoration:underline; color:#333&quot;&gt;unsubscribe&lt;/a&gt; or &lt;a href=&quot;https://link.grocerydive.com/oc/69c9e9a92ac7111409071decqrqt8.prz/34d37f77&quot; style=&quot;text-decoration:underline; color:#333&quot;&gt;switch to a weekly newsletter subscription&lt;/a&gt; anytime. See our full &lt;a href=&quot;https://link.grocerydive.com/click/44964476.33407/aHR0cHM6Ly93d3cuaW5mb3JtYXRlY2h0YXJnZXQuY29tL3ByaXZhY3ktcG9saWN5Lw/69c9e9a92ac7111409071decB89fa11bb&quot; style=&quot;text-decoration:underline; color:#666&quot;&gt;privacy policy&lt;/a&gt;.
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;!--[if (gte mso 9)|(IE)]&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;![endif]--&gt;
+&lt;!-- small spacer --&gt;
+&lt;table class=&quot;spacer&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;15&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:15px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;table class=&quot;beneath-footer &quot; width=&quot;100%&quot; style=&quot;border-spacing:0; font-family:Helvetica, Arial, sans-serif; font-size:14px; letter-spacing:0.4px; line-height:160%; background:#f5f5fa&quot;&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;padding:0; -moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; text-align:left; color:#333; font-family:Helvetica, Arial, sans-serif; font-size:15px; letter-spacing:0.4px&quot;&gt;
+&lt;!--[if (gte mso 9)|(IE)]&gt;
+&lt;table width=&quot;600&quot; align=&quot;center&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; border=&quot;0&quot;&gt;
+&lt;tr&gt;
+&lt;td&gt;
+&lt;![endif]--&gt;
+&lt;table class=&quot;outer&quot; style=&quot;border-spacing:0; font-family:Helvetica, Arial, sans-serif; font-size:14px; letter-spacing:0.4px; line-height:160%; margin:0 auto; max-width:600px; width:100%&quot;&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td class=&quot;inner-small contents&quot; style=&quot;padding:10px 20px; -moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; text-align:left; color:#333; font-family:Helvetica, Arial, sans-serif; font-size:15px; letter-spacing:0.4px; width:100%&quot;&gt;
+&lt;p style=&quot;margin:0; -moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; mso-line-height-rule:exactly; padding:0; text-align:center; color:#333; font-family:Helvetica, Arial, sans-serif; font-size:15px; letter-spacing:0.4px&quot;&gt;
+&lt;a href=&quot;https://link.grocerydive.com/click/44964476.33407/aHR0cHM6Ly93d3cuZ3JvY2VyeWRpdmUuY29tL3NpZ251cC8/69c9e9a92ac7111409071decDd76f6b6f&quot; style=&quot;text-decoration:underline; color:#333; font-size:15px&quot;&gt;Sign up&lt;/a&gt; | &lt;a href=&quot;https://link.grocerydive.com/oc/69c9e9a92ac7111409071decqrqt8.prz/34d37f77&quot; style=&quot;text-decoration:underline; color:#333; font-size:15px&quot;&gt;Manage subscription&lt;/a&gt;
+| &lt;a href=&quot;https://link.grocerydive.com/click/44964476.33407/aHR0cHM6Ly93d3cuZ3JvY2VyeWRpdmUuY29tL2FkdmVydGlzZS8_c2FpbHRocnVfbGlzdHNbQWR2ZXJ0aXNlJTIwSW50ZXJlc3QlMjAtJTIwR3JvY2VyeSUyMERpdmVdPTEmZW1haWw9eW03cW1oOTZzNGRzYW91eG5xMmMlNDBraWxsLXRoZS1uZXdzbGV0dGVyLmNvbSZ1dG1fY2FtcGFpZ249TkwtRm9vdGVyJnV0bV9zb3VyY2U9U2FpbHRocnUmdXRtX21lZGl1bT1lbWFpbA/69c9e9a92ac7111409071decCafab7cfe&quot; style=&quot;text-decoration:underline; color:#333; font-size:15px&quot;&gt;Advertise with us&lt;/a&gt;&lt;span class=&quot;hide-for-small&quot;&gt; | &lt;a href=&quot;https://link.grocerydive.com/click/44964476.33407/aHR0cHM6Ly93d3cuZ3JvY2VyeWRpdmUuY29tL2ZlZWRiYWNrLw/69c9e9a92ac7111409071decD23ed6655&quot; style=&quot;text-decoration:underline; color:#333; font-size:15px&quot;&gt;Submit story tip&lt;/a&gt;&lt;/span&gt; &lt;/p&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;!--[if (gte mso 9)|(IE)]&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;![endif]--&gt;
+&lt;!-- small spacer --&gt;
+&lt;table class=&quot;spacer&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;15&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:15px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;table class=&quot;spacer spacer-small&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;5&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:5px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;table class=&quot;spacer spacer-small&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;5&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:5px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;padding:0; -moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; text-align:left; color:#333; font-family:Helvetica, Arial, sans-serif; font-size:15px; letter-spacing:0.4px&quot;&gt;
+&lt;!--[if (gte mso 9)|(IE)]&gt;
+&lt;table width=&quot;600&quot; align=&quot;center&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; border=&quot;0&quot;&gt;
+&lt;tr&gt;
+&lt;td&gt;
+&lt;![endif]--&gt;
+&lt;table class=&quot;outer&quot; cellspacing=&quot;0&quot; cellpadding=&quot;0&quot; border=&quot;0&quot; style=&quot;border-spacing:0; font-family:Helvetica, Arial, sans-serif; font-size:14px; letter-spacing:0.4px; line-height:160%; margin:0 auto; max-width:600px; width:100%&quot;&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;padding:0; -moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; margin:0; mso-line-height-rule:exactly; text-align:left; color:#333; font-family:Helvetica, Arial, sans-serif; font-size:15px; letter-spacing:0.4px&quot;&gt;
+&lt;p class=&quot;informa-brandinner-small contents disclaimer&quot; style=&quot;margin:0; -moz-hyphens:none; -ms-hyphens:none; -webkit-hyphens:none; hyphens:none; mso-line-height-rule:exactly; padding:0; text-align:left; color:#333; font-family:Helvetica, Arial, sans-serif; font-size:15px; letter-spacing:0.4px; width:100%&quot;&gt;
+This site is owned and operated by TechTarget, Inc. and its subsidiaries.
+&lt;/p&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;!--[if (gte mso 9)|(IE)]&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;![endif]--&gt;
+&lt;!-- small spacer --&gt;
+&lt;table class=&quot;spacer&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;15&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:15px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;table class=&quot;spacer spacer-small&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;5&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:5px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;table class=&quot;spacer spacer-small&quot; style=&quot;border-spacing:0; padding:0&quot;&gt;
+&lt;tr style=&quot;padding:0&quot;&gt;&lt;td height=&quot;5&quot; style=&quot;padding:0; margin:0; mso-line-height-rule:exactly; font-size:5px; line-height:100%&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/center&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+
+                &lt;hr /&gt;
+                &lt;p&gt;
+                  &lt;small&gt;
+                    &lt;a
+                      href=&quot;https://kill-the-newsletter.com/feeds/ym7qmh96s4dsaouxnq2c&quot;
+                      &gt;Kill the Newsletter! feed settings&lt;/a
+                    &gt;
+                  &lt;/small&gt;
+                &lt;/p&gt;
+
+            </content>
+          </entry>
+
+          <entry>
+            <id>urn:kill-the-newsletter:pxrb2cb7l9xjz0om288p</id>
+            <link
+            rel="alternate"
+            type="text/html"
+            href="https://kill-the-newsletter.com/feeds/ym7qmh96s4dsaouxnq2c/entries/pxrb2cb7l9xjz0om288p.html"
+        />
+
+            <published>2026-03-30T03:10:35.904Z</published>
+            <updated>2026-03-30T03:10:35.904Z</updated>
+            <author>
+              <name>delivery_20260330031034.69c9e9a92ac7111409071deb@bounce.divenewsletter.com</name>
+              <email>delivery_20260330031034.69c9e9a92ac7111409071deb@bounce.divenewsletter.com</email>
+            </author>
+            <title>Thanks for signing up! A few things to know...</title>
+            <content type="html">
+
+&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;
+&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
+&lt;head&gt;
+&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot;&gt;
+&lt;!--[if !mso]&gt;&lt;!--&gt;
+&lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;
+&lt;!--&lt;![endif]--&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+&lt;meta name=&quot;x-apple-disable-message-reformatting&quot;&gt;
+&lt;title&gt;&lt;/title&gt;
+&lt;style type=&quot;text/css&quot;&gt;
+/* global */
+body {
+Margin: 0; /* Capitalized so Outlook doesn&apos;t strip it */
+min-width: 100%;
+padding: 0;
+}
+table {
+border-spacing: 0;
+color: #222222;
+font-family: Helvetica, Arial, sans-serif;
+width: 100%;
+}
+td {
+padding: 0;
+}
+a {
+color: #D62828;
+font-weight: 400;
+text-decoration: underline;
+}
+p, li {
+color: #222222;
+font-size: 16px;
+font-weight: 300;
+letter-spacing: .4px;
+}
+p {
+line-height: 1.55;
+line-height: 155%; /* using both for Outlook */
+Margin: 12px 0; /* Outlook hack */
+}
+/* hacks for line breaks */
+li p {
+Margin: 6px 0; /* hack for line breaks */
+}
+.p-margin-none {
+Margin: 0;
+}
+ul {
+padding: 0px;
+Margin: 0 0 0 40px;
+}
+img {
+border: 0;
+}
+/* One column layout */
+body { /* wrapper around everything */
+font-family: Helvetica, Arial, sans-serif;
+table-layout: fixed;
+-webkit-text-size-adjust: 100%;
+-ms-text-size-adjust: 100%;
+width: 100%;
+}
+.outer { /* wrapper around structural content */
+Margin: 0 auto; /* Centers the table in Yahoo and Chrome */
+width: 100%;
+}
+.inner { /* wrapper around inner/copy content */
+border: 1px solid #ccc;
+padding: 0 30px;
+text-align: left;
+width: 100%;
+}
+@media screen and (max-width: 600px) {
+.inner {
+border: 0px !important; /* no border on mobile */
+padding: 0 10px !important;
+}
+}
+/* logos */
+.pub-logo {
+display:inline-block;
+height: 32px;
+}
+/* button */
+.button a {
+color: #fff;
+display: inline-block;
+letter-spacing: 1.25px;
+line-height: 50px;
+text-decoration: none;
+}
+/* footer */
+.footer {
+text-align: center;
+}
+.footer p {
+font-size: 12px;
+}
+.footer p a {
+color: #222;
+}
+&lt;/style&gt;
+&lt;!--[if (gte mso 9)|(IE)]&gt;
+&lt;style type=&quot;text/css&quot;&gt;
+table {border-collapse: collapse;}
+.wrapper, table{
+font-family: Arial, sans-serif;
+}
+li {
+text-indent: -1em; /* Normalise space between bullets and text */
+}
+&lt;/style&gt;
+&lt;![endif]--&gt;
+&lt;!-- Outlook Hacks
+Unordered lists
+https://litmus.com/community/discussions/1093-bulletproof-lists-using-ul-and-li
+--&gt;
+&lt;/head&gt;
+&lt;div class=&quot;preheader&quot; style=&quot;mso-hide:all;color:#000001; font-size: 3px; overflow: hidden; display:none !important;line-height:6px;&quot;&gt;From here on out, we’ll keep you up-to-speed the latest news and trends shaping the grocery industry. What should you expect?
+Monday through Friday, our team of independent journalists will deliver a neatly packaged newsletter to your inbox with original stories and deep analysis. With your busy schedule in mind, most articles are written in a “brief” format to help you understand the key takeaways and broader industry impact. &lt;/div&gt;
+&lt;/td&gt;&lt;body style=&quot;margin: 0;min-width: 100%;padding: 0;font-family: Helvetica, Arial, sans-serif;table-layout: fixed;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;width: 100%;&quot;&gt;
+&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; border=&quot;0&quot; style=&quot;padding: 0px;margin: 0px;width: 100%;border-spacing: 0;color: #222222;font-family: Helvetica, Arial, sans-serif;&quot;&gt;
+&lt;!-- spacer --&gt;
+&lt;tr&gt;
+&lt;td colspan=&quot;3&quot; style=&quot;padding:0px;margin:0px;font-size:20px;height:20px;&quot; height=&quot;20&quot;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;padding:0px;margin:0px;&quot;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td style=&quot;padding:0px;margin:0px;&quot; width=&quot;600&quot;&gt;
+&lt;!-- main content --&gt;
+&lt;table class=&quot;outer&quot; align=&quot;center&quot; style=&quot;border-spacing: 0;color: #222222;font-family: Helvetica, Arial, sans-serif;width: 100%;margin: 0 auto;&quot;&gt;
+&lt;tr&gt;
+&lt;td style=&quot;background: #FFFFFF;padding: 0;&quot;&gt;
+&lt;table width=&quot;100%&quot; style=&quot;border-spacing: 0;color: #222222;font-family: Helvetica, Arial, sans-serif;width: 100%;&quot;&gt;
+&lt;tr&gt;
+&lt;td class=&quot;inner&quot; style=&quot;padding: 0 30px;border: 1px solid #ccc;text-align: left;width: 100%;&quot;&gt;
+&lt;!-- spacer --&gt;
+&lt;table style=&quot;border-spacing: 0;color: #222222;font-family: Helvetica, Arial, sans-serif;width: 100%;&quot;&gt;
+&lt;tr&gt;
+&lt;td width=&quot;100%&quot; style=&quot;font-size: 15px;line-height: 15px;padding: 0;&quot;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;!-- logo --&gt;
+&lt;table style=&quot;border-spacing: 0;color: #222222;font-family: Helvetica, Arial, sans-serif;width: 100%;&quot;&gt;
+&lt;tr&gt;
+&lt;td width=&quot;100%&quot; style=&quot;font-size: 10px;line-height: 10px;padding: 0;&quot;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;center&gt;&lt;img src=&quot;http://d12v9rtnomnebu.cloudfront.net/logo/publications/grocery_black.png&quot; height=&quot;40&quot; width=&quot;&quot;alt=&quot;Dive Logo&quot; class=&quot;pub-logo&quot; style=&quot;border: 0;display: inline-block;height: 40px; max-width:315px !important;&quot;&gt;&lt;img src=&quot;https://link.divenewsletter.com/img/69c9e9a92ac7111409071dec69c9e9a92ac7111409071deb/8ec99904.gif&quot;&gt;&lt;/center&gt;
+&lt;!-- spacer --&gt;
+&lt;table style=&quot;border-spacing: 0;color: #222222;font-family: Helvetica, Arial, sans-serif;width: 100%;&quot;&gt;
+&lt;tr&gt;
+&lt;td width=&quot;100%&quot; style=&quot;font-size: 15px;line-height: 15px;padding: 0;&quot;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;!-- copy --&gt;
+&lt;p style=&quot;color: #222222;font-size: 24px;font-weight: 600;letter-spacing: .4px;line-height: 155%;margin: 12px 0;&quot;&gt;Welcome to Grocery Dive&apos;s Daily Dive!&lt;/p&gt;
+&lt;p style=&quot;color: #222222;font-size: 16px;font-weight: 300;letter-spacing: .4px;line-height: 155%;margin: 12px 0;&quot;&gt;From here on out, we&amp;#39;ll keep you up-to-speed with the latest news and trends shaping the grocery industry.&lt;/p&gt;
+&lt;!-- spacer --&gt;
+&lt;!-- copy --&gt;
+&lt;p style=&quot;color: #222222;font-size: 16px;font-weight: 600;letter-spacing: .4px;line-height: 155%;margin: 12px 0;&quot;&gt;What you can expect from the Daily Dive:&lt;/p&gt;
+&lt;ul&gt;
+&lt;table style=&quot;border-spacing: 0;color: #222222;font-family: Helvetica, Arial, sans-serif;width: 100%;&quot;&gt;
+&lt;tr&gt;
+&lt;td width=&quot;100%&quot; style=&quot;font-size: 1px;line-height: 1px;padding: 0;&quot;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;p style=&quot;color: #222222;font-size: 16px;font-weight: 300;letter-spacing: .4px;line-height: 155%;margin: 12px 0;&quot;&gt;&lt;li&gt;&lt;b&gt;Daily, digestible news stories:&lt;/b&gt; Monday through Friday, our team of independent journalists will deliver a neatly packaged newsletter to your inbox with original stories and deep analysis. With your busy schedule in mind, most articles are written in a “brief” format to help you understand the key takeaways and broader industry impact. &lt;a href=&quot;https://link.grocerydive.com/click/69c9e9a92ac7111409071deb/aHR0cDovL3d3dy5ncm9jZXJ5ZGl2ZS5jb20v/69c9e9a92ac7111409071decBd3fb730d&quot; style=&quot;color:#d62828&quot;&gt;Get reading.&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;!-- spacer --&gt;
+&lt;table style=&quot;border-spacing: 0;color: #222222;font-family: Helvetica, Arial, sans-serif;width: 100%;&quot;&gt;
+&lt;tr&gt;
+&lt;td width=&quot;100%&quot; style=&quot;font-size: 1px;line-height: 1px;padding: 0;&quot;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;p style=&quot;color: #222222;font-size: 16px;font-weight: 300;letter-spacing: .4px;line-height: 155%;margin: 12px 0;&quot;&gt;&lt;li&gt;&lt;b&gt;Original content, free of charge:&lt;/b&gt;  To provide you with exclusive stories and deep industry reporting at no cost, you may also receive email messages from our supporting sponsors throughout the week. We strive to make them relevant to you and your broader industry and our sponsors have zero influence on our editorial content.&lt;/p&gt;&lt;/li&gt;
+&lt;!-- spacer --&gt;
+&lt;table style=&quot;border-spacing: 0;color: #222222;font-family: Helvetica, Arial, sans-serif;width: 100%;&quot;&gt;
+&lt;tr&gt;
+&lt;td width=&quot;100%&quot; style=&quot;font-size: 1px;line-height: 1px;padding: 0;&quot;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;p style=&quot;color: #222222;font-size: 16px;font-weight: 300;letter-spacing: .4px;line-height: 155%;margin: 12px 0;&quot;&gt;&lt;li&gt;&lt;b&gt;Bonus weekend round up:&lt;/b&gt;  As part of your subscription, you’ll receive our complimentary Weekender edition every Saturday, highlighting the most-read stories from the week. You may &lt;a href=&quot;https://link.divenewsletter.com/oc/69c9e9a92ac7111409071dec69c9e9a92ac7111409071deb/cd02d02b&quot; style=&quot;color:#d62828&quot;&gt;adjust your subscription at any time.&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;&lt;/ul&gt;
+&lt;!-- spacer --&gt;
+&lt;!-- copy --&gt;
+&lt;p style=&quot;color: #222222;font-size: 16px;font-weight: 600;letter-spacing: .4px;line-height: 155%;margin: 12px 0;&quot;&gt;Important information about your newsletter subscription:&lt;/p&gt;
+&lt;ul&gt;
+&lt;table style=&quot;border-spacing: 0;color: #222222;font-family: Helvetica, Arial, sans-serif;width: 100%;&quot;&gt;
+&lt;tr&gt;
+&lt;td width=&quot;100%&quot; style=&quot;font-size: 1px;line-height: 1px;padding: 0;&quot;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;p style=&quot;color: #222222;font-size: 16px;font-weight: 300;letter-spacing: .4px;line-height: 155%;margin: 12px 0;&quot;&gt;&lt;li&gt;&lt;b&gt;Add us to your inbox:&lt;/b&gt; To ensure we make it into your inbox regularly, add us to your allow list, mark us as a safe sender, add us to your address book (&lt;a href=&quot;{newsletter@divenewsletter.com}&quot; style=&quot;color: #D62828;font-weight: 400;text-decoration: underline;&quot;&gt;newsletter@divenewsletter.com&lt;/a&gt;), or simply respond to this email (this helps signal you want to hear from us!). If you are a Gmail user, click on this email and drag it to your Primary Inbox tab. For more information, &lt;a href=&quot;https://link.divenewsletter.com/click/69c9e9a92ac7111409071deb/aHR0cHM6Ly93d3cuaW5kdXN0cnlkaXZlLmNvbS9ob3ctdG8tbmV3c2xldHRlci1pbmJveC10aXBzLw/69c9e9a92ac7111409071decB083ae72c&quot; style=&quot;color:#d62828&quot;&gt;here are some instructions.&lt;/a&gt;
+&lt;/p&gt;&lt;/li&gt;
+&lt;!-- spacer --&gt;
+&lt;table style=&quot;border-spacing: 0;color: #222222;font-family: Helvetica, Arial, sans-serif;width: 100%;&quot;&gt;
+&lt;tr&gt;
+&lt;td width=&quot;100%&quot; style=&quot;font-size: 1px;line-height: 1px;padding: 0;&quot;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;p style=&quot;color: #222222;font-size: 16px;font-weight: 300;letter-spacing: .4px;line-height: 155%;margin: 12px 0;&quot;&gt;&lt;li&gt;&lt;b&gt;Change your mind?&lt;/b&gt; If after receiving the newsletter, you decide it is not for you, you can unsubscribe at any time.&lt;/p&gt;&lt;/li&gt; &lt;/ul&gt;
+&lt;!-- spacer --&gt;
+&lt;p style=&quot;color: #222222;font-size: 16px;font-weight: 300;letter-spacing: .4px;line-height: 155%;margin: 12px 0;&quot;&gt;If you have any questions, please do not hesitate to &lt;a href=&quot;https://link.grocerydive.com/click/69c9e9a92ac7111409071deb/aHR0cHM6Ly93d3cuZ3JvY2VyeWRpdmUuY29tL2ZlZWRiYWNrLw/69c9e9a92ac7111409071decB70e2ca5e&quot; style=&quot;color: #D62828;font-weight: 400;text-decoration: underline;&quot;&gt;contact us at any time&lt;/a&gt;.
+&lt;/p&gt;
+&lt;!-- spacer --&gt;
+&lt;p style=&quot;color: #222222;font-size: 16px;font-weight: 300;letter-spacing: .4px;line-height: 155%;margin: 12px 0;&quot;&gt;Thanks for reading. We hope you enjoy the Daily Dive newsletter. We’re so glad you’re here!
+&lt;/p&gt;
+&lt;!-- spacer --&gt;
+&lt;table style=&quot;border-spacing: 0;color: #222222;font-family: Helvetica, Arial, sans-serif;width: 100%;&quot;&gt;
+&lt;tr&gt;
+&lt;td width=&quot;100%&quot; style=&quot;font-size: 6px;line-height: 6px;padding: 0;&quot;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;img src=&quot;https://d12v9rtnomnebu.cloudfront.net/diveimages/wells-jeff-square-600x600.jpg&quot; align=&quot;left&quot; width=70 height=70 style=&quot;margin-right:10px;max-width:70px;max-height:70px;&quot;&gt;
+&lt;p class=&quot;p-margin-none&quot; style=&quot;color: #222222;font-size: 16px;font-weight: 300;letter-spacing: .4px;line-height: 125%;margin: 0;&quot;&gt;&amp;nbsp;Best,&lt;/p&gt;
+&lt;p class=&quot;p-margin-none&quot; style=&quot;color: #222222;font-size: 16px;font-weight: 300;letter-spacing: .4px;line-height: 125%;margin: 0;&quot;&gt;&amp;nbsp;Jeff Wells&lt;/p&gt;
+&lt;p class=&quot;p-margin-none&quot; style=&quot;color: #222222;font-size: 16px;font-weight: 300;letter-spacing: .4px;line-height: 125%;margin: 0;&quot;&gt;&lt;i&gt;&amp;nbsp;Lead Editor, Grocery Dive&lt;/i&gt;&lt;/p&gt;
+&lt;!-- spacer --&gt;
+&lt;table style=&quot;border-spacing: 0;color: #222222;font-family: Helvetica, Arial, sans-serif;width: 100%;&quot;&gt;
+&lt;tr&gt;
+&lt;td width=&quot;100%&quot; style=&quot;font-size: 6px;line-height: 6px;padding: 0;&quot;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;!-- spacer --&gt;
+&lt;table style=&quot;border-spacing: 0;color: #222222;font-family: Helvetica, Arial, sans-serif;width: 100%;&quot;&gt;
+&lt;tr&gt;
+&lt;td width=&quot;100%&quot; style=&quot;font-size: 20px;line-height: 20px;padding: 0;&quot;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;&lt;!-- end of inner contents --&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt; &lt;!-- end of column --&gt;
+&lt;/tr&gt;
+&lt;/table&gt; &lt;!-- end of outer --&gt;
+&lt;!-- spacer --&gt;
+&lt;table style=&quot;border-spacing: 0;color: #222222;font-family: Helvetica, Arial, sans-serif;width: 100%;&quot;&gt;
+&lt;tr&gt;
+&lt;td width=&quot;100%&quot; style=&quot;font-size: 10px;line-height: 10px;padding: 0;&quot;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;!-- footer --&gt;
+&lt;center&gt;
+&lt;table class=&quot;footer&quot; style=&quot;border-spacing: 0;color: #222222;font-family: Helvetica, Arial, sans-serif;width: 100%;text-align: center;&quot;&gt;
+&lt;tr&gt;
+&lt;td style=&quot;padding: 0;&quot;&gt;
+&lt;p style=&quot;color: #222222;font-size: 12px;font-weight: 300;letter-spacing: .4px;line-height: 155%;margin: 12px 0;&quot;&gt;
+&lt;a href=&quot;https://link.divenewsletter.com/oc/69c9e9a92ac7111409071dec69c9e9a92ac7111409071deb/cd02d02b&quot; style=&quot;color: #222;font-weight: 400;text-decoration: none;&quot;&gt;Manage Subscriptions&lt;/a&gt; |
+&lt;a href=&quot;https://link.divenewsletter.com/oc/69c9e9a92ac7111409071dec69c9e9a92ac7111409071deb/cd02d02b&quot; style=&quot;color: #222;font-weight: 400;text-decoration: none;&quot;&gt;Unsubscribe&lt;/a&gt;
+&lt;/p&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/center&gt;
+&lt;!-- spacer --&gt;
+&lt;table style=&quot;border-spacing: 0;color: #222222;font-family: Helvetica, Arial, sans-serif;width: 100%;&quot;&gt;
+&lt;tr&gt;
+&lt;td width=&quot;100%&quot; style=&quot;font-size: 25px;line-height: 20px;padding: 0;&quot;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/td&gt;
+&lt;td style=&quot;padding:0px;margin:0px;&quot;&gt;&amp;nbsp;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td colspan=&quot;3&quot; style=&quot;padding:0px;margin:0px;font-size:20px;height:20px;&quot; height=&quot;20&quot;&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+
+
+                &lt;hr /&gt;
+                &lt;p&gt;
+                  &lt;small&gt;
+                    &lt;a
+                      href=&quot;https://kill-the-newsletter.com/feeds/ym7qmh96s4dsaouxnq2c&quot;
+                      &gt;Kill the Newsletter! feed settings&lt;/a
+                    &gt;
+                  &lt;/small&gt;
+                &lt;/p&gt;
+
+            </content>
+          </entry>
+
+    </feed>

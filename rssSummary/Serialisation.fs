@@ -7,12 +7,20 @@ open System.Text.RegularExpressions
 open DomainModels
 
 let jsonOptions =
-    let options = JsonSerializerOptions(PropertyNamingPolicy = JsonNamingPolicy.CamelCase)
+    let options =
+        JsonSerializerOptions(PropertyNamingPolicy = JsonNamingPolicy.CamelCase)
+
     options.WriteIndented <- true
-    options.Converters.Add(JsonFSharpConverter(
-        JsonFSharpOptions.Default()
-            .WithUnionUnwrapFieldlessTags()
-            .WithSkippableOptionFields()))
+
+    options.Converters.Add(
+        JsonFSharpConverter(
+            JsonFSharpOptions
+                .Default()
+                .WithUnionUnwrapFieldlessTags()
+                .WithSkippableOptionFields()
+        )
+    )
+
     options
 
 let serializeDerivedSourceFeed (feed: DerivedSourceFeed) : string =
@@ -27,7 +35,6 @@ let serializeSourcesConfiguration (config: SourcesConfiguration) : string =
 let deserializeSourcesConfiguration (json: string) : SourcesConfiguration =
     JsonSerializer.Deserialize<SourcesConfiguration>(json, jsonOptions)
 
-// SDK interop
 let toAnthropicStatus (status: ProcessingStatus) =
     match status with
     | InProgress -> Anthropic.Models.Messages.Batches.ProcessingStatus.InProgress
@@ -41,15 +48,19 @@ let fromAnthropicStatus (status: Anthropic.Models.Messages.Batches.ProcessingSta
     | _ -> Ended
 
 let htmlSanitized (s: string) =
-    if isNull s then ""
+    if isNull s then
+        ""
     else
         let doc = HtmlAgilityPack.HtmlDocument()
         doc.LoadHtml s
         doc.DocumentNode.InnerText
 
 let firstSentenceRemove (s: string) =
-    if String.IsNullOrEmpty(s) then s
+    if String.IsNullOrEmpty(s) then
+        s
     else
-        // Match first sentence ending with period, exclamation, or question mark
-        let m = Regex.Match(s, @"^[^.!?]+[.!?]\s*")
-        if m.Success then s.Substring(m.Length) else s
+        let m = Regex.Match(s, "^[^.]*(?:\.[^.]*)*?\.bm[^.]*\.\s*")
+        Console.WriteLine s
+        Console.WriteLine(s.Substring m.Length)
+
+        if m.Success then s.Substring m.Length else s

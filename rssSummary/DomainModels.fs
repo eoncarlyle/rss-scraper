@@ -32,13 +32,19 @@ type DerivedSourceFeed =
     { SourceUrl: String
       Batches: SourceFeedSummaryRequestBatch array }
 
+type SourceSlug =
+    | [<JsonName "artemis">] Artemis
+    | [<JsonName "grocery-dive">] GroceryDive
+    | [<JsonName "c-store-dive">] CStoreDive
+    | [<JsonName "supply-chain-dive">] SupplyChainDive
+
 type LangaugeModel =
     | [<JsonName "claude-haiku-4-5">] ClaudeHaiku45
     | [<JsonName "gemini-2-5-flash-lite">] Gemini25FlashLite
 
 type SourceConfig =
     { SourceUrl: string
-      SourceSlug: string
+      SourceSlug: SourceSlug
       Model: LangaugeModel option
       SystemPrompt: string option
       InputTokenCutoff: int
@@ -48,14 +54,14 @@ type SourceConfig =
 
 type SourcesConfiguration = { Sources: SourceConfig array }
 
-type SubmitBatchParameters = {
-    SystemPrompt: string
-    InputTokenCutoff: int
-    OutputTokenCutoff: int
-}
+type SubmitBatchParameters =
+    { SystemPrompt: string
+      InputTokenCutoff: int
+      OutputTokenCutoff: int }
 
 
 type LangaugeModelActions =
-    {
-      SubmitBatch: MinimalRssItem array -> SubmitBatchParameters -> Task<SourceFeedSummaryRequestBatch>
+    { SubmitBatch: MinimalRssItem array -> SubmitBatchParameters -> Task<SourceFeedSummaryRequestBatch>
       GetUpdatedDerivedFeed: SourceConfig -> DerivedSourceFeed -> Task<DerivedSourceFeed option> }
+
+type S3Object = { Content: String; ETag: String }
