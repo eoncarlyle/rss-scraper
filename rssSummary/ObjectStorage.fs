@@ -15,7 +15,7 @@ let internal bucketName = Environment.GetEnvironmentVariable("TIGRIS_BUCKET")
 let internal s3Client =
     new AmazonS3Client(AmazonS3Config(ServiceURL = tigrisEndpoint, ForcePathStyle = true))
 
-let getObjectAsync (key: string) : Task<S3Object option> =
+let getS3Object (key: string) : Task<S3Object option> =
     task {
         try
             let request = GetObjectRequest(BucketName = bucketName, Key = key)
@@ -32,7 +32,7 @@ let getObjectAsync (key: string) : Task<S3Object option> =
     }
 
 
-let putObjectAsync key content (maybeETag: string option) =
+let putS3Object key content (maybeETag: string option) =
     task {
         try
             let request =
@@ -42,7 +42,7 @@ let putObjectAsync key content (maybeETag: string option) =
                     ContentBody = content,
                     DisablePayloadSigning = true
                 )
-
+            
             maybeETag |> Option.iter (fun eTag -> request.IfMatch <- eTag)
 
             let! update = s3Client.PutObjectAsync request
@@ -51,7 +51,7 @@ let putObjectAsync key content (maybeETag: string option) =
             return Error ex.StatusCode
     }
 
-let objectExistsAsync (key: string) =
+let objectExists (key: string) =
     task {
         try
             let request = GetObjectMetadataRequest(BucketName = bucketName, Key = key)

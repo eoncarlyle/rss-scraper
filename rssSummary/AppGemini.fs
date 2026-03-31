@@ -17,12 +17,12 @@ let internal encoder = Encoder(O200KBase())
 let internal clientCooldown = 100
 
 type ItemTokenRecord =
-    { MinimalRssItem: MinimalRssItem
+    { MinimalRssItem: RssItem
       TokenCount: Int32
       Guid: Guid }
 
 let internal getRequestsWithExcludes
-    (items: (MinimalRssItem * Guid) array)
+    (items: (RssItem * Guid) array)
     submitBatchParameters
     =
 
@@ -77,8 +77,8 @@ let internal clientBatchRequest model (requests: InlinedRequest array) =
 
 let internal submitModelAgnosticBatch
     maybeModel
-    (items: MinimalRssItem array)
-    (submitBatchParameters: SubmitBatchParameters)
+    (items: RssItem array)
+    summaryRequestParameters
     =
     let model = Option.defaultValue "gemini-2.5-flash-lite" maybeModel
 
@@ -86,7 +86,7 @@ let internal submitModelAgnosticBatch
         let itemsWithRequestGuids = Array.map (fun item -> item, Guid.NewGuid()) items
 
         let requestWithExcludes =
-            getRequestsWithExcludes itemsWithRequestGuids submitBatchParameters
+            getRequestsWithExcludes itemsWithRequestGuids summaryRequestParameters
 
         let! response = clientBatchRequest model <| fst requestWithExcludes
         let excludes = snd requestWithExcludes |> Array.map _.MinimalRssItem
@@ -114,8 +114,8 @@ let internal submitModelAgnosticBatch
               BatchItems = batchItems }
     }
 
-let submitBatch (items: MinimalRssItem array) (submitBatchParameters: SubmitBatchParameters) =
-    submitModelAgnosticBatch (Some "gemini-2.5-flash-lite") items submitBatchParameters
+let submitBatch (items: RssItem array) summaryRequestParameters =
+    submitModelAgnosticBatch (Some "gemini-2.5-flash-lite") items summaryRequestParameters
 
 let submitSpecialBatchFactory = fun model -> submitModelAgnosticBatch (Some model)
 
@@ -126,11 +126,11 @@ let internal isTerminalState (state: JobState) =
     || state = JobState.JobStateExpired
     || state = JobState.JobStatePartiallySucceeded
 
-let internal applyBatchResult (batchResponses: Map<string, InlinedResponse>) (batchItem: BatchRssItem) =
-    if not (batchResponses.ContainsKey batchItem.Guid) then
-        batchItem
+let internal applyBatchResult (batchResponses: Map<string, InlinedResponse>) (derivedItem: DerivedItem) =
+    if not (batchResponses.ContainsKey derivedItem.Guid) then
+        derivedItem
     else
-        let inlinedResponse = Map.find batchItem.Guid batchResponses
+        let inlinedResponse = Map.find derivedItem.Guid batchResponses
 
         let parsedText =
             if inlinedResponse.Error <> null then
@@ -148,18 +148,18 @@ let internal applyBatchResult (batchResponses: Map<string, InlinedResponse>) (ba
             |> Result.defaultWith (fun err -> err |> Option.defaultValue "Unknown error")
 
         if Result.isOk parsedText then
-            { batchItem with
+            { derivedItem with
                 Result = Some resultText }
         else
-            batchItem
+            derivedItem
 
 let getUpdatedDerivedFeed
-    (source: SourceConfig)
-    (derivedSourceFeed: DerivedSourceFeed)
-    : Task<DerivedSourceFeed option> =
+    (sourceFeed: SourceFeed)
+    (derivedFeed: DerivedFeed)
+    : Task<DerivedFeed option> =
 
     let inProgressBatches =
-        derivedSourceFeed.Batches
+        derivedFeed.Batches
         |> Array.filter (fun batch -> batch.ProcessingStatus = InProgress)
 
     task {
@@ -192,7 +192,7 @@ let getUpdatedDerivedFeed
                 None
             else
                 let newBatches =
-                    derivedSourceFeed.Batches
+                    derivedFeed.Batches
                     |> Array.map (fun batch ->
                         if finishedBatches.ContainsKey batch.Id then
                             let batchResponses = finishedBatches[batch.Id]
@@ -206,7 +206,7 @@ let getUpdatedDerivedFeed
                             batch)
 
                 Some
-                    { SourceUrl = derivedSourceFeed.SourceUrl
+                    { SourceUrl = derivedFeed.SourceUrl
                       Batches = newBatches }
     }
 

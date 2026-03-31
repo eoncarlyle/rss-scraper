@@ -1,5 +1,6 @@
-module OriginalSourceFeeds
+module SourceFeeds
 
+open System
 open FsHttp // Did not know you could scope this way, which is nice
 open DomainModels
 open Serialisation
@@ -13,7 +14,7 @@ module Artemis =
     type ArtemisRss = XmlProvider<"schema/artemis.rss">
     let localArtemisRss = ArtemisRss.Load "schema/artemis.rss"
 
-    let deserialiseRssItem (item: ArtemisRss.Item) : MinimalRssItem =
+    let deserialiseRssItem (item: ArtemisRss.Item) : RssItem =
         { Title = item.Title
           Guid =
             if isNull (box item.Guid) then
@@ -34,7 +35,7 @@ module Artemis =
             }
 
         task {
-            let! response = request |> Request.sendTAsync
+            let response = request |> Request.send
             let body = Response.toText response
             let feed = body |> ArtemisRss.Parse
             return Array.map deserialiseRssItem feed.Channel.Items
@@ -44,7 +45,7 @@ module GroceryDive =
     type GroceryDiveRss = XmlProvider<"schema/grocery-dive.rss">
     let localGroceryDiveRss = GroceryDiveRss.Load "schema/grocery-dive.rss"
 
-    let deserialiseRssItem (item: GroceryDiveRss.Entry) : MinimalRssItem =
+    let deserialiseRssItem (item: GroceryDiveRss.Entry) : RssItem =
         { Title = item.Title
           Guid = if isNull (box item.Id) then None else Some item.Id
           Link = Some item.Link.Href
@@ -63,7 +64,7 @@ module GroceryDive =
             }
 
         task {
-            let! response = request |> Request.sendTAsync
+            let response = request |> Request.send
             let body = Response.toText response
             let feed = body |> GroceryDiveRss.Parse
             return Array.map deserialiseRssItem feed.Entries

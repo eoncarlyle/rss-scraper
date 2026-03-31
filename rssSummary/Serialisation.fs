@@ -23,17 +23,17 @@ let jsonOptions =
 
     options
 
-let serializeDerivedSourceFeed (feed: DerivedSourceFeed) : string =
+let serializeDerivedSourceFeed (feed: DerivedFeed) : string =
     JsonSerializer.Serialize(feed, jsonOptions)
 
-let deserializeDerivedSourceFeed (json: string) : DerivedSourceFeed =
-    JsonSerializer.Deserialize<DerivedSourceFeed>(json, jsonOptions)
+let deserializeDerivedSourceFeed (json: string) : DerivedFeed =
+    JsonSerializer.Deserialize<DerivedFeed>(json, jsonOptions)
 
-let serializeSourcesConfiguration (config: SourcesConfiguration) : string =
+let serializeSourcesConfiguration (config: SourceFeeds) : string =
     JsonSerializer.Serialize(config, jsonOptions)
 
-let deserializeSourcesConfiguration (json: string) : SourcesConfiguration =
-    JsonSerializer.Deserialize<SourcesConfiguration>(json, jsonOptions)
+let deserializeSourcesConfiguration (json: string) : SourceFeeds =
+    JsonSerializer.Deserialize<SourceFeeds>(json, jsonOptions)
 
 let toAnthropicStatus (status: ProcessingStatus) =
     match status with
@@ -60,7 +60,4 @@ let firstSentenceRemove (s: string) =
         s
     else
         let m = Regex.Match(s, "^[^.]*(?:\.[^.]*)*?\.bm[^.]*\.\s*")
-        Console.WriteLine s
-        Console.WriteLine(s.Substring m.Length)
-
         if m.Success then s.Substring m.Length else s

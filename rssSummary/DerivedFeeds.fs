@@ -1,4 +1,4 @@
-module DerivedSourceFeeds
+module DerivedFeeds
 
 open System.IO
 open System
@@ -9,19 +9,40 @@ open DomainModels
 
 
 let sourcesConfiguration =
-    File.ReadAllText "sources.json" |> deserializeSourcesConfiguration
+    File.ReadAllText "sourceFeeds.json" |> deserializeSourcesConfiguration
 
-let getDerivedSourceFeedKey (source: SourceConfig) = $"{source.SourceSlug}.derived.json"
+let getDerivedSourceFeedKey (sourceFeed: SourceFeed) = $"{sourceFeed.SourceSlug}.derived.json"
 
-let isEquivalent (sourceItem: MinimalRssItem) (batchItem: BatchRssItem) =
-    sourceItem.Title = batchItem.Item.Title
-    && sourceItem.Guid = batchItem.Item.Guid
-    && sourceItem.Link = batchItem.Item.Link
+let isEquivalent (item: RssItem) (batchItem: DerivedItem) =
+    item.Title = batchItem.Item.Title
+    && item.Guid = batchItem.Item.Guid
+    && item.Link = batchItem.Item.Link
 
-let getSourceItemsToSubmit (source: SourceConfig) (incomingRssItems: MinimalRssItem array) =
+// Need to accept a factory to get the full item for a fresh etag: not the first time I've made this mistake
+//let putWithRetry (times: int) (feedKey: string) (factory: string -> Task<Result<string, Net.HttpStatusCode>>) =
+//    let mutable result = Error (Net.HttpStatusCode.BadRequest)
+//    task { 
+//        for _ in 1 .. times do
+//           if result.IsError then
+//                let! maybeS3Object = ObjectStorage.getS3Object feedKey
+//                let! nextResult = factory ()
+//                result <- nextResult
+//        return result
+//    }    
+    //{ 1..times }
+    //|> Seq.map (fun _ -> factory)
+    //|> Seq.reduce (fun f1 f2 ->
+    //    task
+    //        {
+    //            return ()
+    //        } |> Task.WaitAny)
+
+
+
+let getSourceItemsToSubmit (sourceFeed: SourceFeed) (incomingRssItems: RssItem array) =
     task {
-        let feedKey = getDerivedSourceFeedKey source
-        let! maybeS3Object = ObjectStorage.getObjectAsync feedKey
+        let feedKey = getDerivedSourceFeedKey sourceFeed
+        let! maybeS3Object = ObjectStorage.getS3Object feedKey
 
         match maybeS3Object with
         | Some s3Object ->
@@ -32,7 +53,7 @@ let getSourceItemsToSubmit (source: SourceConfig) (incomingRssItems: MinimalRssI
                 existingDerivedFeed.Batches |> Array.map _.BatchItems |> Array.concat
 
             if Array.length submittedBatchItems = 0 then
-                return Array.truncate source.MaximumLookback incomingRssItems
+                return Array.truncate sourceFeed.MaximumLookback incomingRssItems
             else
                 let truncationIndex =
                     incomingRssItems
@@ -40,7 +61,7 @@ let getSourceItemsToSubmit (source: SourceConfig) (incomingRssItems: MinimalRssI
                         submittedBatchItems
                         |> Array.tryFind (fun batchItem -> isEquivalent incomingItem batchItem)
                         |> Option.isSome)
-                    |> Option.defaultValue source.MaximumLookback
+                    |> Option.defaultValue sourceFeed.MaximumLookback
 
                 return
                     incomingRssItems
@@ -51,12 +72,12 @@ let getSourceItemsToSubmit (source: SourceConfig) (incomingRssItems: MinimalRssI
                             |> Array.tryFind (fun batchItem -> isEquivalent sourceItem batchItem)
 
                         maybeMatch.IsNone)
-        | None -> return Array.truncate source.MaximumLookback incomingRssItems
+        | None -> return Array.truncate sourceFeed.MaximumLookback incomingRssItems
     }
 
 let parseSourceWithSubmitBatch
     source
-    (fetchSource: string -> Task<MinimalRssItem array>)
+    (fetchSource: string -> Task<RssItem array>)
     (modelActions: LangaugeModelActions)
     =
     task {
@@ -76,21 +97,25 @@ let parseSourceWithSubmitBatch
             return None
     }
 
-let writeUpdatedDerivedSourceFeed (source: SourceConfig) (updatedDerivedFeed: DerivedSourceFeed) =
+let writeUpdatedDerivedSourceFeed (source: SourceFeed) (updatedDerivedFeed: DerivedFeed) =
     task {
         let feedKey = getDerivedSourceFeedKey source
-        let! exists = ObjectStorage.objectExistsAsync feedKey
+        let! maybeS3Object = ObjectStorage.getS3Object feedKey
 
-        if not exists then
+        if not maybeS3Object.IsSome then
             failwith $"Derived feed {feedKey} does not exist"
 
-        return! ObjectStorage.putObjectAsync feedKey (serializeDerivedSourceFeed updatedDerivedFeed) None
+        return!
+            ObjectStorage.putS3Object
+                feedKey
+                (serializeDerivedSourceFeed updatedDerivedFeed)
+                (maybeS3Object |> Option.map _.ETag)
     }
 
-let appendBatchToFeed (source: SourceConfig) (incomingSubmitBatch: SourceFeedSummaryRequestBatch) =
+let appendBatchToFeed (sourceFeed: SourceFeed) (derivedBatch: DerivedBatch) =
     task {
-        let feedKey = getDerivedSourceFeedKey source
-        let! maybeS3Object = ObjectStorage.getObjectAsync feedKey
+        let feedKey = getDerivedSourceFeedKey sourceFeed
+        let! maybeS3Object = ObjectStorage.getS3Object feedKey
 
         match maybeS3Object with
         | Some s3Object ->
@@ -98,15 +123,16 @@ let appendBatchToFeed (source: SourceConfig) (incomingSubmitBatch: SourceFeedSum
 
             let updatedDerivedFeed =
                 { SourceUrl = existingDerivedFeed.SourceUrl
-                  Batches = Array.append existingDerivedFeed.Batches [| incomingSubmitBatch |] }
+                  Batches = Array.append existingDerivedFeed.Batches [| derivedBatch |] }
 
-            return! ObjectStorage.putObjectAsync feedKey (serializeDerivedSourceFeed updatedDerivedFeed) None
+            return!
+                ObjectStorage.putS3Object feedKey (serializeDerivedSourceFeed updatedDerivedFeed) (Some s3Object.ETag)
         | None ->
             let derivedSourceFeed =
-                { SourceUrl = source.SourceUrl
-                  Batches = [| incomingSubmitBatch |] }
+                { SourceUrl = sourceFeed.SourceUrl
+                  Batches = [| derivedBatch |] }
 
-            return! ObjectStorage.putObjectAsync feedKey (serializeDerivedSourceFeed derivedSourceFeed) None
+            return! ObjectStorage.putS3Object feedKey (serializeDerivedSourceFeed derivedSourceFeed) None
     }
 
 let pollSource source fetchSource modelActions =
@@ -120,19 +146,21 @@ let pollSource source fetchSource modelActions =
         | None -> return None
     }
 
-let tryPollFeedUpdate (source: SourceConfig) (modelActions: LangaugeModelActions) =
+let tryPollFeedUpdate sourceFeed modelActions =
     task {
-        let feedKey = getDerivedSourceFeedKey source
-        let! maybeS3Object = ObjectStorage.getObjectAsync feedKey
+        let feedKey = getDerivedSourceFeedKey sourceFeed
+        let! maybeS3Object = ObjectStorage.getS3Object feedKey
 
         match maybeS3Object with
         | Some s3Object ->
             let derivedSourceFeed = deserializeDerivedSourceFeed s3Object.Content
-            let! maybeUpdatedDerivedSourceFeed = modelActions.GetUpdatedDerivedFeed source derivedSourceFeed
+            let! maybeUpdatedDerivedSourceFeed = modelActions.GetUpdatedDerivedFeed sourceFeed derivedSourceFeed
 
             match maybeUpdatedDerivedSourceFeed with
             | Some updated ->
-                let! putResult = ObjectStorage.putObjectAsync feedKey (serializeDerivedSourceFeed updated) None
+                let! putResult =
+                    ObjectStorage.putS3Object feedKey (serializeDerivedSourceFeed updated) (Some s3Object.ETag)
+
                 return putResult |> Result.map (fun _ -> true)
             | None -> return Ok false
         | None -> return Error Net.HttpStatusCode.NotFound

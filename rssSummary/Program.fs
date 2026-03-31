@@ -1,11 +1,29 @@
 open System
 open System.Threading.Tasks
-open DerivedSourceFeeds
+open DerivedFeeds
 open DomainModels
 
 let resultMessage (result: Result<'a, 'b>) = if result.IsOk then "Ok" else "Error"
 
-let summariseSource source =
+
+let summarise (source: SourceFeed) fetchSource modelActions =
+    task {
+        let! maybeDerivedBatch = parseSourceWithSubmitBatch source fetchSource modelActions
+
+        match maybeDerivedBatch with
+        | Some derivedBatch ->
+            Console.WriteLine $"Request batch update: {derivedBatch.BatchItems.Length}, {derivedBatch.Id}"
+            let! appendBatchResult = appendBatchToFeed source derivedBatch
+            Console.WriteLine $"Request batch result: {resultMessage appendBatchResult}"
+            ()
+        | _ -> ()
+
+        let! pollFeedUpdateResult = tryPollFeedUpdate source modelActions
+        Console.WriteLine $"Poll feed update result: {resultMessage pollFeedUpdateResult}"
+        ()
+    }
+
+let handleSource source =
     task {
         let modelActions =
             source.Model
@@ -16,37 +34,15 @@ let summariseSource source =
             |> Option.defaultValue AppAnthropic.Haiku45Actions
 
         match source.SourceSlug with
-        | Artemis ->
-            let! maybeRequestBatch =
-                parseSourceWithSubmitBatch source OriginalSourceFeeds.Artemis.fetchSource modelActions
-
-            match maybeRequestBatch with
-            | Some requestBatch ->
-                Console.WriteLine $"Request batch update: {requestBatch.BatchItems.Length}, {requestBatch.Id}"
-                let! appendBatchResult = appendBatchToFeed source requestBatch
-                Console.WriteLine $"Request batch result: {resultMessage appendBatchResult}"
-                ()
-            | _ -> ()
-
-            let! pollFeedUpdateResult = tryPollFeedUpdate source modelActions
-            Console.WriteLine $"Poll feed update result: {resultMessage pollFeedUpdateResult}"
-            ()
-        | GroceryDive ->
-            let! a = OriginalSourceFeeds.GroceryDive.fetchSource source.SourceUrl
-            Console.WriteLine a
-            ()
+        | Artemis -> return! summarise source SourceFeeds.Artemis.fetchSource modelActions
+        | GroceryDive -> return! summarise source SourceFeeds.GroceryDive.fetchSource modelActions
         | _ -> failwith "not implemented"
     }
 
 [<EntryPoint>]
 let main args =
+    let enabledSources = sourcesConfiguration.Sources |> Array.filter _.Enabled
 
-
-    let firstSource =
-        sourcesConfiguration.Sources
-        |> Array.tryFind (fun s -> s.SourceSlug = "grocery-dive")
-        |> Option.defaultWith (fun () -> failwith "No enabled sources configured")
-
-    summariseSource firstSource |> Task.WaitAll
+    Array.map handleSource enabledSources |> Task.WhenAll |> _.Wait()
 
     0

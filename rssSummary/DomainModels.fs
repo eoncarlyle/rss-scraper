@@ -9,7 +9,7 @@ type ProcessingStatus =
     | Canceling
     | Ended
 
-type MinimalRssItem =
+type RssItem =
     { Title: String
       Guid: String option
       Link: String option
@@ -17,20 +17,20 @@ type MinimalRssItem =
       Content: String
       PubDate: DateTimeOffset option }
 
-type BatchRssItem =
+type DerivedItem =
     { Guid: String
       Included: Boolean
-      Item: MinimalRssItem
+      Item: RssItem
       Result: String option }
 
-type SourceFeedSummaryRequestBatch =
+type DerivedBatch =
     { Id: String
       ProcessingStatus: ProcessingStatus
-      BatchItems: BatchRssItem array }
+      BatchItems: DerivedItem array }
 
-type DerivedSourceFeed =
+type DerivedFeed =
     { SourceUrl: String
-      Batches: SourceFeedSummaryRequestBatch array }
+      Batches: DerivedBatch array }
 
 type SourceSlug =
     | [<JsonName "artemis">] Artemis
@@ -42,7 +42,7 @@ type LangaugeModel =
     | [<JsonName "claude-haiku-4-5">] ClaudeHaiku45
     | [<JsonName "gemini-2-5-flash-lite">] Gemini25FlashLite
 
-type SourceConfig =
+type SourceFeed =
     { SourceUrl: string
       SourceSlug: SourceSlug
       Model: LangaugeModel option
@@ -52,16 +52,15 @@ type SourceConfig =
       MaximumLookback: int
       Enabled: bool }
 
-type SourcesConfiguration = { Sources: SourceConfig array }
+type SourceFeeds = { Sources: SourceFeed array }
 
-type SubmitBatchParameters =
+type SummaryRequestParameters =
     { SystemPrompt: string
       InputTokenCutoff: int
       OutputTokenCutoff: int }
 
-
 type LangaugeModelActions =
-    { SubmitBatch: MinimalRssItem array -> SubmitBatchParameters -> Task<SourceFeedSummaryRequestBatch>
-      GetUpdatedDerivedFeed: SourceConfig -> DerivedSourceFeed -> Task<DerivedSourceFeed option> }
+    { SubmitBatch: RssItem array -> SummaryRequestParameters -> Task<DerivedBatch>
+      GetUpdatedDerivedFeed: SourceFeed -> DerivedFeed -> Task<DerivedFeed option> }
 
 type S3Object = { Content: String; ETag: String }

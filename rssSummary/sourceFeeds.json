@@ -3,8 +3,7 @@
     {
       "sourceUrl": "https://www.artemis.bm/feed/",
       "sourceSlug": "artemis",
-      "model": "gemini-2-5-flash-lite",
-      "systemPrompt": null,
+      "model": "claude-haiku-4-5",
       "inputTokenCutoff": 50000,
       "outputTokenCutoff": 896,
       "maximumLookback": 15,
@@ -14,7 +13,6 @@
       "sourceUrl": "https://kill-the-newsletter.com/feeds/ym7qmh96s4dsaouxnq2c.xml",
       "sourceSlug": "grocery-dive",
       "model": "claude-haiku-4-5",
-      "systemPrompt": null,
       "inputTokenCutoff": 50000,
       "outputTokenCutoff": 896,
       "maximumLookback": 15,

@@ -20,11 +20,11 @@ let internal encoder = Encoder(O200KBase())
 let internal clientCooldown = 100
 
 type ItemTokenRecord =
-    { MinimalRssItem: MinimalRssItem
+    { MinimalRssItem: RssItem
       TokenCount: Int32
       Guid: Guid }
 
-let internal getRequestsWithExcludes (items: (MinimalRssItem * Guid) array) model submitBatchParameters =
+let internal getRequestsWithExcludes (items: (RssItem * Guid) array) model submitBatchParameters =
 
     let requestsWithTokenCount: ItemTokenRecord array =
         items
@@ -80,10 +80,9 @@ let internal clientBatchRequest (requests: Request array) =
     }
 
 
-let internal submitModelAgnosticBatch maybeModel (items: MinimalRssItem array) submitBatchParameters =
+let internal submitModelAgnosticBatch maybeModel (items: RssItem array) submitBatchParameters =
     let model = Option.defaultValue "claude-haiku-4-5" maybeModel
 
-    // TODO internal semaphroe thing
     task {
         let itemsWithRequestGuids = Array.map (fun item -> item, Guid.NewGuid()) items
 
@@ -116,8 +115,8 @@ let internal submitModelAgnosticBatch maybeModel (items: MinimalRssItem array) s
               BatchItems = batchItems }
     }
 
-let submitBatch (items: MinimalRssItem array) (submitBatchParameters: SubmitBatchParameters) =
-    submitModelAgnosticBatch (Some "claude-haiku-4-5") items submitBatchParameters
+let submitBatch (items: RssItem array) (summaryRequestParameters: SummaryRequestParameters) =
+    submitModelAgnosticBatch (Some "claude-haiku-4-5") items summaryRequestParameters
 
 let submitSpecialBatchFactory = fun model -> submitModelAgnosticBatch (Some model)
 
@@ -138,12 +137,12 @@ let collectAsyncEnumerable (asyncEnum: IAsyncEnumerable<'t>) =
         return results.ToArray()
     }
 
-let applyBatchResult (batchResponses: Map<string, MessageBatchIndividualResponse>) (batchItem: BatchRssItem) =
-    if not (batchResponses.ContainsKey batchItem.Guid) then
-        batchItem
+let applyBatchResult (batchResponses: Map<string, MessageBatchIndividualResponse>) (derivedItem: DerivedItem) =
+    if not (batchResponses.ContainsKey derivedItem.Guid) then
+        derivedItem
     else
         let batchResponse =
-            Map.find batchItem.Guid batchResponses
+            Map.find derivedItem.Guid batchResponses
             |> _.Result
             |> _.Match(
                 succeeded = (fun s -> Ok(s.Message)),
@@ -168,18 +167,18 @@ let applyBatchResult (batchResponses: Map<string, MessageBatchIndividualResponse
                 err |> Option.map _.Error.Error.Message |> Option.defaultValue "Unknown error")
 
         if batchResponse.IsOk then
-            { batchItem with
+            { derivedItem with
                 Result = Some resultText }
         else
-            batchItem
+            derivedItem
 
 let getUpdatedDerivedFeed
-    (source: SourceConfig)
-    (derivedSourceFeed: DerivedSourceFeed)
-    : Task<DerivedSourceFeed option> =
+    sourceSetting 
+    (derivedFeed: DerivedFeed)
+    : Task<DerivedFeed option> =
 
     let inProgressBatches =
-        derivedSourceFeed.Batches
+        derivedFeed.Batches
         |> Array.filter (fun batch -> batch.ProcessingStatus = InProgress)
 
     task {
@@ -209,7 +208,7 @@ let getUpdatedDerivedFeed
             else
                 // Merge
                 let newBatches =
-                    derivedSourceFeed.Batches
+                    derivedFeed.Batches
                     |> Array.map (fun batch ->
                         if finishedBatchIds.ContainsKey batch.Id then
                             let batchResponses =
@@ -226,7 +225,7 @@ let getUpdatedDerivedFeed
                             batch)
 
                 Some
-                    { SourceUrl = derivedSourceFeed.SourceUrl
+                    { SourceUrl = derivedFeed.SourceUrl
                       Batches = newBatches }
     }
 
