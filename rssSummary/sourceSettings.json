@@ -6,6 +6,7 @@
       "model": "claude-haiku-4-5",
       "inputTokenCutoff": 50000,
       "outputTokenCutoff": 896,
+      "maximumItems": 100,
       "maximumLookback": 15,
       "enabled": true
     },
@@ -15,8 +16,20 @@
       "model": "gemini-2-5-flash-lite",
       "inputTokenCutoff": 50000,
       "outputTokenCutoff": 896,
+      "maximumItems": 100,
       "maximumLookback": 15,
       "enabled": true
+    },
+    {
+      "sourceUrl": "https://kill-the-newsletter.com/feeds/a0xyhasgeuotozpnfpah.xml",
+      "sourceSlug": "c-store-dive",
+      "model": "gemini-2-5-flash-lite",
+      "inputTokenCutoff": 50000,
+      "outputTokenCutoff": 896,
+      "maximumItems": 100,
+      "maximumLookback": 15,
+      "enabled": true,
+      "synchronous": true
     }
   ]
 }

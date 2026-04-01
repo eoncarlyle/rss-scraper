@@ -7,12 +7,12 @@ open Microsoft.FSharp.Collections
 open Microsoft.FSharp.Core
 open Tiktoken.Encodings
 open Tiktoken
-open DomainModels
+open DomainModel
+open LanguageModelCommon
 open Anthropic
 open Anthropic.Models.Messages
 open Anthropic.Models.Messages.Batches
 open System
-open Queries
 
 let internal client = new AnthropicClient()
 let internal modelSubmitSemaphore = new SemaphoreSlim(1)
@@ -21,19 +21,9 @@ let internal clientCooldown = 100
 
 let internal getRequestsWithExcludes (items: (RssItem * Guid) array) model submitBatchParameters =
 
-    let requestsWithTokenCount: ItemTokenRecord array =
-        items
-        |> Array.map (fun item ->
-            { MinimalRssItem = fst item
-              TokenCount = fst item |> getStructuredQuery |> encoder.CountTokens
-              Guid = snd item })
-
-    let filterPredicate =
-        fun (itemTokenGuid: ItemTokenRecord) -> itemTokenGuid.TokenCount < submitBatchParameters.InputTokenCutoff
-
     let requests =
-        requestsWithTokenCount
-        |> Array.filter filterPredicate
+        requestsWithTokenCount items encoder
+        |> Array.filter (filterPredicate submitBatchParameters)
         |> Array.map (fun itemTokenRecord ->
             let customID = itemTokenRecord.Guid
 
@@ -58,7 +48,7 @@ let internal getRequestsWithExcludes (items: (RssItem * Guid) array) model submi
                     )
             ))
 
-    requests, Array.filter (filterPredicate >> not) requestsWithTokenCount
+    requests, Array.filter (filterPredicate submitBatchParameters >> not) (requestsWithTokenCount items encoder)
 
 let internal clientBatchRequest (requests: Request array) =
     task {
@@ -214,7 +204,7 @@ let getUpdatedDerivedFeed
                             let newBatchItems = batch.BatchItems |> Array.map (applyBatchResult batchResponses)
 
                             { Id = batch.Id
-                              ProcessingStatus = DomainModels.ProcessingStatus.Ended
+                              ProcessingStatus = DomainModel.ProcessingStatus.Ended
                               BatchItems = newBatchItems }
                         else
                             batch)

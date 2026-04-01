@@ -2,7 +2,7 @@ module SourceFeeds
 
 open System
 open FsHttp // Did not know you could scope this way, which is nice
-open DomainModels
+open DomainModel
 open Serialisation
 open FSharp.Data
 open System.Text.RegularExpressions
@@ -41,19 +41,15 @@ module Artemis =
             return Array.map deserialiseRssItem feed.Channel.Items
         }
 
-module GroceryDive =
-    type GroceryDiveRss = XmlProvider<"schema/grocery-dive.rss">
-    let localGroceryDiveRss = GroceryDiveRss.Load "schema/grocery-dive.rss"
-
-    let deserialiseRssItem (item: GroceryDiveRss.Entry) : RssItem =
+module Dive =
+    type DiveRss = XmlProvider<"schema/c-store-dive.rss">
+    let deserialiseRssItem (item: DiveRss.Entry) : RssItem =
         { Title = item.Title
           Guid = if isNull (box item.Id) then None else Some item.Id
           Link = Some item.Link.Href
           Description = ""
           Content = getSanitisedDiveContent item.Content.Value
           PubDate = Some item.Published }
-
-    let localArtemisItems = localGroceryDiveRss.Entries
 
     let fetchSource url =
         let request =
@@ -66,6 +62,6 @@ module GroceryDive =
         task {
             let response = request |> Request.send
             let body = Response.toText response
-            let feed = body |> GroceryDiveRss.Parse
+            let feed = body |> DiveRss.Parse
             return Array.map deserialiseRssItem feed.Entries
         }

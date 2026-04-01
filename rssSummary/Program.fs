@@ -1,41 +1,53 @@
 open System
+open AppGeminiCommon
 open System.Threading.Tasks
 open DerivedFeeds
-open DomainModels
+open DomainModel
+open Giraffe.ViewEngine
 
 let resultMessage (result: Result<'a, 'b>) = if result.IsOk then "Ok" else "Error"
 
 
-let summarise (source: SourceFeed) fetchSource modelActions =
+let summarise (source: SourceSetting) fetchSource modelActions =
     task {
         let! maybeDerivedBatch = parseSourceWithSubmitBatch source fetchSource modelActions
 
         match maybeDerivedBatch with
         | Some derivedBatch ->
-            Console.WriteLine $"Request batch update: {derivedBatch.BatchItems.Length}, {derivedBatch.Id}"
+            Console.WriteLine $"{source.SourceSlug} request batch update: {derivedBatch.Id}, {derivedBatch.BatchItems.Length} items"
             let! appendBatchResult = appendBatchToFeed source derivedBatch
-            Console.WriteLine $"Request batch result: {resultMessage appendBatchResult}"
+            Console.WriteLine $"{source.SourceSlug} request batch result: {resultMessage appendBatchResult}"
             ()
         | _ -> ()
 
         let! pollFeedUpdateResult = tryPollFeedUpdate source modelActions
-        Console.WriteLine $"Poll feed update result: {resultMessage pollFeedUpdateResult}"
+
+        let pollFeedMessage =
+            match pollFeedUpdateResult with
+            | Ok 0 -> "feed unchanged"
+            | Ok value -> $"${value} records added"
+            | Error code -> $"failed with status code ${code}"
+
+        Console.WriteLine $"{source.SourceSlug} poll derived feed update: {pollFeedMessage}"
         ()
     }
 
 let handleSource source =
     task {
         let modelActions =
-            source.Model
-            |> Option.map (fun m ->
-                match m with
-                | ClaudeHaiku45 -> AppAnthropic.Haiku45Actions
-                | Gemini25FlashLite -> AppGemini.AppGeminiActions)
-            |> Option.defaultValue AppAnthropic.Haiku45Actions
+            match source.Model, source.Synchronous with
+            | ClaudeHaiku45, _ -> AppAnthropic.Haiku45Actions
+            | Gemini25FlashLite, None -> AppGemini.AppGemini25FlashActions
+            | Gemini25FlashLite, Some b ->
+                if b then
+                    AppGeminiSynchronous.AppGemini25FlashSynchronousActions
+                else
+                    AppGemini.AppGemini25FlashActions
 
         match source.SourceSlug with
         | Artemis -> return! summarise source SourceFeeds.Artemis.fetchSource modelActions
-        | GroceryDive -> return! summarise source SourceFeeds.GroceryDive.fetchSource modelActions
+        | GroceryDive -> return! summarise source SourceFeeds.Dive.fetchSource modelActions
+        | CStoreDive -> return! summarise source SourceFeeds.Dive.fetchSource modelActions
         | _ -> failwith "not implemented"
     }
 

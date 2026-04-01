@@ -1,4 +1,4 @@
-module DomainModels
+module DomainModel
 
 open System
 open System.Text.Json.Serialization
@@ -42,17 +42,19 @@ type LangaugeModel =
     | [<JsonName "claude-haiku-4-5">] ClaudeHaiku45
     | [<JsonName "gemini-2-5-flash-lite">] Gemini25FlashLite
 
-type SourceFeed =
+type SourceSetting =
     { SourceUrl: string
       SourceSlug: SourceSlug
-      Model: LangaugeModel option
+      Model: LangaugeModel 
       SystemPrompt: string option
       InputTokenCutoff: int
       OutputTokenCutoff: int
+      MaximumItems: int
       MaximumLookback: int
+      Synchronous: bool option
       Enabled: bool }
 
-type SourceFeeds = { Sources: SourceFeed array }
+type SourceSettings = { Sources: SourceSetting array }
 
 type SummaryRequestParameters =
     { SystemPrompt: string
@@ -61,7 +63,7 @@ type SummaryRequestParameters =
 
 type LangaugeModelActions =
     { SubmitBatch: RssItem array -> SummaryRequestParameters -> Task<DerivedBatch>
-      GetUpdatedDerivedFeed: SourceFeed -> DerivedFeed -> Task<DerivedFeed option> }
+      GetUpdatedDerivedFeed: SourceSetting -> DerivedFeed -> Task<DerivedFeed option> }
 
 type S3Object = { Content: String; ETag: String }
 
@@ -69,3 +71,10 @@ type ItemTokenRecord =
     { MinimalRssItem: RssItem
       TokenCount: Int32
       Guid: Guid }
+    
+type SinkFeed =
+    {
+       SinkSlug: string
+       SourceSlugs: SourceSlug array
+       
+    }

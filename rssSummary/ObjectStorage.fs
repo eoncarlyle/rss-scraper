@@ -5,7 +5,7 @@ open Amazon.S3.Model
 open System
 open System.IO
 open System.Threading.Tasks
-open DomainModels
+open DomainModel
 
 let internal tigrisEndpoint =
     Environment.GetEnvironmentVariable("AWS_ENDPOINT_URL_S3")

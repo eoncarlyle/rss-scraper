@@ -21,17 +21,16 @@
     <PackageReference Include="Google.GenAI" Version="1.*" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DomainModels.fs" />
+    <Compile Include="DomainModel.fs" />
     <Compile Include="Serialisation.fs" />
     <Compile Include="ObjectStorage.fs" />
     <Compile Include="SourceFeeds.fs" />
-    <Compile Include="Queries.fs" />
-    <Compile Include="AppAnthropic.fs" />
     <Compile Include="LanguageModelCommon.fs" />
+    <Compile Include="AppAnthropic.fs" />
     <Compile Include="AppGeminiCommon.fs" />
     <Compile Include="DerivedFeeds.fs" />
     <Compile Include="Program.fs" />
-    <Content Include="sourceFeeds.json" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="sourceSettings.json" CopyToOutputDirectory="PreserveNewest" />
     <Content Include="Schema\artemis.rss" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 

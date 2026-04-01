@@ -3,11 +3,11 @@ module AppGeminiCommon
 open System
 open System.Threading
 open System.Threading.Tasks
-open DomainModels
-open Queries
+open DomainModel
 open Google.GenAI
 open Google.GenAI.Types
 open Tiktoken.Encodings
+open LanguageModelCommon
 open Tiktoken
 
 let internal client = new Client()
@@ -30,20 +30,9 @@ module AppGemini =
           Guid: Guid }
 
     let internal getRequestsWithExcludes (items: (RssItem * Guid) array) submitBatchParameters =
-
-        let requestsWithTokenCount: ItemTokenRecord array =
-            items
-            |> Array.map (fun item ->
-                { MinimalRssItem = fst item
-                  TokenCount = fst item |> getStructuredQuery |> encoder.CountTokens
-                  Guid = snd item })
-
-        let filterPredicate =
-            fun (itemTokenGuid: ItemTokenRecord) -> itemTokenGuid.TokenCount < submitBatchParameters.InputTokenCutoff
-
         let requests =
-            requestsWithTokenCount
-            |> Array.filter filterPredicate
+            requestsWithTokenCount items encoder
+            |> Array.filter (filterPredicate submitBatchParameters)
             |> Array.map (fun itemTokenRecord ->
                 InlinedRequest(
                     Contents =
@@ -58,7 +47,7 @@ module AppGemini =
                         )
                 ))
 
-        requests, Array.filter (filterPredicate >> not) requestsWithTokenCount
+        requests, Array.filter (filterPredicate submitBatchParameters >> not) (requestsWithTokenCount items encoder)
 
     let internal clientBatchRequest model (requests: InlinedRequest array) =
         task {
@@ -146,7 +135,7 @@ module AppGemini =
             else
                 derivedItem
 
-    let getUpdatedDerivedFeed (sourceFeed: SourceFeed) (derivedFeed: DerivedFeed) : Task<DerivedFeed option> =
+    let getUpdatedDerivedFeed (sourceSetting: SourceSetting) (derivedFeed: DerivedFeed) : Task<DerivedFeed option> =
 
         let inProgressBatches =
             derivedFeed.Batches
@@ -204,47 +193,63 @@ module AppGemini =
         { SubmitBatch = submitBatch
           GetUpdatedDerivedFeed = getUpdatedDerivedFeed }
 
-module AppGeminiInstant =
-    let internal submitModelAgnosticBatch maybeModel (items: RssItem array) summaryRequestParameters =
+module AppGeminiSynchronous =
+    let internal submitInstant model (itemTuple: RssItem * Guid) : Task<DerivedItem> =
+        task {
+            let! response = client.Models.GenerateContentAsync(model, fst itemTuple |> getStructuredQuery)
+
+            let description =
+                try
+                    response.Candidates[0].Content.Parts[0].Text
+                with _ ->
+                    "Language model query parse failure"
+
+            return
+                { Guid = snd itemTuple |> _.ToString()
+                  Included = true
+                  Item = fst itemTuple
+                  Result = Some description }
+        }
+
+
+    let internal submitModelAgnosticBatch maybeModel items (summaryRequestParameters: SummaryRequestParameters) =
         let model = Option.defaultValue "gemini-2.5-flash-lite" maybeModel
 
         task {
             let itemsWithRequestGuids = Array.map (fun item -> item, Guid.NewGuid()) items
 
-            let requestWithExcludes =
-                getRequestsWithExcludes itemsWithRequestGuids summaryRequestParameters
-
-            let! response = clientBatchRequest model <| fst requestWithExcludes
-            let excludes = snd requestWithExcludes |> Array.map _.MinimalRssItem
-
-            let batchItems =
+            let! batchItems =
                 itemsWithRequestGuids
-                |> Array.map (fun itemWithGuid ->
-                    let item = fst itemWithGuid
-                    let guid = snd itemWithGuid |> _.ToString()
+                |> Array.map (fun itemTuple ->
+                    let tokenCount = encoder.CountTokens(fst itemTuple |> getStructuredQuery)
 
-                    if Array.contains item excludes then
-                        { Guid = guid
-                          Included = false
-                          Item = item
-                          Result = None }
+                    if tokenCount < summaryRequestParameters.InputTokenCutoff then
+                        submitInstant model itemTuple
                     else
-                        { Guid = guid
-                          Included = true
-                          Item = item
-                          Result = None })
+                        task {
+                            return
+                                { Guid = snd itemTuple |> _.ToString()
+                                  Included = false
+                                  Item = fst itemTuple
+                                  Result = None }
+                        })
+                |> Task.WhenAll
+
 
             return
-                { Id = response.Name
-                  ProcessingStatus = InProgress
+                { Id = $"synchronous/{Guid.NewGuid()}"
+                  ProcessingStatus = Ended
                   BatchItems = batchItems }
         }
 
-    let internal getUpdateDerivedFeed (sourceFeed: SourceFeed) (derivedFeed: DerivedFeed) : Task<DerivedFeed option> =
+    let submitBatch (items: RssItem array) summaryRequestParameters =
+        submitModelAgnosticBatch (Some "gemini-2.5-flash-lite") items summaryRequestParameters
+
+    let internal getUpdatedDerivedFeed (sourceSetting: SourceSetting) (derivedFeed: DerivedFeed) : Task<DerivedFeed option> =
         //No-op because `submitBatch` has already taken care o
         //TODO model this better
         task { return Some derivedFeed }
 
-    let AppGemini25FlashInstantActions: LangaugeModelActions =
+    let AppGemini25FlashSynchronousActions: LangaugeModelActions =
         { SubmitBatch = submitBatch
           GetUpdatedDerivedFeed = getUpdatedDerivedFeed }

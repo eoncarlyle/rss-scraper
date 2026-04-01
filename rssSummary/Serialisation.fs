@@ -4,7 +4,7 @@ open System
 open System.Text.Json
 open System.Text.Json.Serialization
 open System.Text.RegularExpressions
-open DomainModels
+open DomainModel
 
 let jsonOptions =
     let options =
@@ -23,17 +23,17 @@ let jsonOptions =
 
     options
 
-let serializeDerivedSourceFeed (feed: DerivedFeed) : string =
+let serializeDerivedFeed (feed: DerivedFeed) : string =
     JsonSerializer.Serialize(feed, jsonOptions)
 
-let deserializeDerivedSourceFeed (json: string) : DerivedFeed =
+let deserializeDerivedFeed (json: string) : DerivedFeed =
     JsonSerializer.Deserialize<DerivedFeed>(json, jsonOptions)
 
-let serializeSourcesConfiguration (config: SourceFeeds) : string =
-    JsonSerializer.Serialize(config, jsonOptions)
+let serializeSourceSettings (settings: SourceSettings) : string =
+    JsonSerializer.Serialize(settings, jsonOptions)
 
-let deserializeSourcesConfiguration (json: string) : SourceFeeds =
-    JsonSerializer.Deserialize<SourceFeeds>(json, jsonOptions)
+let deserializeSourceSettings (json: string) : SourceSettings =
+    JsonSerializer.Deserialize<SourceSettings>(json, jsonOptions)
 
 let toAnthropicStatus (status: ProcessingStatus) =
     match status with
