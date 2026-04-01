@@ -45,7 +45,7 @@ type LangaugeModel =
 type SourceSetting =
     { SourceUrl: string
       SourceSlug: SourceSlug
-      Model: LangaugeModel 
+      Model: LangaugeModel
       SystemPrompt: string option
       InputTokenCutoff: int
       OutputTokenCutoff: int
@@ -71,10 +71,8 @@ type ItemTokenRecord =
     { MinimalRssItem: RssItem
       TokenCount: Int32
       Guid: Guid }
-    
-type SinkFeed =
-    {
-       SinkSlug: string
-       SourceSlugs: SourceSlug array
-       
-    }
+
+type SinkSetting =
+    { SinkSlug: string
+      SourceSlugs: SourceSlug array
+      MaximumItems: int }

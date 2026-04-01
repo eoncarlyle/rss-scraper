@@ -8,7 +8,7 @@ open DomainModel
 open LanguageModelCommon
 
 let sourcesConfiguration =
-    File.ReadAllText "sourceFeeds.json" |> deserializeSourceSettings
+    File.ReadAllText "sourceFeeds.json" |> deserialiseSourceSettings
 
 let getDerivedFeedKey (sourceSetting: SourceSetting) = $"{sourceSetting.SourceSlug}.derived.json"
 
@@ -47,7 +47,7 @@ let getSourceItemsToSubmit (sourceSetting: SourceSetting) (incomingRssItems: Rss
         match maybeS3Object with
         | Some s3Object ->
 
-            let existingDerivedFeed = deserializeDerivedFeed s3Object.Content
+            let existingDerivedFeed = deserialiseDerivedFeed s3Object.Content
 
             let submittedBatchItems =
                 existingDerivedFeed.Batches |> Array.map _.BatchItems |> Array.concat
@@ -122,7 +122,7 @@ let appendBatchToFeed (sourceSetting: SourceSetting) (derivedBatch: DerivedBatch
 
             match maybeS3Object with
             | Some s3Object ->
-                let existingDerivedFeed = deserializeDerivedFeed s3Object.Content
+                let existingDerivedFeed = deserialiseDerivedFeed s3Object.Content
 
                 let updatedDerivedFeed =
                     { SourceUrl = existingDerivedFeed.SourceUrl
@@ -131,14 +131,14 @@ let appendBatchToFeed (sourceSetting: SourceSetting) (derivedBatch: DerivedBatch
                 return!
                     ObjectStorage.putS3Object
                         feedKey
-                        (serializeDerivedFeed updatedDerivedFeed)
+                        (serialiseDerivedFeed updatedDerivedFeed)
                         (Some s3Object.ETag)
             | None ->
                 let derivedFeed =
                     { SourceUrl = sourceSetting.SourceUrl
                       Batches = [| derivedBatch |] }
 
-                return! ObjectStorage.putS3Object feedKey (serializeDerivedFeed derivedFeed) None
+                return! ObjectStorage.putS3Object feedKey (serialiseDerivedFeed derivedFeed) None
         }
 
     retryHttp 3 (fun () -> append sourceSetting derivedBatch)
@@ -162,13 +162,13 @@ let tryPollFeedUpdate sourceSetting modelActions =
 
             match maybeS3Object with
             | Some s3Object ->
-                let existingDerivedFeed = deserializeDerivedFeed s3Object.Content
+                let existingDerivedFeed = deserialiseDerivedFeed s3Object.Content
                 let! maybeUpdatedDerivedFeed = modelActions.GetUpdatedDerivedFeed sourceSetting existingDerivedFeed
 
                 match maybeUpdatedDerivedFeed with
                 | Some updated ->
                     let! putResult =
-                        ObjectStorage.putS3Object feedKey (serializeDerivedFeed updated) (Some s3Object.ETag)
+                        ObjectStorage.putS3Object feedKey (serialiseDerivedFeed updated) (Some s3Object.ETag)
 
                     let getUpdatedCount batches =
                         batches
