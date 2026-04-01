@@ -1,7 +1,5 @@
 module Queries
 
-open System.Text.RegularExpressions 
-
 let getStructuredQuery (item: DomainModels.RssItem) =
     $"<description>{item.Description}</description><content>{item.Content}</content>"
 

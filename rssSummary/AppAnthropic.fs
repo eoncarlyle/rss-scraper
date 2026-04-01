@@ -19,11 +19,6 @@ let internal modelSubmitSemaphore = new SemaphoreSlim(1)
 let internal encoder = Encoder(O200KBase())
 let internal clientCooldown = 100
 
-type ItemTokenRecord =
-    { MinimalRssItem: RssItem
-      TokenCount: Int32
-      Guid: Guid }
-
 let internal getRequestsWithExcludes (items: (RssItem * Guid) array) model submitBatchParameters =
 
     let requestsWithTokenCount: ItemTokenRecord array =

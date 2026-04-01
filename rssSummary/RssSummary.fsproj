@@ -27,7 +27,8 @@
     <Compile Include="SourceFeeds.fs" />
     <Compile Include="Queries.fs" />
     <Compile Include="AppAnthropic.fs" />
-    <Compile Include="AppGemini.fs" />
+    <Compile Include="LanguageModelCommon.fs" />
+    <Compile Include="AppGeminiCommon.fs" />
     <Compile Include="DerivedFeeds.fs" />
     <Compile Include="Program.fs" />
     <Content Include="sourceFeeds.json" CopyToOutputDirectory="PreserveNewest" />

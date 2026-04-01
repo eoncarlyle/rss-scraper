@@ -64,3 +64,8 @@ type LangaugeModelActions =
       GetUpdatedDerivedFeed: SourceFeed -> DerivedFeed -> Task<DerivedFeed option> }
 
 type S3Object = { Content: String; ETag: String }
+
+type ItemTokenRecord =
+    { MinimalRssItem: RssItem
+      TokenCount: Int32
+      Guid: Guid }

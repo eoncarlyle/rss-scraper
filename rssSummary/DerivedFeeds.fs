@@ -2,6 +2,7 @@ module DerivedFeeds
 
 open System.IO
 open System
+open System.Net.NetworkInformation
 open System.Threading.Tasks
 open Queries
 open Serialisation
@@ -19,16 +20,15 @@ let isEquivalent (item: RssItem) (batchItem: DerivedItem) =
     && item.Link = batchItem.Item.Link
 
 // Need to accept a factory to get the full item for a fresh etag: not the first time I've made this mistake
-//let putWithRetry (times: int) (feedKey: string) (factory: string -> Task<Result<string, Net.HttpStatusCode>>) =
-//    let mutable result = Error (Net.HttpStatusCode.BadRequest)
-//    task { 
-//        for _ in 1 .. times do
-//           if result.IsError then
-//                let! maybeS3Object = ObjectStorage.getS3Object feedKey
-//                let! nextResult = factory ()
-//                result <- nextResult
-//        return result
-//    }    
+let retryHttp (times: int) (factory: Unit -> Task<Result<'a, Net.HttpStatusCode>>) =
+    let mutable result = Error (Net.HttpStatusCode.BadRequest)
+    task { 
+        for _ in 1 .. times do
+           if result.IsError then
+                let! nextResult = factory ()
+                result <- nextResult
+        return result
+    }    
     //{ 1..times }
     //|> Seq.map (fun _ -> factory)
     //|> Seq.reduce (fun f1 f2 ->
@@ -97,43 +97,47 @@ let parseSourceWithSubmitBatch
             return None
     }
 
-let writeUpdatedDerivedSourceFeed (source: SourceFeed) (updatedDerivedFeed: DerivedFeed) =
-    task {
-        let feedKey = getDerivedSourceFeedKey source
-        let! maybeS3Object = ObjectStorage.getS3Object feedKey
+// Possibly not used?
+let writeUpdatedDerivedSourceFeed (sourceFeed: SourceFeed) (updatedDerivedFeed: DerivedFeed) =
+    //task {
+    //    let feedKey = getDerivedSourceFeedKey sourceFeed
+    //    let! maybeS3Object = ObjectStorage.getS3Object feedKey
 
-        if not maybeS3Object.IsSome then
-            failwith $"Derived feed {feedKey} does not exist"
+    //    if not maybeS3Object.IsSome then
+    //        failwith $"Derived feed {feedKey} does not exist"
 
-        return!
-            ObjectStorage.putS3Object
-                feedKey
-                (serializeDerivedSourceFeed updatedDerivedFeed)
-                (maybeS3Object |> Option.map _.ETag)
-    }
+    //    return!
+    //        ObjectStorage.putS3Object
+    //            feedKey
+    //            (serializeDerivedSourceFeed updatedDerivedFeed)
+    //            (maybeS3Object |> Option.map _.ETag)
+    //}
+    ()
 
 let appendBatchToFeed (sourceFeed: SourceFeed) (derivedBatch: DerivedBatch) =
-    task {
-        let feedKey = getDerivedSourceFeedKey sourceFeed
-        let! maybeS3Object = ObjectStorage.getS3Object feedKey
+    let append sourceFeed derivedBatch =
+        task {
+            let feedKey = getDerivedSourceFeedKey sourceFeed
+            let! maybeS3Object = ObjectStorage.getS3Object feedKey
 
-        match maybeS3Object with
-        | Some s3Object ->
-            let existingDerivedFeed = deserializeDerivedSourceFeed s3Object.Content
+            match maybeS3Object with
+            | Some s3Object ->
+                let existingDerivedFeed = deserializeDerivedSourceFeed s3Object.Content
 
-            let updatedDerivedFeed =
-                { SourceUrl = existingDerivedFeed.SourceUrl
-                  Batches = Array.append existingDerivedFeed.Batches [| derivedBatch |] }
+                let updatedDerivedFeed =
+                    { SourceUrl = existingDerivedFeed.SourceUrl
+                      Batches = Array.append existingDerivedFeed.Batches [| derivedBatch |] }
 
-            return!
-                ObjectStorage.putS3Object feedKey (serializeDerivedSourceFeed updatedDerivedFeed) (Some s3Object.ETag)
-        | None ->
-            let derivedSourceFeed =
-                { SourceUrl = sourceFeed.SourceUrl
-                  Batches = [| derivedBatch |] }
+                return!
+                    ObjectStorage.putS3Object feedKey (serializeDerivedSourceFeed updatedDerivedFeed) (Some s3Object.ETag)
+            | None ->
+                let derivedSourceFeed =
+                    { SourceUrl = sourceFeed.SourceUrl
+                      Batches = [| derivedBatch |] }
 
-            return! ObjectStorage.putS3Object feedKey (serializeDerivedSourceFeed derivedSourceFeed) None
-    }
+                return! ObjectStorage.putS3Object feedKey (serializeDerivedSourceFeed derivedSourceFeed) None
+        }
+    retryHttp 3 (fun () -> append sourceFeed derivedBatch)
 
 let pollSource source fetchSource modelActions =
     task {
@@ -147,7 +151,7 @@ let pollSource source fetchSource modelActions =
     }
 
 let tryPollFeedUpdate sourceFeed modelActions =
-    task {
+    let update sourceFeed modelActions = task {
         let feedKey = getDerivedSourceFeedKey sourceFeed
         let! maybeS3Object = ObjectStorage.getS3Object feedKey
 
@@ -165,3 +169,6 @@ let tryPollFeedUpdate sourceFeed modelActions =
             | None -> return Ok false
         | None -> return Error Net.HttpStatusCode.NotFound
     }
+    
+    retryHttp 3 (fun () -> update sourceFeed modelActions)
+    
