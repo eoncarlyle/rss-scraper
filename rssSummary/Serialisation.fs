@@ -24,20 +24,11 @@ let jsonOptions =
     options
 
 // TODO resultify all of this
-let serialiseDerivedFeed (feed: DerivedFeed) : string =
-    JsonSerializer.Serialize(feed, jsonOptions)
+let deserialise<'T> (json: string) : 'T =
+    JsonSerializer.Deserialize<'T>(json, jsonOptions)
 
-let deserialiseDerivedFeed (json: string) : DerivedFeed =
-    JsonSerializer.Deserialize<DerivedFeed>(json, jsonOptions)
-
-let serialiseSourceSettings (settings: SourceSettings) : string =
+let serialise settings = 
     JsonSerializer.Serialize(settings, jsonOptions)
-
-let deserialiseSourceSettings (json: string) : SourceSettings =
-    JsonSerializer.Deserialize<SourceSettings>(json, jsonOptions)
-    
-let deserialiseSourceSlug (slug: string) : SourceSlug =
-    JsonSerializer.Deserialize<SourceSlug>(slug, jsonOptions)
 
 let toAnthropicStatus (status: ProcessingStatus) =
     match status with

@@ -1,0 +1,22 @@
+{
+  "sinks": [
+    {
+      "sinkSlug": "artemis",
+      "sourceSlugs": [
+        "artemis"
+      ],
+      "sourceItemsPerPublish": 5,
+      "maximumItems": 50
+    },
+    {
+      "sinkSlug": "industry-dive",
+      "sourceSlugs": [
+        "grocery-dive",
+        "c-store-dive",
+        "supply-chain-dive"
+      ],
+      "sourceItemsPerPublish": 5,
+      "maximumItems": 50
+    }
+  ]
+}

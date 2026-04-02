@@ -4,6 +4,29 @@ open System
 open System.Text.Json.Serialization
 open System.Threading.Tasks
 
+
+type SourceSlug =
+    | [<JsonName "artemis">] Artemis
+    | [<JsonName "grocery-dive">] GroceryDive
+    | [<JsonName "c-store-dive">] CStoreDive
+    | [<JsonName "supply-chain-dive">] SupplyChainDive
+
+    override this.ToString() =
+        match this with
+        | Artemis -> "artemis"
+        | GroceryDive -> "grocery-dive"
+        | CStoreDive -> "c-store-dive"
+        | SupplyChainDive -> "supply-chain-dive"
+
+type SinkSlug =
+    | [<JsonName "artemis">] Artemis
+    | [<JsonName "industry-dive">] IndustryDive
+
+    override this.ToString() =
+        match this with
+        | Artemis -> "artemis"
+        | IndustryDive -> "industry-dive"
+
 type ProcessingStatus =
     | InProgress
     | Canceling
@@ -32,17 +55,14 @@ type DerivedFeed =
     { SourceUrl: String
       Batches: DerivedBatch array }
 
-type SourceSlug =
-    | [<JsonName "artemis">] Artemis
-    | [<JsonName "grocery-dive">] GroceryDive
-    | [<JsonName "c-store-dive">] CStoreDive
-    | [<JsonName "supply-chain-dive">] SupplyChainDive
-
 type LangaugeModel =
     | [<JsonName "claude-haiku-4-5">] ClaudeHaiku45
     | [<JsonName "gemini-2-5-flash-lite">] Gemini25FlashLite
 
-type SourceSetting =
+
+type SourceSettings = { Sources: SourceSetting array }
+
+and SourceSetting =
     { SourceUrl: string
       SourceSlug: SourceSlug
       Model: LangaugeModel
@@ -53,8 +73,6 @@ type SourceSetting =
       MaximumLookback: int
       Synchronous: bool option
       Enabled: bool }
-
-type SourceSettings = { Sources: SourceSetting array }
 
 type SummaryRequestParameters =
     { SystemPrompt: string
@@ -75,4 +93,24 @@ type ItemTokenRecord =
 type SinkSetting =
     { SinkSlug: string
       SourceSlugs: SourceSlug array
+      SourceItemsPerPublish: int
       MaximumItems: int }
+
+type SinkSettings = { Sources: SinkSetting array }
+
+type SinkFeed =
+    { Title: string
+      Link: string
+      PubDate: DateTimeOffset
+      Description: string
+      Items: SinkItem array }
+
+and SinkItem =
+    { Item: RssItem
+      DerivedItemReferences: DerivedItemReference array }
+
+and DerivedItemReference =
+    { Title: String
+      Guid: String option
+      Link: String option }
+
