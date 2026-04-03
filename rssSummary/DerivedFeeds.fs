@@ -10,8 +10,10 @@ open LanguageModelCommon
 let sourcesConfiguration =
     File.ReadAllText "source-settings.json" |> deserialise<SourceSettings>
 
-let getDerivedFeedKey (sourceSetting: SourceSetting) =
-    $"{sourceSetting.SourceSlug}.derived.json"
+let getFeedKeyFromSlug (sourceSlug: SourceSlug) = $"{sourceSlug}.derived.json"
+
+let getFeedKeyFromSource (sourceSetting: SourceSetting) =
+    getFeedKeyFromSlug sourceSetting.SourceSlug
 
 let crossItemEquivalent (item: RssItem) (batchItem: DerivedItem) =
     item.Title = batchItem.Item.Title
@@ -21,19 +23,17 @@ let crossItemEquivalent (item: RssItem) (batchItem: DerivedItem) =
 // Need to accept a factory to get the full item for a fresh etag: not the first time I've made this mistake
 let retryHttp (times: int) (factory: Unit -> Task<Result<'a, Net.HttpStatusCode>>) =
     let mutable result = Error(Net.HttpStatusCode.BadRequest)
-
     task {
         for _ in 1..times do
             if result.IsError then
                 let! nextResult = factory ()
                 result <- nextResult
-
         return result
     }
 
 let getFreshSourceItems (sourceSetting: SourceSetting) (incomingRssItems: RssItem array) =
     task {
-        let feedKey = getDerivedFeedKey sourceSetting
+        let feedKey = getFeedKeyFromSource sourceSetting
         let! maybeDerivedS3Object = ObjectStorage.getS3Object feedKey
 
         match maybeDerivedS3Object with
@@ -67,13 +67,13 @@ let getFreshSourceItems (sourceSetting: SourceSetting) (incomingRssItems: RssIte
     }
 
 let submitSummaryBatch
-    source
+    (source: SourceSetting)
     (fetchSource: string -> Task<RssItem array>)
     (modelActions: LangaugeModelActions)
     =
     task {
-        let! incomingSourceItems = fetchSource source.SourceUrl
-        let! submittedSourceItems = getFreshSourceItems source incomingSourceItems
+        let! sourceItems = fetchSource source.SourceUrl
+        let! submittedSourceItems = getFreshSourceItems source sourceItems
 
         if Array.length submittedSourceItems > 0 then
             let submitBatchParameters =
@@ -91,18 +91,18 @@ let submitSummaryBatch
 let appendToFeed (sourceSetting: SourceSetting) (derivedBatch: DerivedBatch) =
     let append sourceSetting derivedBatch =
         task {
-            let feedKey = getDerivedFeedKey sourceSetting
+            let feedKey = getFeedKeyFromSource sourceSetting
             let! maybeDerivedS3Object = ObjectStorage.getS3Object feedKey
 
             match maybeDerivedS3Object with
-            | Some s3Object ->
-                let existingDerivedFeed = deserialise<DerivedFeed> s3Object.Content
+            | Some derivedS3Object ->
+                let existingDerivedFeed = deserialise<DerivedFeed> derivedS3Object.Content
 
                 let updatedDerivedFeed =
                     { SourceUrl = existingDerivedFeed.SourceUrl
                       Batches = Array.append existingDerivedFeed.Batches [| derivedBatch |] }
 
-                return! ObjectStorage.putS3Object feedKey (serialise updatedDerivedFeed) (Some s3Object.ETag)
+                return! ObjectStorage.putS3Object feedKey (serialise updatedDerivedFeed) (Some derivedS3Object.ETag)
             | None ->
                 let derivedFeed =
                     { SourceUrl = sourceSetting.SourceUrl
@@ -113,10 +113,9 @@ let appendToFeed (sourceSetting: SourceSetting) (derivedBatch: DerivedBatch) =
 
     retryHttp 3 (fun () -> append sourceSetting derivedBatch)
 
-let pollSource source fetchSource modelActions =
+let feedUpdateWithSummaryRequests source fetchSource modelActions =
     task {
         let! maybeSubmitBatch = submitSummaryBatch source fetchSource modelActions
-
         match maybeSubmitBatch with
         | Some batch ->
             let! b = appendToFeed source batch
@@ -124,10 +123,10 @@ let pollSource source fetchSource modelActions =
         | None -> return None
     }
 
-let tryPollFeedUpdate sourceSetting modelActions =
+let tryFeedUpdateWithSummaryResults sourceSetting modelActions =
     let update sourceSetting modelActions =
         task {
-            let feedKey = getDerivedFeedKey sourceSetting
+            let feedKey = getFeedKeyFromSource sourceSetting
             let! maybeDerivedS3Object = ObjectStorage.getS3Object feedKey
 
             match maybeDerivedS3Object with

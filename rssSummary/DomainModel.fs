@@ -59,7 +59,6 @@ type LangaugeModel =
     | [<JsonName "claude-haiku-4-5">] ClaudeHaiku45
     | [<JsonName "gemini-2-5-flash-lite">] Gemini25FlashLite
 
-
 type SourceSettings = { Sources: SourceSetting array }
 
 and SourceSetting =

@@ -20,7 +20,7 @@ let summarise (source: SourceSetting) modelActions fetchSource =
             ()
         | _ -> ()
 
-        let! pollFeedUpdateResult = tryPollFeedUpdate source modelActions
+        let! pollFeedUpdateResult = tryFeedUpdateWithSummaryResults source modelActions
 
         let pollFeedMessage =
             match pollFeedUpdateResult with
