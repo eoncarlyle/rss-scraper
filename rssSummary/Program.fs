@@ -61,6 +61,8 @@ let rec handleSink (sink: SinkSetting) =
         | Error result -> Console.WriteLine $"Sink feed update failed with status code ${result}"
     }
 
+type testType = {Guid: String option}
+    
 [<EntryPoint>]
 let main args =
     let enabledSources = SourceFeeds.sourceSettings.Sources |> Array.filter _.Enabled

@@ -46,7 +46,7 @@ module AppGemini =
 
     let internal clientBatchRequest model (requests: InlinedRequest array) =
         task {
-            modelSubmitSemaphore.Wait()
+            modelSubmitSemaphore.WaitAsync() |> ignore
 
             try
                 let src = BatchJobSource(InlinedRequests = ResizeArray<InlinedRequest>(requests))

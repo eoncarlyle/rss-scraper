@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/rssSummary/">
+    <Project Path="rssSummary/RssSummary.fsproj" />
+  </Folder>
+  <Folder Name="/server/">
+    <Project Path="rssServer\RssServer.fsproj" />
+  </Folder>
+</Solution>

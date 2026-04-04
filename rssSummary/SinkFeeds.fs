@@ -88,7 +88,7 @@ let getToPublish (derivedPairs: (SourceSlug * DerivedItem) array) sinkSetting =
 
     let baseItem =
         { Title = $"{sinkSetting.SinkSlug}: Update {publishDate.Date}"
-          Guid = Guid.NewGuid.ToString() |> Some
+          Guid = Guid.NewGuid().ToString() |> Some
           Link = None
           Description = $"Published {publishDate} with feeds ${slugLabel}"
           Content = RenderView.AsString.htmlDocument content

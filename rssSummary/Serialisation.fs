@@ -9,7 +9,7 @@ open System.Globalization
 
 let jsonOptions =
     let options =
-        JsonSerializerOptions(PropertyNamingPolicy = JsonNamingPolicy.CamelCase)
+        JsonSerializerOptions(PropertyNamingPolicy = JsonNamingPolicy.CamelCase, WriteIndented = true)
 
     options.WriteIndented <- true
 
@@ -19,7 +19,6 @@ let jsonOptions =
                 .Default()
                 .WithUnionUnwrapFieldlessTags()
                 .WithSkippableOptionFields()
-                .WithUnionUnwrapSingleFieldCases()
         )
     )
 
@@ -29,7 +28,7 @@ let jsonOptions =
 let deserialise<'T> (json: string) : 'T =
     JsonSerializer.Deserialize<'T>(json, jsonOptions)
 
-let serialise settings = 
+let serialise settings =
     JsonSerializer.Serialize(settings, jsonOptions)
 
 let toAnthropicStatus (status: ProcessingStatus) =
@@ -58,7 +57,7 @@ let firstSentenceRemove (s: string) =
     else
         let m = Regex.Match(s, "^[^.]*(?:\.[^.]*)*?\.bm[^.]*\.\s*")
         if m.Success then s.Substring m.Length else s
-        
+
 let rfc822Date (dto: DateTimeOffset) =
     dto
         .ToUniversalTime()

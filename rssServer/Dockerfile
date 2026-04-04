@@ -2,13 +2,11 @@ FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 
 WORKDIR /app
 
-# Copy both project files for restore
 COPY server/*.fsproj ./server/
 COPY rssSummary/*.fsproj ./rssSummary/
 
 RUN dotnet restore server/RssScraper.fsproj
 
-# Copy all source
 COPY server/ ./server/
 COPY rssSummary/ ./rssSummary/
 

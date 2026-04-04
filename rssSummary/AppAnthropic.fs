@@ -52,7 +52,7 @@ let internal getRequestsWithExcludes (items: (RssItem * Guid) array) model submi
 
 let internal clientBatchRequest (requests: Request array) =
     task {
-        modelSubmitSemaphore.Wait()
+        modelSubmitSemaphore.WaitAsync() |> ignore
 
         try
             let messageBatch =

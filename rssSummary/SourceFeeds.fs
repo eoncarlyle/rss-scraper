@@ -15,8 +15,8 @@ let getSanitisedDiveContent content =
     Regex.Replace(htmlSanitized content, @"(\r?\n){2,}", "\n").Replace("&nbsp;", "")
 
 module Artemis =
-    type ArtemisRss = XmlProvider<"schema/artemis.rss">
-    let localArtemisRss = ArtemisRss.Load "schema/artemis.rss"
+    type ArtemisRss = XmlProvider<"Schema/artemis.rss">
+    let localArtemisRss = ArtemisRss.Load "Schema/artemis.rss"
 
     let deserialiseRssItem (item: ArtemisRss.Item) : RssItem =
         { Title = item.Title
@@ -46,7 +46,7 @@ module Artemis =
         }
 
 module Dive =
-    type DiveRss = XmlProvider<"schema/c-store-dive.rss">
+    type DiveRss = XmlProvider<"Schema/c-store-dive.rss">
 
     let deserialiseRssItem (item: DiveRss.Entry) : RssItem =
         { Title = item.Title
