@@ -55,7 +55,7 @@ type DerivedFeed =
     { SourceUrl: String
       Batches: DerivedBatch array }
 
-type LangaugeModel =
+type LanguageModel =
     | [<JsonName "claude-haiku-4-5">] ClaudeHaiku45
     | [<JsonName "gemini-2-5-flash-lite">] Gemini25FlashLite
 
@@ -64,7 +64,7 @@ type SourceSettings = { Sources: SourceSetting array }
 and SourceSetting =
     { SourceUrl: string
       SourceSlug: SourceSlug
-      Model: LangaugeModel
+      Model: LanguageModel
       SystemPrompt: string option
       InputTokenCutoff: int
       OutputTokenCutoff: int
@@ -78,7 +78,7 @@ type SummaryRequestParameters =
       InputTokenCutoff: int
       OutputTokenCutoff: int }
 
-type LangaugeModelActions =
+type LanguageModelActions =
     { SubmitBatch: RssItem array -> SummaryRequestParameters -> Task<DerivedBatch>
       GetUpdatedDerivedFeed: SourceSetting -> DerivedFeed -> Task<DerivedFeed option> }
 

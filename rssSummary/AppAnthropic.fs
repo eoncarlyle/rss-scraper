@@ -214,6 +214,6 @@ let getUpdatedDerivedFeed
                       Batches = newBatches }
     }
 
-let Haiku45Actions: LangaugeModelActions =
+let Haiku45Actions: LanguageModelActions =
     { SubmitBatch = submitBatch
       GetUpdatedDerivedFeed = getUpdatedDerivedFeed }

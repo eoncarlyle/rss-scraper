@@ -23,7 +23,7 @@ let getDerivedItemsWithSlug (sinkSetting: SinkSetting) =
             return sourceSlug, object
         }
 
-    task { //TODO: include references to origin
+    task {
         let! maybeDerivedS3Objects = sinkSetting.SourceSlugs |> Array.map getDerivedTuple |> Task.WhenAll
 
         return
@@ -115,8 +115,10 @@ let feedUpdate (sinkSetting: SinkSetting) =
 
             let batchCount = freshDerivedItems.Length / sinkSetting.SourceItemsPerPublish
 
+            //TODO move the object reference inside here, stale object refereces: another concurrency mistake
+            
             if batchCount = 0 then
-                    Console.WriteLine "No fresh items to add for sink ${sinkSetting}"
+                    Console.WriteLine $"No fresh items to add for sink {sinkSetting}"
                     return Result.Ok None
             else
                 let toPublish =

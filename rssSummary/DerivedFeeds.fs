@@ -60,7 +60,7 @@ let getFreshSourceItems (sourceSetting: SourceSetting) (incomingRssItems: RssIte
 let submitSummaryBatch
     (source: SourceSetting)
     (fetchSource: string -> Task<RssItem array>)
-    (modelActions: LangaugeModelActions)
+    (modelActions: LanguageModelActions)
     =
     task {
         let! sourceItems = fetchSource source.SourceUrl

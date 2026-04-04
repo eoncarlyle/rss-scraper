@@ -24,11 +24,6 @@ let internal isTerminalState (state: JobState) =
 
 module AppGemini =
 
-    type ItemTokenRecord =
-        { MinimalRssItem: RssItem
-          TokenCount: Int32
-          Guid: Guid }
-
     let internal getRequestsWithExcludes (items: (RssItem * Guid) array) submitBatchParameters =
         let requests =
             requestsWithTokenCount items encoder
@@ -189,7 +184,7 @@ module AppGemini =
                           Batches = newBatches }
         }
 
-    let AppGemini25FlashActions: LangaugeModelActions =
+    let AppGemini25FlashActions: LanguageModelActions =
         { SubmitBatch = submitBatch
           GetUpdatedDerivedFeed = getUpdatedDerivedFeed }
 
@@ -250,6 +245,6 @@ module AppGeminiSynchronous =
         //TODO model this better
         task { return Some derivedFeed }
 
-    let AppGemini25FlashSynchronousActions: LangaugeModelActions =
+    let AppGemini25FlashSynchronousActions: LanguageModelActions =
         { SubmitBatch = submitBatch
           GetUpdatedDerivedFeed = getUpdatedDerivedFeed }
