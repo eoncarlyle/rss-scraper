@@ -18,4 +18,4 @@ WORKDIR /app
 
 COPY --from=build /app/out ./
 
-ENTRYPOINT ["dotnet", "RssScraper.dll"]
+ENTRYPOINT ["dotnet", "RssServer.dll"]
