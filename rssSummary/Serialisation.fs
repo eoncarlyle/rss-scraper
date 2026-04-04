@@ -5,6 +5,7 @@ open System.Text.Json
 open System.Text.Json.Serialization
 open System.Text.RegularExpressions
 open DomainModel
+open System.Globalization
 
 let jsonOptions =
     let options =
@@ -56,3 +57,8 @@ let firstSentenceRemove (s: string) =
     else
         let m = Regex.Match(s, "^[^.]*(?:\.[^.]*)*?\.bm[^.]*\.\s*")
         if m.Success then s.Substring m.Length else s
+        
+let rfc822Date (dto: DateTimeOffset) =
+    dto
+        .ToUniversalTime()
+        .ToString("ddd, dd MMM yyyy HH:mm:ss UTC", CultureInfo.InvariantCulture)

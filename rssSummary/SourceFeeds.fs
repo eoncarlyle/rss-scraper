@@ -24,7 +24,7 @@ module Artemis =
           Link = Some item.Link
           Description = htmlSanitized item.Description |> firstSentenceRemove
           Content = htmlSanitized item.Encoded |> firstSentenceRemove
-          PubDate = Some item.PubDate }
+          PubDate = rfc822Date item.PubDate |> Some}
 
     let fetchSource url =
         let request =
@@ -49,7 +49,7 @@ module Dive =
           Link = Some item.Link.Href
           Description = ""
           Content = getSanitisedDiveContent item.Content.Value
-          PubDate = Some item.Published }
+          PubDate = rfc822Date item.Published |> Some }
 
     let fetchSource url =
         let request =

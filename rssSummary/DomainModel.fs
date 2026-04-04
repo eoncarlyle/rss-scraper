@@ -38,7 +38,7 @@ type RssItem =
       Link: String option
       Description: String
       Content: String
-      PubDate: DateTimeOffset option }
+      PubDate: String option }
 
 type DerivedItem =
     { Guid: String
@@ -100,7 +100,7 @@ type SinkSettings = { Sources: SinkSetting array }
 type SinkFeed =
     { Title: string
       Link: string
-      PubDate: DateTimeOffset
+      PubDate: String
       Description: string
       Items: SinkItem array }
 
