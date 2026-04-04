@@ -19,6 +19,7 @@ let jsonOptions =
                 .Default()
                 .WithUnionUnwrapFieldlessTags()
                 .WithSkippableOptionFields()
+                .WithUnionUnwrapSingleFieldCases()
         )
     )
 

@@ -1,12 +1,15 @@
 module SinkFeeds
 
-open System.Globalization
 open DerivedFeeds
 open DomainModel
 open Serialisation
 open Giraffe.ViewEngine
 open System.Threading.Tasks
 open System
+open System.IO
+
+let sinkSettings =
+    File.ReadAllText "sink-settings.json" |> deserialise<SinkSettings>
 
 let getFeedKey (sinkSetting: SinkSetting) = $"{sinkSetting.SinkSlug}.sink.json"
 
@@ -41,11 +44,8 @@ let getDerivedItemsWithSlug (sinkSetting: SinkSetting) =
             |> Array.concat
     }
 
-let getFreshDerivedItems (sinkSetting: SinkSetting) (derivedItemsWithSlug: (SourceSlug * DerivedBatch) array) =
+let getFreshDerivedItems maybeSinkS3Object (sinkSetting: SinkSetting) (derivedItemsWithSlug: (SourceSlug * DerivedBatch) array) =
     task {
-        let feedKey = getFeedKey sinkSetting
-        let! maybeSinkS3Object = ObjectStorage.getS3Object feedKey
-
         let flattenedDerivedItems =
             derivedItemsWithSlug
             |> Array.map (fun derivedPair ->
@@ -107,54 +107,56 @@ let getToPublish (derivedPairs: (SourceSlug * DerivedItem) array) sinkSetting =
       DerivedItemReferences = derivedItemReferences }
 
 
-let feedUpdate (sinkSetting: SinkSetting) =
+let feedUpdate (sink: SinkSetting) =
     let update sinkSetting =
         task {
             let! incomingDerivedItemsWithSlug = getDerivedItemsWithSlug sinkSetting
-            let! freshDerivedItems = getFreshDerivedItems sinkSetting incomingDerivedItemsWithSlug
-
-            let batchCount = freshDerivedItems.Length / sinkSetting.SourceItemsPerPublish
-
-            //TODO move the object reference inside here, stale object refereces: another concurrency mistake
+            let feedKey = getFeedKey sinkSetting
+            let! maybeSinkS3Object = ObjectStorage.getS3Object feedKey
+            let! freshDerivedItems = getFreshDerivedItems maybeSinkS3Object sinkSetting incomingDerivedItemsWithSlug
             
-            if batchCount = 0 then
-                    Console.WriteLine $"No fresh items to add for sink {sinkSetting}"
-                    return Result.Ok None
-            else
-                let toPublish =
-                    freshDerivedItems
-                    |> Array.truncate (batchCount * sinkSetting.SourceItemsPerPublish)
-                    |> Array.chunkBySize sinkSetting.SourceItemsPerPublish
-                    |> Array.map (fun derivedPairs -> getToPublish derivedPairs sinkSetting)
+            let batchCount = freshDerivedItems.Length / sinkSetting.SourceItemsPerPublish
+            let toPublish =
+                freshDerivedItems
+                |> Array.truncate (batchCount * sinkSetting.SourceItemsPerPublish)
+                |> Array.chunkBySize sinkSetting.SourceItemsPerPublish
+                |> Array.map (fun derivedPairs -> getToPublish derivedPairs sinkSetting)
 
-                let feedKey = getFeedKey sinkSetting
-                let! maybeSinkS3Object = ObjectStorage.getS3Object feedKey
-
-                match maybeSinkS3Object with
-                | Some sinkS3Object ->
+            let pubDate = rfc822Date DateTimeOffset.UtcNow
+            
+            match maybeSinkS3Object with
+            | Some sinkS3Object ->
+                
+                match batchCount with
+                | 0 ->
+                    Console.WriteLine $"No fresh items to add for sink {sinkSetting}" 
+                    return Result.Ok 0
+                | x when x > 0 ->
                     let sinkFeed = deserialise<SinkFeed> sinkS3Object.Content
-
                     let updatedSinkFeed =
                         { Title = sinkFeed.Title
                           Link = sinkFeed.Link
-                          PubDate = rfc822Date DateTimeOffset.UtcNow
+                          PubDate = pubDate
                           Description = sinkFeed.Description
                           Items = Array.append sinkFeed.Items toPublish }
 
                     let! putResult = ObjectStorage.putS3Object feedKey (serialise updatedSinkFeed) (Some sinkS3Object.ETag)
-                    return putResult |> Result.map Some
-                | None ->
-                    let slugLabel = String.Join(", ", Set sinkSetting.SourceSlugs)
+                    Console.WriteLine $"Sink {sinkSetting} added {x} fresh items" 
+                    return putResult |> Result.map (fun _ -> x)
+                | _ -> return Result.Error Net.HttpStatusCode.InternalServerError
+                
+            | None ->
+                let slugLabel = String.Join(", ", Set sinkSetting.SourceSlugs)
+                let sinkFeed: SinkFeed =
+                    { Title = $"RSS Summary Service {sinkSetting.SinkSlug} Sink Feed"
+                      Link = $"https://rss-scrape.iainschmitt.com/{sinkSetting.SinkSlug}"
+                      PubDate = pubDate
+                      Description = $"Summarised feed for {slugLabel}"
+                      Items = toPublish }
 
-                    let sinkFeed: SinkFeed =
-                        { Title = sinkSetting.SinkSlug
-                          Link = "https://rss-summary.iainschmitt.com"
-                          PubDate = rfc822Date DateTimeOffset.UtcNow
-                          Description = $"Summarised feed for {slugLabel}"
-                          Items = toPublish }
-
-                    let! putResult = ObjectStorage.putS3Object feedKey (serialise sinkFeed) None
-                    return putResult |> Result.map Some
+                let! putResult = ObjectStorage.putS3Object feedKey (serialise sinkFeed) None
+                Console.WriteLine $"Sink {sinkSetting.SinkSlug} created with {toPublish.Length} items" 
+                return putResult |> Result.map (fun _ -> toPublish.Length)
         }
         
-    ObjectStorage.retryHttp 3 (fun () -> update sinkSetting)
+    ObjectStorage.retryHttp 3 (fun () -> update sink)

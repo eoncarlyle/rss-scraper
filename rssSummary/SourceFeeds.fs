@@ -6,6 +6,10 @@ open DomainModel
 open Serialisation
 open FSharp.Data
 open System.Text.RegularExpressions
+open System.IO
+
+let sourceSettings =
+    File.ReadAllText "source-settings.json" |> deserialise<SourceSettings>
 
 let getSanitisedDiveContent content =
     Regex.Replace(htmlSanitized content, @"(\r?\n){2,}", "\n").Replace("&nbsp;", "")
@@ -24,7 +28,7 @@ module Artemis =
           Link = Some item.Link
           Description = htmlSanitized item.Description |> firstSentenceRemove
           Content = htmlSanitized item.Encoded |> firstSentenceRemove
-          PubDate = rfc822Date item.PubDate |> Some}
+          PubDate = rfc822Date item.PubDate |> Some }
 
     let fetchSource url =
         let request =
@@ -43,6 +47,7 @@ module Artemis =
 
 module Dive =
     type DiveRss = XmlProvider<"schema/c-store-dive.rss">
+
     let deserialiseRssItem (item: DiveRss.Entry) : RssItem =
         { Title = item.Title
           Guid = if isNull (box item.Id) then None else Some item.Id

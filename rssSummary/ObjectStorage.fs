@@ -43,7 +43,9 @@ let putS3Object key content (maybeETag: string option) =
                     DisablePayloadSigning = true
                 )
             
-            maybeETag |> Option.iter (fun eTag -> request.IfMatch <- eTag)
+            match maybeETag with
+            | Some eTag -> request.IfMatch <- eTag
+            | None -> request.IfNoneMatch <- "*"
 
             let! update = s3Client.PutObjectAsync request
             return Ok update.ETag

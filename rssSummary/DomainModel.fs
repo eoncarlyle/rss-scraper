@@ -95,10 +95,10 @@ type SinkSetting =
       SourceItemsPerPublish: int
       MaximumItems: int }
 
-type SinkSettings = { Sources: SinkSetting array }
+type SinkSettings = { Sinks: SinkSetting array }
 
 type SinkFeed =
-    { Title: SinkSlug
+    { Title: string
       Link: string
       PubDate: String
       Description: string

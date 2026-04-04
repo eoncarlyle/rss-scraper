@@ -7,8 +7,6 @@ open Serialisation
 open DomainModel
 open LanguageModelCommon
 
-let sourcesConfiguration =
-    File.ReadAllText "source-settings.json" |> deserialise<SourceSettings>
 
 let getDerivedFeedKeyFromSlug (sourceSlug: SourceSlug) = $"{sourceSlug}.derived.json"
 
