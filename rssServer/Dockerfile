@@ -5,12 +5,12 @@ WORKDIR /app
 COPY rssServer/*.fsproj ./rssServer/
 COPY rssSummary/*.fsproj ./rssSummary/
 
-RUN dotnet restore rssServer/RssScraper.fsproj
+RUN dotnet restore rssServer/RssServer.fsproj
 
 COPY rssServer/ ./rssServer/
 COPY rssSummary/ ./rssSummary/
 
-RUN dotnet publish rssServer/RssScraper.fsproj -c Release -o out
+RUN dotnet publish rssServer/RssServer.fsproj -c Release -o out
 
 FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS runtime
 
