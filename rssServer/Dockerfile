@@ -2,15 +2,15 @@ FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 
 WORKDIR /app
 
-COPY server/*.fsproj ./server/
+COPY rssServer/*.fsproj ./rssServer/
 COPY rssSummary/*.fsproj ./rssSummary/
 
-RUN dotnet restore server/RssScraper.fsproj
+RUN dotnet restore rssServer/RssScraper.fsproj
 
-COPY server/ ./server/
+COPY rssServer/ ./rssServer/
 COPY rssSummary/ ./rssSummary/
 
-RUN dotnet publish server/RssScraper.fsproj -c Release -o out
+RUN dotnet publish rssServer/RssScraper.fsproj -c Release -o out
 
 FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS runtime
 
