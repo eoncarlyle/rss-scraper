@@ -71,77 +71,88 @@ let getFreshDerivedItems (sinkSetting: SinkSetting) (derivedItemsWithSlug: (Sour
             | None -> flattenedDerivedItems
     }
 
+let getToPublish (derivedPairs: (SourceSlug * DerivedItem) array) sinkSetting =
+    let publishDate = DateTimeOffset.UtcNow
+    let slugLabel = String.Join(", ", Array.map fst derivedPairs |> Set)
+
+    let content =
+        div
+            []
+            [ yield!
+                  derivedPairs
+                  |> Array.map snd
+                  |> Array.filter _.Included
+                  |> Array.filter _.Result.IsSome
+                  |> Array.map (fun derivedItem ->
+                      div [] [ h2 [] [ str derivedItem.Item.Title ]; p [] [ str derivedItem.Result.Value ] ]) ]
+
+    let baseItem =
+        { Title = $"{sinkSetting.SinkSlug}: Update {publishDate.Date}"
+          Guid = Guid.NewGuid.ToString() |> Some
+          Link = None
+          Description = $"Published {publishDate} with feeds ${slugLabel}"
+          Content = RenderView.AsString.htmlDocument content
+          PubDate = rfc822Date publishDate |> Some }
+
+    let derivedItemReferences =
+        derivedPairs
+        |> Array.map (fun derivedPair ->
+            let item = snd derivedPair |> _.Item
+
+            { Title = item.Title
+              Guid = item.Guid
+              Link = item.Link })
+
+    { Item = baseItem
+      DerivedItemReferences = derivedItemReferences }
 
 
 let feedUpdate (sinkSetting: SinkSetting) =
-    task {
-        let! incomingDerivedItemsWithSlug = getDerivedItemsWithSlug sinkSetting
-        let! freshDerivedItems = getFreshDerivedItems sinkSetting incomingDerivedItemsWithSlug
+    let update sinkSetting =
+        task {
+            let! incomingDerivedItemsWithSlug = getDerivedItemsWithSlug sinkSetting
+            let! freshDerivedItems = getFreshDerivedItems sinkSetting incomingDerivedItemsWithSlug
 
-        let batchCount = freshDerivedItems.Length / sinkSetting.SourceItemsPerPublish
+            let batchCount = freshDerivedItems.Length / sinkSetting.SourceItemsPerPublish
 
-        if batchCount = 0 then
-            Console.WriteLine "No fresh items to add for sink ${sinkSetting}"
-        else
-            let toPublish =
-                freshDerivedItems
-                |> Array.truncate (batchCount * sinkSetting.SourceItemsPerPublish)
-                |> Array.chunkBySize sinkSetting.SourceItemsPerPublish
-                |> Array.map (fun derivedPairs ->
-                    let publishDate = DateTimeOffset.UtcNow
-                    let slugLabel = String.Join(",", Array.map fst derivedPairs |> Set)
+            if batchCount = 0 then
+                    Console.WriteLine "No fresh items to add for sink ${sinkSetting}"
+                    return Result.Ok None
+            else
+                let toPublish =
+                    freshDerivedItems
+                    |> Array.truncate (batchCount * sinkSetting.SourceItemsPerPublish)
+                    |> Array.chunkBySize sinkSetting.SourceItemsPerPublish
+                    |> Array.map (fun derivedPairs -> getToPublish derivedPairs sinkSetting)
 
-                    let content =
-                        div
-                            []
-                            [ yield!
-                                  derivedPairs
-                                  |> Array.map snd
-                                  |> Array.filter _.Included
-                                  |> Array.filter _.Result.IsSome
-                                  |> Array.map (fun derivedItem ->
-                                      div
-                                          []
-                                          [ h2 [] [ str derivedItem.Item.Title ]
-                                            p [] [ str derivedItem.Result.Value ] ]) ]
+                let feedKey = getFeedKey sinkSetting
+                let! maybeSinkS3Object = ObjectStorage.getS3Object feedKey
 
-                    let baseItem =
-                        { Title = $"{sinkSetting.SinkSlug}: Update {publishDate.Date}"
-                          Guid = Guid.NewGuid.ToString() |> Some
-                          Link = None
-                          Description = $"Published {publishDate} with feeds ${slugLabel}"
-                          Content = RenderView.AsString.htmlDocument content
-                          PubDate = rfc822Date publishDate |> Some }
+                match maybeSinkS3Object with
+                | Some sinkS3Object ->
+                    let sinkFeed = deserialise<SinkFeed> sinkS3Object.Content
 
-                    let derivedItemReferences =
-                        derivedPairs
-                        |> Array.map (fun derivedPair ->
-                            let item = snd derivedPair |> _.Item
+                    let updatedSinkFeed =
+                        { Title = sinkFeed.Title
+                          Link = sinkFeed.Link
+                          PubDate = rfc822Date DateTimeOffset.UtcNow
+                          Description = sinkFeed.Description
+                          Items = Array.append sinkFeed.Items toPublish }
 
-                            { Title = item.Title
-                              Guid = item.Guid
-                              Link = item.Link })
+                    let! putResult = ObjectStorage.putS3Object feedKey (serialise updatedSinkFeed) (Some sinkS3Object.ETag)
+                    return putResult |> Result.map Some
+                | None ->
+                    let slugLabel = String.Join(", ", Set sinkSetting.SourceSlugs)
 
-                    { Item = baseItem
-                      DerivedItemReferences = derivedItemReferences }
+                    let sinkFeed: SinkFeed =
+                        { Title = sinkSetting.SinkSlug
+                          Link = "https://rss-summary.iainschmitt.com"
+                          PubDate = rfc822Date DateTimeOffset.UtcNow
+                          Description = $"Summarised feed for {slugLabel}"
+                          Items = toPublish }
 
-                )
-
-            let feedKey = getFeedKey sinkSetting
-            let! maybeSinkS3Object = ObjectStorage.getS3Object feedKey
-
-            match maybeSinkS3Object with
-            | Some sinkS3Object ->
-                let sinkFeed = deserialise<SinkFeed> sinkS3Object.Content
-
-                let updatedSinkFeed =
-                    { Title = sinkFeed.Title
-                      Link = sinkFeed.Link
-                      PubDate = rfc822Date DateTimeOffset.UtcNow
-                      Description = sinkFeed.Description
-                      Items = Array.append sinkFeed.Items toPublish }
-
-                //return! ObjectStorage.putS3Object feedKey (serialise updatedSinkFeed) (Some sinkS3Object.ETag)
-                ()
-            | None -> ()
-    }
+                    let! putResult = ObjectStorage.putS3Object feedKey (serialise sinkFeed) None
+                    return putResult |> Result.map Some
+        }
+        
+    ObjectStorage.retryHttp 3 (fun () -> update sinkSetting)

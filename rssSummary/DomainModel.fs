@@ -90,7 +90,7 @@ type ItemTokenRecord =
       Guid: Guid }
 
 type SinkSetting =
-    { SinkSlug: string
+    { SinkSlug: SinkSlug
       SourceSlugs: SourceSlug array
       SourceItemsPerPublish: int
       MaximumItems: int }
@@ -98,7 +98,7 @@ type SinkSetting =
 type SinkSettings = { Sources: SinkSetting array }
 
 type SinkFeed =
-    { Title: string
+    { Title: SinkSlug
       Link: string
       PubDate: String
       Description: string
