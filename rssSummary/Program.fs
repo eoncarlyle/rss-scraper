@@ -25,7 +25,7 @@ let summarise (source: SourceSetting) modelActions fetchSource =
         let pollFeedMessage =
             match pollFeedUpdateResult with
             | Ok 0 -> "feed unchanged"
-            | Ok value -> "${value} records added"
+            | Ok value -> $"{value} records added"
             | Error code -> $"failed with status code ${code}"
 
         Console.WriteLine $"{source.SourceSlug} poll derived feed update: {pollFeedMessage}"
