@@ -9,6 +9,8 @@ open Microsoft.Extensions.DependencyInjection
 open Microsoft.AspNetCore.Http
 open Giraffe
 open Giraffe.ViewEngine
+open Amazon.S3
+open ObjectStorage
 
 open Scrape
 
@@ -16,33 +18,28 @@ type Handler = HttpFunc -> HttpContext -> HttpFuncResult
 
 let slugMap =
     Map
-        [ "thediff.rss", TheDiff.getRss
-          "gfile.rss", TheDispatch.getRss "gfile"
-          "capitolism.rss", TheDispatch.getRss "capitolism"
-          "wanderland.rss", TheDispatch.getRss "wanderland" ]
+        [ "thediff.rss", TheDiff.getRss ]
 
 let cache = Caching.getCache ()
 
-
-let rssHandler getRss =
+let directScrapeHandler getRss =
     fun _ (ctx: HttpContext) ->
         let xml = RenderView.AsString.xmlNode getRss
         ctx.SetContentType "application/rss+xml; charset=utf-8"
         ctx.WriteStringAsync xml
 
-let rssSlugHandler slug : Handler =
-    Map.tryFind slug slugMap
-    |> Option.map (fun getRss ->
-        Caching.getOrElseWith slug getRss cache |> rssHandler
-        >=> publicResponseCaching 60 None)
-    |> Option.defaultValue (setStatusCode 404 >=> text "Not Found")
+// TODO: 1) Wire in object storage 2) Place cache as service 3) RSS parsing 4) summary slug handling (caching?) 
+
+let slugRouter slug : Handler =
+    match slug with
+    | "thediff.rss" -> Caching.getOrElseWith slug TheDiff.getRss cache |> directScrapeHandler >=> publicResponseCaching 60 None
+    | _ -> setStatusCode 404 >=> text "Not Found"
 
 let webApp =
     choose
-        [ GET >=> choose [ routef "/%s" rssSlugHandler ]
+        [ GET >=> choose [ routef "/%s" slugRouter ]
           HEAD >=> setStatusCode 200
           setStatusCode 404 >=> text "Not Found" ]
-
 
 let errorHandler (ex: Exception) (logger: ILogger) =
     logger.LogError(ex, "An unhandled exception has occurred while executing the request.")
@@ -59,8 +56,13 @@ let configureApp (app: IApplicationBuilder) =
         .UseGiraffe(webApp)
 
 let configureServices (services: IServiceCollection) =
-    //services.AddCors()    |> ignore
     services.AddGiraffe() |> ignore
+    let endpoint = Environment.GetEnvironmentVariable("AWS_ENDPOINT_URL_S3")
+    let bucketName = Environment.GetEnvironmentVariable("TIGRIS_BUCKET")
+    let s3Client = new AmazonS3Client(AmazonS3Config(ServiceURL = endpoint, ForcePathStyle = true))
+    //services.AddSingleton<IAmazonS3>(s3Client) |> ignore
+    //services.AddSingleton<ObjectStorageService>(fun _ -> ObjectStorageService(s3Client, bucketName)) |> ignore
+
 
 let configureLogging (builder: ILoggingBuilder) =
     builder.AddConsole().AddDebug() |> ignore

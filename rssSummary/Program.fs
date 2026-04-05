@@ -1,4 +1,4 @@
-module App
+module RssSummary.App
 
 open System
 open System.IO
@@ -89,30 +89,25 @@ type RssSyncJob(
 
 [<EntryPoint>]
 let main args =
-    // Load settings using existing JSON deserializer (handles F# types correctly)
     let sourceSettings = File.ReadAllText "source-settings.json" |> deserialise<SourceSettings>
     let sinkSettings = File.ReadAllText "sink-settings.json" |> deserialise<SinkSettings>
 
     Host.CreateDefaultBuilder(args)
         .ConfigureServices(fun services ->
-            // Register settings as singletons
             services.AddSingleton<SourceSettings>(sourceSettings) |> ignore
             services.AddSingleton<SinkSettings>(sinkSettings) |> ignore
 
-            // Register S3 client and ObjectStorageService
             let endpoint = Environment.GetEnvironmentVariable("AWS_ENDPOINT_URL_S3")
             let bucketName = Environment.GetEnvironmentVariable("TIGRIS_BUCKET")
             let s3Client = new AmazonS3Client(AmazonS3Config(ServiceURL = endpoint, ForcePathStyle = true))
             services.AddSingleton<IAmazonS3>(s3Client) |> ignore
             services.AddSingleton<ObjectStorageService>(fun _ -> ObjectStorageService(s3Client, bucketName)) |> ignore
 
-            // Register LLM services
             services.AddSingleton<AnthropicClient>() |> ignore
             services.AddSingleton<AnthropicService>() |> ignore
             services.AddSingleton<Client>() |> ignore
             services.AddSingleton<GeminiService>() |> ignore
 
-            // Configure Quartz
             services.AddQuartz(fun q ->
                 let jobKey = JobKey("rss-sync")
                 q.AddJob<RssSyncJob>(jobKey) |> ignore

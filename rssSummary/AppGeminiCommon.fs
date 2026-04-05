@@ -182,7 +182,6 @@ type GeminiService(client: Client) =
         { SubmitBatch = fun items batchParameters -> this.SubmitBatch(items, batchParameters)
           GetUpdatedDerivedFeed = fun setting feed -> this.GetUpdatedDerivedFeed(setting, feed) }
 
-    // Synchronous mode methods
     member private _.SubmitInstant(model: string, itemTuple: RssItem * Guid) : Task<DerivedItem> =
         task {
             let! response = client.Models.GenerateContentAsync(model, fst itemTuple |> getStructuredQuery)
@@ -234,7 +233,6 @@ type GeminiService(client: Client) =
         }
 
     member _.GetUpdatedDerivedFeedSynchronous(sourceSetting: SourceSetting, derivedFeed: DerivedFeed) : Task<DerivedFeed option> =
-        // No-op because synchronous batch has already completed
         task { return Some derivedFeed }
 
     member this.SynchronousActions: LanguageModelActions =

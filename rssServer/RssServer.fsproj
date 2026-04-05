@@ -13,13 +13,14 @@
     <PackageReference Include="FsHttp" Version="15.0.3" />
     <PackageReference Include="Giraffe" Version="6.4.0" />
     <PackageReference Include="Giraffe.ViewEngine" Version="1.4.*" />
+    <PackageReference Include="AWSSDK.S3" Version="4.0.19.4" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="../rssSummary/RssSummary.fsproj" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Parse.fs" />
     <Compile Include="Caching.fs" />
     <Compile Include="Program.fs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="../rssSummary/RssSummary.fsproj" />
   </ItemGroup>
 </Project>

@@ -10,17 +10,8 @@ open System.Globalization
 let jsonOptions =
     let options =
         JsonSerializerOptions(PropertyNamingPolicy = JsonNamingPolicy.CamelCase, WriteIndented = true)
-
-    options.WriteIndented <- true
-
-    options.Converters.Add(
-        JsonFSharpConverter(
-            JsonFSharpOptions
-                .Default()
-                .WithUnionUnwrapFieldlessTags()
-                .WithSkippableOptionFields()
-        )
-    )
+    let jsonFsharpOptions = JsonFSharpOptions.Default()
+    jsonFsharpOptions.AddToJsonSerializerOptions(options)
 
     options
 
@@ -51,12 +42,6 @@ let htmlSanitized (s: string) =
         doc.LoadHtml s
         doc.DocumentNode.InnerText
 
-let firstSentenceRemove (s: string) =
-    if String.IsNullOrEmpty(s) then
-        s
-    else
-        let m = Regex.Match(s, "^[^.]*(?:\.[^.]*)*?\.bm[^.]*\.\s*")
-        if m.Success then s.Substring m.Length else s
 
 let rfc822Date (dto: DateTimeOffset) =
     dto

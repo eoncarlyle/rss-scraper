@@ -14,7 +14,14 @@ module Artemis =
     type ArtemisRss = XmlProvider<"Schema/artemis.rss">
     let localArtemisRss = ArtemisRss.Load "Schema/artemis.rss"
 
-    let deserialiseRssItem (item: ArtemisRss.Item) : RssItem =
+    let internal firstSentenceRemove (s: string) =
+        if String.IsNullOrEmpty(s) then
+            s
+        else
+            let m = Regex.Match(s, "^[^.]*(?:\.[^.]*)*?\.bm[^.]*\.\s*")
+            if m.Success then s.Substring m.Length else s
+
+    let internal deserialiseRssItem (item: ArtemisRss.Item) : RssItem =
         { Title = item.Title
           Guid =
             if isNull (box item.Guid) then
@@ -44,7 +51,7 @@ module Artemis =
 module Dive =
     type DiveRss = XmlProvider<"Schema/c-store-dive.rss">
 
-    let deserialiseRssItem (item: DiveRss.Entry) : RssItem =
+    let internal deserialiseRssItem (item: DiveRss.Entry) : RssItem =
         { Title = item.Title
           Guid = if isNull (box item.Id) then None else Some item.Id
           Link = Some item.Link.Href
