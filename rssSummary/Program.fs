@@ -118,7 +118,7 @@ let main args =
                 q.AddJob<RssSyncJob>(jobKey) |> ignore
                 q.AddTrigger(fun t ->
                     t.ForJob(jobKey)
-                        .WithCronSchedule("0 */3 * * * ?")
+                        .WithCronSchedule("0 */10 * * * ?")
                     |> ignore
                 ) |> ignore
             ) |> ignore
