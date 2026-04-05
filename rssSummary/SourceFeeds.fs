@@ -1,15 +1,11 @@
 module SourceFeeds
 
 open System
-open FsHttp // Did not know you could scope this way, which is nice
+open FsHttp
 open DomainModel
 open Serialisation
 open FSharp.Data
 open System.Text.RegularExpressions
-open System.IO
-
-let sourceSettings =
-    File.ReadAllText "source-settings.json" |> deserialise<SourceSettings>
 
 let getSanitisedDiveContent content =
     Regex.Replace(htmlSanitized content, @"(\r?\n){2,}", "\n").Replace("&nbsp;", "")

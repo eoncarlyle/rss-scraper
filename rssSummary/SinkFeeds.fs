@@ -3,13 +3,10 @@ module SinkFeeds
 open DerivedFeeds
 open DomainModel
 open Serialisation
+open ObjectStorage
 open Giraffe.ViewEngine
 open System.Threading.Tasks
 open System
-open System.IO
-
-let sinkSettings =
-    File.ReadAllText "sink-settings.json" |> deserialise<SinkSettings>
 
 let getFeedKey (sinkSetting: SinkSetting) = $"{sinkSetting.SinkSlug}.sink.json"
 
@@ -18,11 +15,11 @@ let isEquivalent (item: RssItem) (derivedItemReference: DerivedItemReference) =
     && item.Guid = derivedItemReference.Guid
     && item.Link = derivedItemReference.Link
 
-let getDerivedItemsWithSlug (sinkSetting: SinkSetting) =
+let getDerivedItemsWithSlug (storage: ObjectStorageService) (sinkSetting: SinkSetting) =
 
     let getDerivedTuple sourceSlug =
         task {
-            let! object = getDerivedFeedKeyFromSlug sourceSlug |> ObjectStorage.getS3Object
+            let! object = getDerivedFeedKeyFromSlug sourceSlug |> storage.GetObject
             return sourceSlug, object
         }
 
@@ -107,14 +104,14 @@ let getToPublish (derivedPairs: (SourceSlug * DerivedItem) array) sinkSetting =
       DerivedItemReferences = derivedItemReferences }
 
 
-let feedUpdate (sink: SinkSetting) =
+let feedUpdate (storage: ObjectStorageService) (sink: SinkSetting) =
     let update sinkSetting =
         task {
-            let! incomingDerivedItemsWithSlug = getDerivedItemsWithSlug sinkSetting
+            let! incomingDerivedItemsWithSlug = getDerivedItemsWithSlug storage sinkSetting
             let feedKey = getFeedKey sinkSetting
-            let! maybeSinkS3Object = ObjectStorage.getS3Object feedKey
+            let! maybeSinkS3Object = storage.GetObject feedKey
             let! freshDerivedItems = getFreshDerivedItems maybeSinkS3Object sinkSetting incomingDerivedItemsWithSlug
-            
+
             let batchCount = freshDerivedItems.Length / sinkSetting.SourceItemsPerPublish
             let toPublish =
                 freshDerivedItems
@@ -123,13 +120,13 @@ let feedUpdate (sink: SinkSetting) =
                 |> Array.map (fun derivedPairs -> getToPublish derivedPairs sinkSetting)
 
             let pubDate = rfc822Date DateTimeOffset.UtcNow
-            
+
             match maybeSinkS3Object with
             | Some sinkS3Object ->
-                
+
                 match batchCount with
                 | 0 ->
-                    Console.WriteLine $"No fresh items to add for sink {sinkSetting}" 
+                    Console.WriteLine $"No fresh items to add for sink {sinkSetting.SinkSlug}"
                     return Result.Ok 0
                 | x when x > 0 ->
                     let sinkFeed = deserialise<SinkFeed> sinkS3Object.Content
@@ -140,11 +137,11 @@ let feedUpdate (sink: SinkSetting) =
                           Description = sinkFeed.Description
                           Items = Array.append sinkFeed.Items toPublish }
 
-                    let! putResult = ObjectStorage.putS3Object feedKey (serialise updatedSinkFeed) (Some sinkS3Object.ETag)
-                    Console.WriteLine $"Sink {sinkSetting} added {x} fresh items" 
+                    let! putResult = storage.PutObject(feedKey, serialise updatedSinkFeed, Some sinkS3Object.ETag)
+                    Console.WriteLine $"Sink {sinkSetting} added {x} fresh items"
                     return putResult |> Result.map (fun _ -> x)
                 | _ -> return Result.Error Net.HttpStatusCode.InternalServerError
-                
+
             | None ->
                 let slugLabel = String.Join(", ", Set sinkSetting.SourceSlugs)
                 let sinkFeed: SinkFeed =
@@ -154,9 +151,9 @@ let feedUpdate (sink: SinkSetting) =
                       Description = $"Summarised feed for {slugLabel}"
                       Items = toPublish }
 
-                let! putResult = ObjectStorage.putS3Object feedKey (serialise sinkFeed) None
-                Console.WriteLine $"Sink {sinkSetting.SinkSlug} created with {toPublish.Length} items" 
+                let! putResult = storage.PutObject(feedKey, serialise sinkFeed, None)
+                Console.WriteLine $"Sink {sinkSetting.SinkSlug} created with {toPublish.Length} items"
                 return putResult |> Result.map (fun _ -> toPublish.Length)
         }
-        
-    ObjectStorage.retryHttp 3 (fun () -> update sink)
+
+    storage.RetryHttp(3, fun () -> update sink)

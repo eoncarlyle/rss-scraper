@@ -59,9 +59,10 @@ type LanguageModel =
     | [<JsonName "claude-haiku-4-5">] ClaudeHaiku45
     | [<JsonName "gemini-2-5-flash-lite">] Gemini25FlashLite
 
+[<CLIMutable>]
 type SourceSettings = { Sources: SourceSetting array }
 
-and SourceSetting =
+and [<CLIMutable>] SourceSetting =
     { SourceUrl: string
       SourceSlug: SourceSlug
       Model: LanguageModel
@@ -89,12 +90,14 @@ type ItemTokenRecord =
       TokenCount: Int32
       Guid: Guid }
 
+[<CLIMutable>]
 type SinkSetting =
     { SinkSlug: SinkSlug
       SourceSlugs: SourceSlug array
       SourceItemsPerPublish: int
       MaximumItems: int }
 
+[<CLIMutable>]
 type SinkSettings = { Sinks: SinkSetting array }
 
 type SinkFeed =
