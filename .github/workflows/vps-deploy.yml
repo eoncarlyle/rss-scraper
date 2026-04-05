@@ -7,10 +7,11 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}/rss-scraper
+  SERVER_IMAGE: ${{ github.repository }}/rss-server
+  SCRAPER_IMAGE: ${{ github.repository }}/rss-scraper
 
 jobs:
-  build_and_push:
+  build_server:
     runs-on: [self-hosted, los-angeles]
 
     permissions:
@@ -38,18 +39,52 @@ jobs:
         run: |
           echo "${{ secrets.GITHUB_TOKEN }}" | sudo podman login ghcr.io -u "${{ github.actor }}" --password-stdin
 
-      - name: Build and push container image
+      - name: Build and push server image
         run: |
           VERSION="${{ steps.version.outputs.version }}"
+          sudo podman build -f rssServer/Dockerfile -t ${{ env.REGISTRY }}/${{ env.SERVER_IMAGE }}:${VERSION} .
+          sudo podman tag ${{ env.REGISTRY }}/${{ env.SERVER_IMAGE }}:${VERSION} ${{ env.REGISTRY }}/${{ env.SERVER_IMAGE }}:latest
+          sudo podman push ${{ env.REGISTRY }}/${{ env.SERVER_IMAGE }}:${VERSION}
+          sudo podman push ${{ env.REGISTRY }}/${{ env.SERVER_IMAGE }}:latest
 
-          # Build with the version tag
-          sudo podman build -f rssServer/Dockerfile -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${VERSION} .
-          sudo podman tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${VERSION} ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
-          sudo podman push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${VERSION}
-          sudo podman push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+  build_scraper:
+    runs-on: [self-hosted, los-angeles]
 
-  deploy_test:
-    needs: build_and_push
+    permissions:
+      contents: read
+      packages: write
+
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+
+    steps:
+      - name: Clean images
+        run: sudo podman image prune -af
+
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Generate version info
+        id: version
+        run: |
+          VERSION=$(date +'%Y.%m.%d').${{ github.run_number }}
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Generated version: $VERSION"
+
+      - name: Log in to the Container registry
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | sudo podman login ghcr.io -u "${{ github.actor }}" --password-stdin
+
+      - name: Build and push scraper image
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          sudo podman build -f rssSummary/Dockerfile -t ${{ env.REGISTRY }}/${{ env.SCRAPER_IMAGE }}:${VERSION} .
+          sudo podman tag ${{ env.REGISTRY }}/${{ env.SCRAPER_IMAGE }}:${VERSION} ${{ env.REGISTRY }}/${{ env.SCRAPER_IMAGE }}:latest
+          sudo podman push ${{ env.REGISTRY }}/${{ env.SCRAPER_IMAGE }}:${VERSION}
+          sudo podman push ${{ env.REGISTRY }}/${{ env.SCRAPER_IMAGE }}:latest
+
+  deploy_server_test:
+    needs: build_server
     runs-on: [self-hosted, new-york-0]
 
     steps:
@@ -67,17 +102,17 @@ jobs:
 
       - name: Pull latest image
         run: |
-          sudo podman pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ needs.build_and_push.outputs.version }}
+          sudo podman pull ${{ env.REGISTRY }}/${{ env.SERVER_IMAGE }}:${{ needs.build_server.outputs.version }}
 
       - name: Deploy to test environment
         run: |
           sudo podman run -d \
-            --name rss-scraper-test \
+            --name rss-server-test \
             --replace \
             --restart unless-stopped \
             --network podman_bridge_rootfull \
             --ip 192.168.100.111 \
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ needs.build_and_push.outputs.version }} 192.168.100.111
+            ${{ env.REGISTRY }}/${{ env.SERVER_IMAGE }}:${{ needs.build_server.outputs.version }} 192.168.100.111
 
       - name: Verify Container Deployments
         run: |
@@ -87,8 +122,8 @@ jobs:
         run: |
           curl -If --retry 5 --retry-delay 5 --retry-all-errors https://test.rss-scrape.iainschmitt.com
 
-  deploy_prod:
-    needs: [deploy_test, build_and_push]
+  deploy_server_prod:
+    needs: [deploy_server_test, build_server]
     runs-on: [self-hosted, new-york-0]
 
     steps:
@@ -99,12 +134,12 @@ jobs:
       - name: Deploy to production environment
         run: |
           sudo podman run -d \
-            --name rss-scraper-prod \
+            --name rss-server-prod \
             --replace \
             --restart unless-stopped \
             --network podman_bridge_rootfull \
             --ip 192.168.100.110 \
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ needs.build_and_push.outputs.version }} 192.168.100.110
+            ${{ env.REGISTRY }}/${{ env.SERVER_IMAGE }}:${{ needs.build_server.outputs.version }} 192.168.100.110
 
       - name: Verify Container Deployments
         run: |
@@ -113,3 +148,49 @@ jobs:
       - name: Verify success
         run: |
           curl -If --retry 5 --retry-delay 5 --retry-all-errors https://rss-scrape.iainschmitt.com
+
+  deploy_scraper:
+    needs: build_scraper
+    runs-on: [self-hosted, new-york-0]
+
+    steps:
+      - name: Log in to GitHub Container Registry
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | sudo podman login ghcr.io -u "${{ github.actor }}" --password-stdin
+
+      - name: Setup Network
+        run: |
+          sudo podman network exists podman_bridge_rootfull || \
+          sudo podman network create --driver bridge \
+            --subnet 192.168.100.0/24 \
+            --gateway 192.168.100.1 \
+            podman_bridge_rootfull
+
+      - name: Pull latest image
+        run: |
+          sudo podman pull ${{ env.REGISTRY }}/${{ env.SCRAPER_IMAGE }}:${{ needs.build_scraper.outputs.version }}
+
+      - name: Deploy scraper
+        run: |
+          sudo podman run -d \
+            --name rss-scraper-job \
+            --replace \
+            --restart unless-stopped \
+            --network podman_bridge_rootfull \
+            --ip 192.168.100.112 \
+            -e AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }} \
+            -e AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }} \
+            -e AWS_ENDPOINT_URL_S3=${{ secrets.AWS_ENDPOINT_URL_S3 }} \
+            -e TIGRIS_BUCKET=${{ secrets.TIGRIS_BUCKET }} \
+            -e ANTHROPIC_API_KEY=${{ secrets.ANTHROPIC_API_KEY }} \
+            -e GOOGLE_API_KEY=${{ secrets.GOOGLE_API_KEY }} \
+            ${{ env.REGISTRY }}/${{ env.SCRAPER_IMAGE }}:${{ needs.build_scraper.outputs.version }}
+
+      - name: Verify Container Deployments
+        run: |
+          sudo podman ps --format "{{.Names}}: {{.Status}}"
+
+      - name: Verify scraper is running
+        run: |
+          sleep 5
+          sudo podman logs rss-scraper-job --tail 20
