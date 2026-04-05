@@ -58,7 +58,7 @@ let rec handleSink (sink: SinkSetting) =
         let! feedUpdateResult = SinkFeeds.feedUpdate sink
         match feedUpdateResult with
         | Ok _ -> ()
-        | Error result -> Console.WriteLine $"Sink feed update failed with status code ${result}"
+        | Error result -> Console.WriteLine $"Sink feed update failed with status code {result}"
     }
 
 type testType = {Guid: String option}

@@ -25,7 +25,7 @@ jobs:
         run: sudo podman image prune -af
 
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Generate version info
         id: version
