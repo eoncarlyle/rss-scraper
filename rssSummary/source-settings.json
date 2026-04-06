@@ -18,7 +18,7 @@
       "outputTokenCutoff": 896,
       "maximumItems": 100,
       "maximumLookback": 15,
-      "enabled": true
+      "enabled": false
     },
     {
       "sourceUrl": "https://kill-the-newsletter.com/feeds/a0xyhasgeuotozpnfpah.xml",
@@ -28,7 +28,7 @@
       "outputTokenCutoff": 896,
       "maximumItems": 100,
       "maximumLookback": 15,
-      "enabled": true,
+      "enabled": false,
       "synchronous": true
     }
   ]
