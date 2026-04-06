@@ -4,6 +4,7 @@ open DerivedFeeds
 open DomainModel
 open Serialisation
 open ObjectStorage
+open System.Globalization
 open Giraffe.ViewEngine
 open System.Threading.Tasks
 open System
@@ -42,7 +43,11 @@ let getDerivedItemsWithSlug (storage: ObjectStorageService) (sinkSetting: SinkSe
             |> Array.concat
     }
 
-let getFreshDerivedItems maybeSinkS3Object (sinkSetting: SinkSetting) (derivedItemsWithSlug: (SourceSlug * DerivedBatch) array) =
+let getFreshDerivedItems
+    maybeSinkS3Object
+    (sinkSetting: SinkSetting)
+    (derivedItemsWithSlug: (SourceSlug * DerivedBatch) array)
+    =
     task {
         let flattenedDerivedItems =
             derivedItemsWithSlug
@@ -89,7 +94,7 @@ let getToPublish (derivedPairs: (SourceSlug * DerivedItem) array) sinkSetting =
           Guid = Guid.NewGuid().ToString() |> Some
           Link = None
           Description = $"Published {publishDate} with feeds {slugLabel}"
-          Content = RenderView.AsString.htmlDocument content
+          Content = RenderView.AsString.htmlNode content
           PubDate = rfc822Date publishDate |> Some }
 
     let derivedItemReferences =
@@ -114,6 +119,7 @@ let feedUpdate (storage: ObjectStorageService) (sink: SinkSetting) =
             let! freshDerivedItems = getFreshDerivedItems maybeSinkS3Object sinkSetting incomingDerivedItemsWithSlug
 
             let batchCount = freshDerivedItems.Length / sinkSetting.SourceItemsPerPublish
+
             let toPublish =
                 freshDerivedItems
                 |> Array.truncate (batchCount * sinkSetting.SourceItemsPerPublish)
@@ -131,6 +137,7 @@ let feedUpdate (storage: ObjectStorageService) (sink: SinkSetting) =
                     return Result.Ok 0
                 | x when x > 0 ->
                     let sinkFeed = deserialise<SinkFeed> sinkS3Object.Content
+
                     let updatedSinkFeed =
                         { Title = sinkFeed.Title
                           Link = sinkFeed.Link
@@ -145,15 +152,21 @@ let feedUpdate (storage: ObjectStorageService) (sink: SinkSetting) =
 
             | None ->
                 let slugLabel = String.Join(", ", Set sinkSetting.SourceSlugs)
+
                 let sinkFeed: SinkFeed =
-                    { Title = $"RSS Summary Service {sinkSetting.SinkSlug} Sink Feed"
+                    { Title = $"{sinkSetting.SinkSlug}: Summary Sink Feed"
                       Link = $"https://rss-scrape.iainschmitt.com/{sinkSetting.SinkSlug}"
                       PubDate = pubDate
                       Description = $"Summarised feed for {slugLabel}"
                       Items = toPublish }
 
                 let! putResult = storage.PutObject(feedKey, serialise sinkFeed, None)
-                Console.WriteLine $"Sink {sinkSetting.SinkSlug} created with {toPublish.Length} items"
+
+                let slugLabel =
+                    CultureInfo.CurrentCulture.TextInfo.ToTitleCase(serialise sinkSetting.SinkSlug)
+
+                Console.WriteLine $"Sink {slugLabel} created with {toPublish.Length} items"
+
                 return putResult |> Result.map (fun _ -> toPublish.Length)
         }
 
