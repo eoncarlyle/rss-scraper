@@ -112,6 +112,10 @@ jobs:
             --restart unless-stopped \
             --network podman_bridge_rootfull \
             --ip 192.168.100.111 \
+            -e AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }} \
+            -e AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }} \
+            -e AWS_ENDPOINT_URL_S3=${{ secrets.AWS_ENDPOINT_URL_S3 }} \
+            -e TIGRIS_BUCKET=${{ secrets.TIGRIS_BUCKET }} \
             ${{ env.REGISTRY }}/${{ env.SERVER_IMAGE }}:${{ needs.build_server.outputs.version }} 192.168.100.111
 
       - name: Verify Container Deployments
@@ -139,6 +143,10 @@ jobs:
             --restart unless-stopped \
             --network podman_bridge_rootfull \
             --ip 192.168.100.110 \
+            -e AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }} \
+            -e AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }} \
+            -e AWS_ENDPOINT_URL_S3=${{ secrets.AWS_ENDPOINT_URL_S3 }} \
+            -e TIGRIS_BUCKET=${{ secrets.TIGRIS_BUCKET }} \
             ${{ env.REGISTRY }}/${{ env.SERVER_IMAGE }}:${{ needs.build_server.outputs.version }} 192.168.100.110
 
       - name: Verify Container Deployments
