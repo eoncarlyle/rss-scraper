@@ -37,8 +37,8 @@ type RssItem =
       Guid: String option
       Link: String option
       Description: String
-      Content: String
-      PubDate: String option }
+      Content: String // Content is only really used for the derived items
+      PubDate: String option } //It is worth thinking about splitting out the RSS items
 
 type DerivedItem =
     { Guid: String

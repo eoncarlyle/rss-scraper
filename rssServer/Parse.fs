@@ -160,7 +160,6 @@ module RenderSummarised =
                   tag "guid" [] [ encodedText (Option.defaultValue "" sinkItem.Item.Guid) ]
                   tag "link" [] [ encodedText (Option.defaultValue "" sinkItem.Item.Link) ]
                   tag "description" [] [ encodedText sinkItem.Item.Description ]
-                  tag "content" [] [ rawText sinkItem.Item.Content ]
                   tag "pubDate" [] [ encodedText sinkItem.Item.Title ] ] 
         
         tag
