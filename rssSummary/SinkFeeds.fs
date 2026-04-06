@@ -9,6 +9,7 @@ open System.Threading.Tasks
 open System
 
 let getFeedKey (sinkSetting: SinkSetting) = $"{sinkSetting.SinkSlug}.sink.json"
+let getPossibleFeedKey possibleSlug = $"{possibleSlug}.sink.json"
 
 let isEquivalent (item: RssItem) (derivedItemReference: DerivedItemReference) =
     item.Title = derivedItemReference.Title

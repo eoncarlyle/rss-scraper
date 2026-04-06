@@ -1,38 +1,75 @@
 module RssScraper.App
 
 open System
+open Caching
 open Microsoft.AspNetCore.Builder
 open Microsoft.AspNetCore.Hosting
 open Microsoft.Extensions.Hosting
 open Microsoft.Extensions.Logging
 open Microsoft.Extensions.DependencyInjection
 open Microsoft.AspNetCore.Http
+open System.IO
 open Giraffe
 open Giraffe.ViewEngine
 open Amazon.S3
 open ObjectStorage
 
 open Scrape
+open Serialisation
 
-type Handler = HttpFunc -> HttpContext -> HttpFuncResult
 
-let slugMap =
-    Map
-        [ "thediff.rss", TheDiff.getRss ]
 
-let cache = Caching.getCache ()
-
-let directScrapeHandler getRss =
+let directScrapeHandler slug getRss =
     fun _ (ctx: HttpContext) ->
-        let xml = RenderView.AsString.xmlNode getRss
+        let cache = ctx.GetService<Cache>()
+        let xml = cache.getOrElseWithDirect (slug, getRss)
+        let rendered = RenderView.AsString.xmlNode xml
         ctx.SetContentType "application/rss+xml; charset=utf-8"
-        ctx.WriteStringAsync xml
+        ctx.WriteStringAsync rendered
 
-// TODO: 1) Wire in object storage 2) Place cache as service 3) RSS parsing 4) summary slug handling (caching?) 
+let summaryHandler slug : HttpHandler =
+    fun _ (ctx: HttpContext) ->
+        task {
+            let cache = ctx.GetService<Cache>()
+            let objectStorageService = ctx.GetService<ObjectStorageService>()
 
-let slugRouter slug : Handler =
-    match slug with
-    | "thediff.rss" -> Caching.getOrElseWith slug TheDiff.getRss cache |> directScrapeHandler >=> publicResponseCaching 60 None
+            let getSummaryThunk =
+                fun () ->
+                    task {
+                        let possibleFeedKey = SinkFeeds.getPossibleFeedKey slug
+                        let! maybeSinkS3Object = objectStorageService.GetObject(possibleFeedKey)
+                        Console.WriteLine $"Summary feed cache miss, attempting to retrieve {possibleFeedKey}"
+
+                        return
+                            maybeSinkS3Object
+                            |> Option.map (fun b -> deserialise<DomainModel.SinkFeed> b.Content)
+                            |> Option.map RenderSummarised.getRss
+                    }
+
+            let! maybeXml = cache.getOrElseWithSummary (slug, getSummaryThunk)
+
+            return!
+                match maybeXml with
+                | Some xml ->
+                    let rendered = RenderView.AsString.xmlNode xml
+                    Console.WriteLine $"Returning output for summary feed {slug}"
+                    ctx.SetContentType "application/rss+xml; charset=utf-8"
+                    ctx.WriteStringAsync rendered
+                | None ->
+                    Console.WriteLine $"No output for summary feed {slug}"
+                    ctx.SetStatusCode 404
+                    ctx.SetContentType "text/plain; charset=utf-8"
+                    ctx.WriteStringAsync "Not Found"
+        }
+
+// TODO: 4) summary slug handling (caching?)
+
+let slugRouter feed : HttpHandler =
+    match feed with
+    | "thediff.rss" -> directScrapeHandler feed TheDiff.getRss >=> publicResponseCaching 60 None
+    | p when p.EndsWith(".rss", StringComparison.OrdinalIgnoreCase) ->
+        summaryHandler (Path.GetFileNameWithoutExtension(p))
+        >=> publicResponseCaching 60 None
     | _ -> setStatusCode 404 >=> text "Not Found"
 
 let webApp =
@@ -51,7 +88,6 @@ let configureApp (app: IApplicationBuilder) =
     (match env.IsDevelopment() with
      | true -> app.UseDeveloperExceptionPage()
      | false -> app.UseGiraffeErrorHandler(errorHandler).UseHttpsRedirection())
-        //.UseCors(configureCors)
         .UseStaticFiles()
         .UseGiraffe(webApp)
 
@@ -59,9 +95,16 @@ let configureServices (services: IServiceCollection) =
     services.AddGiraffe() |> ignore
     let endpoint = Environment.GetEnvironmentVariable("AWS_ENDPOINT_URL_S3")
     let bucketName = Environment.GetEnvironmentVariable("TIGRIS_BUCKET")
-    let s3Client = new AmazonS3Client(AmazonS3Config(ServiceURL = endpoint, ForcePathStyle = true))
-    //services.AddSingleton<IAmazonS3>(s3Client) |> ignore
-    //services.AddSingleton<ObjectStorageService>(fun _ -> ObjectStorageService(s3Client, bucketName)) |> ignore
+
+    let s3Client =
+        new AmazonS3Client(AmazonS3Config(ServiceURL = endpoint, ForcePathStyle = true))
+
+    services.AddSingleton<IAmazonS3>(s3Client) |> ignore
+
+    services.AddSingleton<ObjectStorageService>(ObjectStorageService(s3Client, bucketName))
+    |> ignore
+
+    services.AddSingleton<Cache>(Cache()) |> ignore
 
 
 let configureLogging (builder: ILoggingBuilder) =

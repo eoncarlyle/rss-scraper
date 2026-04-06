@@ -3,15 +3,23 @@ module Serialisation
 open System
 open System.Text.Json
 open System.Text.Json.Serialization
-open System.Text.RegularExpressions
 open DomainModel
 open System.Globalization
 
 let jsonOptions =
     let options =
         JsonSerializerOptions(PropertyNamingPolicy = JsonNamingPolicy.CamelCase, WriteIndented = true)
-    let jsonFsharpOptions = JsonFSharpOptions.Default()
-    jsonFsharpOptions.AddToJsonSerializerOptions(options)
+
+    options.WriteIndented <- true
+
+    options.Converters.Add(
+        JsonFSharpConverter(
+            JsonFSharpOptions
+                .Default()
+                .WithUnionUnwrapFieldlessTags()
+                .WithSkippableOptionFields()
+        )
+    )
 
     options
 

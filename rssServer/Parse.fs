@@ -9,18 +9,19 @@ open Giraffe.ViewEngine
 
 let parser = HtmlParser()
 
-type Post =
+
+type DirectScrapePost =
     { PostTitle: String
       Link: String
       Description: String
       Date: String }
 
-type Feed =
+type DirectScrapeFeed =
     { FeedTitle: String
       Link: String
       Description: String }
 
-let rssItem (post: Post) =
+let internal directScrapeRssItem (post: DirectScrapePost) =
     tag
         "item"
         []
@@ -29,7 +30,7 @@ let rssItem (post: Post) =
           tag "pubDate" [] [ encodedText post.Date ]
           tag "description" [] [ encodedText post.Description ] ]
 
-let fallbackPosts name scrapePath =
+let internal fallbackPosts name scrapePath =
     seq {
         { PostTitle = $"Parse Failure for {name}"
           Link = scrapePath
@@ -37,7 +38,7 @@ let fallbackPosts name scrapePath =
           Description = "Parse Failure" }
     }
 
-let rssChannelView feed (items: XmlNode seq) =
+let internal rssChannelView feed (items: XmlNode seq) =
     tag
         "rss"
         [ attr "version" "2.0" ]
@@ -49,7 +50,7 @@ let rssChannelView feed (items: XmlNode seq) =
                 tag "description" [] [ encodedText feed.Description ]
                 yield! items ] ]
 
-let getDoc path =
+let internal getDoc path =
     http { GET path } |> Request.send |> Response.toText |> parser.ParseDocument
 
 module TheDispatch =
@@ -62,7 +63,8 @@ module TheDispatch =
           Description = $"Simple scraper for The Dispatch: {newsletterSlug}" }
 
     let getFormattedIsoDate (isoTimestamp: string) =
-        DateTimeOffset.Parse(isoTimestamp, CultureInfo.InvariantCulture)
+        DateTimeOffset
+            .Parse(isoTimestamp, CultureInfo.InvariantCulture)
             .ToUniversalTime()
             .ToString("ddd, dd MMM yyyy HH:mm:ss UTC", CultureInfo.InvariantCulture)
 
@@ -97,8 +99,10 @@ module TheDispatch =
             scrapePath newsletterSlug
             |> getDoc
             |> getPosts newsletterSlug
-            |> Seq.map rssItem
+            |> Seq.map directScrapeRssItem
             |> rssChannelView (feed newsletterSlug)
+
+open TheDispatch
 
 module TheDiff =
     let scrapePath = "https://thediff.co/archive"
@@ -141,4 +145,35 @@ module TheDiff =
             scrapedPosts
 
     let getRss () =
-        getDoc scrapePath |> getPosts |> Seq.map rssItem |> rssChannelView feed
+        getDoc scrapePath
+        |> getPosts
+        |> Seq.map directScrapeRssItem
+        |> rssChannelView feed
+
+module RenderSummarised =
+    let getRss (sinkFeed: DomainModel.SinkFeed) =
+        let getRssItem (sinkItem: DomainModel.SinkItem) =
+            tag
+                "item"
+                []
+                [ tag "title" [] [ encodedText sinkItem.Item.Title ]
+                  tag "guid" [] [ encodedText (Option.defaultValue "" sinkItem.Item.Guid) ]
+                  tag "link" [] [ encodedText (Option.defaultValue "" sinkItem.Item.Link) ]
+                  tag "description" [] [ encodedText sinkItem.Item.Description ]
+                  tag "content" [] [ encodedText sinkItem.Item.Content ]
+                  tag "pubDate" [] [ encodedText sinkItem.Item.Title ] ] 
+        
+        tag
+            "rss"
+            [ attr "version" "2.0" ]
+            [
+                tag
+                    "channel"
+                    []
+                    [
+                        tag "title" [] [ encodedText sinkFeed.Title ]
+                        tag "link" [] [ encodedText sinkFeed.Link ]
+                        tag "description" [] [encodedText sinkFeed.Description]
+                        yield! Array.map getRssItem sinkFeed.Items
+                    ]
+            ]
