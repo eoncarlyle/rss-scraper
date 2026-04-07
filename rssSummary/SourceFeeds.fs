@@ -3,6 +3,7 @@ module SourceFeeds
 open System
 open FsHttp
 open DomainModel
+open Giraffe.ViewEngine
 open Serialisation
 open FSharp.Data
 open System.Text.RegularExpressions
@@ -80,5 +81,39 @@ module Dive =
                 return Array.map deserialiseRssItem feed.Entries
             with ex ->
                 logger.LogError(ex, "Failed to fetch Dive source {Url}", url)
+                return [||]
+        }
+
+module Substack =
+    type Substack = XmlProvider<"Schema/thezvi.rss">
+    
+    let internal deserialiseRssItem (item: Substack.Item) : RssItem =
+        { Title = item.Title
+          Guid =
+            if isNull (box item.Guid) then
+                None
+            else
+                Some item.Guid.Value
+          Link = Some item.Link
+          Description = htmlSanitized item.Description
+          Content = htmlSanitized item.Encoded
+          PubDate = rfc822Date item.PubDate |> Some }
+
+    let fetchSource (logger: ILogger) url =
+        let request =
+            http {
+                GET url
+                CacheControl "no-cache"
+                body
+            }
+
+        task {
+            try
+                let response = request |> Request.send
+                let body = Response.toText response
+                let feed = body |> Substack.Parse
+                return Array.map deserialiseRssItem feed.Channel.Items
+            with ex ->
+                logger.LogError(ex, "Failed to fetch Substack source {Url}", url)
                 return [||]
         }

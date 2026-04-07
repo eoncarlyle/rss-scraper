@@ -10,6 +10,8 @@ type SourceSlug =
     | [<JsonName "grocery-dive">] GroceryDive
     | [<JsonName "c-store-dive">] CStoreDive
     | [<JsonName "supply-chain-dive">] SupplyChainDive
+    | [<JsonName "the-zvi">] TheZvi
+    | [<JsonName "noahpinion">] Noahpinion
 
     override this.ToString() =
         match this with
@@ -17,15 +19,19 @@ type SourceSlug =
         | GroceryDive -> "grocery-dive"
         | CStoreDive -> "c-store-dive"
         | SupplyChainDive -> "supply-chain-dive"
+        | TheZvi -> "the-zvi"
+        | Noahpinion -> "noahpinion"
 
 type SinkSlug =
     | [<JsonName "artemis">] Artemis
     | [<JsonName "industry-dive">] IndustryDive
+    | [<JsonName "substack-general">] SubstackGeneral
 
     override this.ToString() =
         match this with
         | Artemis -> "artemis"
         | IndustryDive -> "industry-dive"
+        | SubstackGeneral -> "substack-general"
 
 type ProcessingStatus =
     | InProgress

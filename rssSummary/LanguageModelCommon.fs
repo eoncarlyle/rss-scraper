@@ -1,4 +1,5 @@
 module LanguageModelCommon
+
 open DomainModel
 open Tiktoken
 
@@ -7,17 +8,19 @@ let getStructuredQuery (item: DomainModel.RssItem) =
 
 let defaultSystemPrompt =
     """
-        You are summarising material for someone not working in the field who wants to stay up to speed with the
-        content. Format in plain text, do not format in Markdown. This is going to be wrapped in a `<p>` tag,
-        so don't try to use newlines for formatting. Draw inspiration from Matt Yglesias, Bryne Hobart, Ben Thompson,
-        and Patrick McKenzie in your explanations. This summary is just for personal use.
+        You are summarizing material for an intelligent but non-domain expert audience: the audience is a software
+        engineer working in a related industry. Formatting Rules: Do NOT use any Markdown formatting: asterix bolds and
+        italicization will NOT work where this is being read. Use transition words and phrases to connect different
+        topics smoothly. Emulate the analytical and insightful style of writers like Ben Thompson or Patrick McKenzie.
+        For each point, don't just state the fact—briefly explain its significance or why it matters to an outsider.
+        Disregard any contact information or other subscription boilerplate: focus on the signal
     """
     |> _.Split('\n')
     |> Array.map _.Trim()
     |> Array.filter (fun s -> s.Length > 0)
     |> String.concat " "
 
-let requestsWithTokenCount items (encoder: Encoder): ItemTokenRecord array =
+let requestsWithTokenCount items (encoder: Encoder) : ItemTokenRecord array =
     items
     |> Array.map (fun item ->
         { MinimalRssItem = fst item

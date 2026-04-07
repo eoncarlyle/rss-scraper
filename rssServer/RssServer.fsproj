@@ -14,6 +14,8 @@
     <PackageReference Include="Giraffe" Version="6.4.0" />
     <PackageReference Include="Giraffe.ViewEngine" Version="1.4.*" />
     <PackageReference Include="AWSSDK.S3" Version="4.0.19.4" />
+    <PackageReference Include="Serilog.Extensions.Hosting" Version="9.*" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="6.*" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="../rssSummary/RssSummary.fsproj" />

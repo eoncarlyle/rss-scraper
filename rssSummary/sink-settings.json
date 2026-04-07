@@ -17,6 +17,15 @@
       ],
       "sourceItemsPerPublish": 5,
       "maximumItems": 50
+    },
+    {
+      "sinkSlug": "substack-general",
+      "sourceSlugs": [
+        "the-zvi",
+        "noahpinion"
+      ],
+      "sourceItemsPerPublish": 5,
+      "maximumItems": 50
     }
   ]
 }

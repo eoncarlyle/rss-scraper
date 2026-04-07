@@ -13,11 +13,12 @@ open Giraffe
 open Giraffe.ViewEngine
 open Amazon.S3
 open ObjectStorage
-
 open Scrape
 open Serialisation
+open Serilog
 
-
+type MsLogger = Microsoft.Extensions.Logging.ILogger
+type MsLogger<'T> = Microsoft.Extensions.Logging.ILogger<'T>
 
 let directScrapeHandler slug getRss =
     fun _ (ctx: HttpContext) ->
@@ -38,7 +39,7 @@ let summaryHandler slug : HttpHandler =
                     task {
                         let possibleFeedKey = SinkFeeds.getPossibleFeedKey slug
                         let! maybeSinkS3Object = objectStorageService.GetObject possibleFeedKey
-                        Console.WriteLine $"Summary feed cache miss, attempting to retrieve {possibleFeedKey}"
+                        Log.Information("Summary feed cache miss, attempting to retrieve {FeedKey}", possibleFeedKey)
 
                         return
                             maybeSinkS3Object
@@ -52,11 +53,11 @@ let summaryHandler slug : HttpHandler =
                 match maybeXml with
                 | Some xml ->
                     let rendered = RenderView.AsString.xmlNode xml
-                    Console.WriteLine $"Returning output for summary feed {slug}"
+                    Log.Information("Returning output for summary feed {Slug}", slug)
                     ctx.SetContentType "application/rss+xml; charset=utf-8"
                     ctx.WriteStringAsync rendered
                 | None ->
-                    Console.WriteLine $"No output for summary feed {slug}"
+                    Log.Warning("No output for summary feed {Slug}", slug)
                     ctx.SetStatusCode 404
                     ctx.SetContentType "text/plain; charset=utf-8"
                     ctx.WriteStringAsync "Not Found"
@@ -78,8 +79,8 @@ let webApp =
           HEAD >=> setStatusCode 200
           setStatusCode 404 >=> text "Not Found" ]
 
-let errorHandler (ex: Exception) (logger: ILogger) =
-    logger.LogError(ex, "An unhandled exception has occurred while executing the request.")
+let errorHandler (ex: Exception) (logger: MsLogger) =
+    Log.Error(ex, "An unhandled exception has occurred while executing the request.")
     clearResponse >=> setStatusCode 500 >=> text ex.Message
 
 let configureApp (app: IApplicationBuilder) =
@@ -108,7 +109,7 @@ let configureServices (services: IServiceCollection) =
 
 
 let configureLogging (builder: ILoggingBuilder) =
-    builder.AddConsole().AddDebug() |> ignore
+    builder.ClearProviders() |> ignore
 
 type AppArgs = { HostAddress: string }
 
@@ -121,16 +122,21 @@ let getAppArgs args =
 
 [<EntryPoint>]
 let main args =
+    Log.Logger <-
+        LoggerConfiguration()
+            .MinimumLevel.Information()
+            .WriteTo.Console()
+            .CreateLogger()
+
     let appArgs = getAppArgs args |> Option.get
     let port = 5050
 
     Host
         .CreateDefaultBuilder(args)
+        .UseSerilog()
         .ConfigureWebHostDefaults(fun webHostBuilder ->
             webHostBuilder
                 .UseUrls($"http://{appArgs.HostAddress}:{port}")
-                //.UseContentRoot(contentRoot)
-                //.UseWebRoot(webRoot)
                 .Configure(Action<IApplicationBuilder> configureApp)
                 .ConfigureServices(configureServices)
                 .ConfigureLogging(configureLogging)
