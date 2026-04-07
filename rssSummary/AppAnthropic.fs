@@ -71,7 +71,7 @@ type AnthropicService(client: AnthropicClient) =
     let encoder = Encoder(O200KBase())
     let clientCooldown = 100
 
-    member private _.GetRequestsWithExcludes(items: (RssItem * Guid) array, model: string, submitBatchParameters: SummaryRequestParameters) =
+    member private _.GetRequestsWithExcludes (items: (RssItem * Guid) array) (model: string) (submitBatchParameters: SummaryRequestParameters) =
         let requests =
             requestsWithTokenCount items encoder
             |> Array.filter (filterPredicate submitBatchParameters)
@@ -101,7 +101,7 @@ type AnthropicService(client: AnthropicClient) =
 
         requests, Array.filter (filterPredicate submitBatchParameters >> not) (requestsWithTokenCount items encoder)
 
-    member private _.ClientBatchRequest(requests: Request array) =
+    member private _.ClientBatchRequest (requests: Request array) =
         task {
             modelSubmitSemaphore.WaitAsync() |> ignore
 
@@ -115,19 +115,19 @@ type AnthropicService(client: AnthropicClient) =
                 modelSubmitSemaphore.Release() |> ignore
         }
 
-    member this.SubmitBatch(items: RssItem array, batchParameters: SummaryRequestParameters) =
-        this.SubmitModelAgnosticBatch(Some "claude-haiku-4-5", items, batchParameters)
+    member this.SubmitBatch (items: RssItem array) (batchParameters: SummaryRequestParameters) =
+        this.SubmitModelAgnosticBatch (Some "claude-haiku-4-5") items batchParameters
 
-    member this.SubmitModelAgnosticBatch(maybeModel: string option, items: RssItem array, submitBatchParameters: SummaryRequestParameters) =
+    member this.SubmitModelAgnosticBatch (maybeModel: string option) (items: RssItem array) (submitBatchParameters: SummaryRequestParameters) =
         let model = Option.defaultValue "claude-haiku-4-5" maybeModel
 
         task {
             let itemsWithRequestGuids = Array.map (fun item -> item, Guid.NewGuid()) items
 
             let requestWithExcludes =
-                this.GetRequestsWithExcludes(itemsWithRequestGuids, model, submitBatchParameters)
+                this.GetRequestsWithExcludes itemsWithRequestGuids model submitBatchParameters
 
-            let! response = this.ClientBatchRequest(fst requestWithExcludes)
+            let! response = fst requestWithExcludes |> this.ClientBatchRequest
             let excludes = snd requestWithExcludes |> Array.map _.MinimalRssItem
 
             let batchItems =
@@ -153,7 +153,7 @@ type AnthropicService(client: AnthropicClient) =
                   BatchItems = batchItems }
         }
 
-    member _.GetUpdatedDerivedFeed(sourceSetting: SourceSetting, derivedFeed: DerivedFeed) : Task<DerivedFeed option> =
+    member _.GetUpdatedDerivedFeed (sourceSetting: SourceSetting) (derivedFeed: DerivedFeed) : Task<DerivedFeed option> =
         let inProgressBatches =
             derivedFeed.Batches
             |> Array.filter (fun batch -> batch.ProcessingStatus = InProgress)
@@ -206,5 +206,5 @@ type AnthropicService(client: AnthropicClient) =
         }
 
     member this.Actions: LanguageModelActions =
-        { SubmitBatch = fun items batchParameters -> this.SubmitBatch(items, batchParameters)
-          GetUpdatedDerivedFeed = fun setting feed -> this.GetUpdatedDerivedFeed(setting, feed) }
+        { SubmitBatch = this.SubmitBatch
+          GetUpdatedDerivedFeed = this.GetUpdatedDerivedFeed }

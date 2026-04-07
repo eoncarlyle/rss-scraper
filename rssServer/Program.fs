@@ -37,7 +37,7 @@ let summaryHandler slug : HttpHandler =
                 fun () ->
                     task {
                         let possibleFeedKey = SinkFeeds.getPossibleFeedKey slug
-                        let! maybeSinkS3Object = objectStorageService.GetObject(possibleFeedKey)
+                        let! maybeSinkS3Object = objectStorageService.GetObject possibleFeedKey
                         Console.WriteLine $"Summary feed cache miss, attempting to retrieve {possibleFeedKey}"
 
                         return

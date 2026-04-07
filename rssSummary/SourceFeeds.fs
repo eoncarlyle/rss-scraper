@@ -42,15 +42,20 @@ module Artemis =
             }
 
         task {
-            let response = request |> Request.send
-            let body = Response.toText response
-            let feed = body |> ArtemisRss.Parse
-            return Array.map deserialiseRssItem feed.Channel.Items
+            try
+                let response = request |> Request.send
+                let body = Response.toText response
+                let feed = body |> ArtemisRss.Parse
+                return Array.map deserialiseRssItem feed.Channel.Items
+            with ex ->
+                Console.WriteLine $"Exception thrown when trying to fetch source {url} {ex.Message}"
+                Console.WriteLine ex.StackTrace
+                return [||]
         }
 
 module Dive =
     type DiveRss = XmlProvider<"Schema/c-store-dive.rss">
-
+    
     let internal deserialiseRssItem (item: DiveRss.Entry) : RssItem =
         { Title = item.Title
           Guid = if isNull (box item.Id) then None else Some item.Id
@@ -68,8 +73,13 @@ module Dive =
             }
 
         task {
-            let response = request |> Request.send
-            let body = Response.toText response
-            let feed = body |> DiveRss.Parse
-            return Array.map deserialiseRssItem feed.Entries
+            try
+                let response = request |> Request.send
+                let body = Response.toText response
+                let feed = body |> DiveRss.Parse
+                return Array.map deserialiseRssItem feed.Entries
+            with ex ->
+                Console.WriteLine $"Exception thrown when trying to fetch source {url} {ex.Message}"
+                Console.WriteLine ex.StackTrace
+                return [||]
         }

@@ -145,7 +145,7 @@ let feedUpdate (storage: ObjectStorageService) (sink: SinkSetting) =
                           Description = sinkFeed.Description
                           Items = Array.append sinkFeed.Items toPublish }
 
-                    let! putResult = storage.PutObject(feedKey, serialise updatedSinkFeed, Some sinkS3Object.ETag)
+                    let! putResult = storage.PutObject feedKey (serialise updatedSinkFeed) (Some sinkS3Object.ETag)
                     Console.WriteLine $"Sink {sinkSetting} added {x} fresh items"
                     return putResult |> Result.map (fun _ -> x)
                 | _ -> return Result.Error Net.HttpStatusCode.InternalServerError
@@ -160,7 +160,7 @@ let feedUpdate (storage: ObjectStorageService) (sink: SinkSetting) =
                       Description = $"Summarised feed for {slugLabel}"
                       Items = toPublish }
 
-                let! putResult = storage.PutObject(feedKey, serialise sinkFeed, None)
+                let! putResult = storage.PutObject feedKey (serialise sinkFeed) None
 
                 let slugLabel =
                     CultureInfo.CurrentCulture.TextInfo.ToTitleCase(serialise sinkSetting.SinkSlug)
@@ -170,4 +170,4 @@ let feedUpdate (storage: ObjectStorageService) (sink: SinkSetting) =
                 return putResult |> Result.map (fun _ -> toPublish.Length)
         }
 
-    storage.RetryHttp(3, fun () -> update sink)
+    storage.RetryHttp 3 (fun () -> update sink)

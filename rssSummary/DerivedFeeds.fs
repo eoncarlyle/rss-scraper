@@ -89,16 +89,16 @@ let appendToFeed (storage: ObjectStorageService) (sourceSetting: SourceSetting) 
                     { SourceUrl = existingDerivedFeed.SourceUrl
                       Batches = Array.append existingDerivedFeed.Batches [| derivedBatch |] }
 
-                return! storage.PutObject(feedKey, serialise updatedDerivedFeed, Some derivedS3Object.ETag)
+                return! storage.PutObject feedKey (serialise updatedDerivedFeed) (Some derivedS3Object.ETag)
             | None ->
                 let derivedFeed =
                     { SourceUrl = sourceSetting.SourceUrl
                       Batches = [| derivedBatch |] }
 
-                return! storage.PutObject(feedKey, serialise derivedFeed, None)
+                return! storage.PutObject feedKey (serialise derivedFeed) None
         }
 
-    storage.RetryHttp(3, fun () -> append sourceSetting derivedBatch)
+    storage.RetryHttp 3 (fun () -> append sourceSetting derivedBatch)
 
 let feedUpdateWithSummaryRequests storage source fetchSource modelActions =
     task {
@@ -123,7 +123,7 @@ let tryFeedUpdateWithSummaryResults (storage: ObjectStorageService) sourceSettin
 
                 match maybeUpdatedDerivedFeed with
                 | Some updated ->
-                    let! putResult = storage.PutObject(feedKey, serialise updated, Some s3Object.ETag)
+                    let! putResult = storage.PutObject feedKey (serialise updated) (Some s3Object.ETag)
 
                     let getUpdatedCount batches =
                         batches
@@ -141,4 +141,4 @@ let tryFeedUpdateWithSummaryResults (storage: ObjectStorageService) sourceSettin
             | None -> return Error Net.HttpStatusCode.NotFound
         }
 
-    storage.RetryHttp(3, fun () -> update sourceSetting modelActions)
+    storage.RetryHttp 3 (fun () -> update sourceSetting modelActions)

@@ -18,7 +18,9 @@
       "outputTokenCutoff": 896,
       "maximumItems": 100,
       "maximumLookback": 15,
-      "enabled": false
+      "enabled": false,
+      "synchronous": true,
+      "systemPrompt": "You are summarizing material for an intelligent but non-domain expert audience: the audience is a software engineer working in a related industry. Your entire response will be placed within a single HTML <p> paragraph tag, so it must be a single, continuous block of prose. Formatting Rules: Do NOT use any Markdown, Do NOT use bullet points (e.g., asterisks or dashes), numbered lists, bolding, or line breaks, The entire output must be one single paragraph. Instead of a list, weave the key points together into a narrative. Use transition words and phrases to connect different topics smoothly. Emulate the analytical and insightful style of writers like Ben Thompson or Patrick McKenzie. For each point, don't just state the fact—briefly explain its significance or why it matters to an outsider."
     },
     {
       "sourceUrl": "https://kill-the-newsletter.com/feeds/a0xyhasgeuotozpnfpah.xml",
@@ -28,8 +30,21 @@
       "outputTokenCutoff": 896,
       "maximumItems": 100,
       "maximumLookback": 15,
+      "enabled": true,
+      "synchronous": true,
+      "systemPrompt": "You are summarizing material for an intelligent but non-domain expert audience: the audience is a software engineer working in a related industry. Your entire response will be placed within a single HTML <p> paragraph tag, so it must be a single, continuous block of prose. Formatting Rules: Do NOT use any Markdown, Do NOT use bullet points (e.g., asterisks or dashes), numbered lists, bolding, or line breaks, The entire output must be one single paragraph. Instead of a list, weave the key points together into a narrative. Use transition words and phrases to connect different topics smoothly. Emulate the analytical and insightful style of writers like Ben Thompson or Patrick McKenzie. For each point, don't just state the fact—briefly explain its significance or why it matters to an outsider."
+    },
+    {
+      "sourceUrl": "https://kill-the-newsletter.com/feeds/95snzvoui03xxke5isdg.xml",
+      "sourceSlug": "supply-chain-dive",
+      "model": "gemini-2-5-flash-lite",
+      "inputTokenCutoff": 50000,
+      "outputTokenCutoff": 896,
+      "maximumItems": 100,
+      "maximumLookback": 15,
       "enabled": false,
-      "synchronous": true
+      "synchronous": true,
+      "systemPrompt": "You are summarizing material for an intelligent but non-domain expert audience: the audience is a software engineer working in a related industry. Your entire response will be placed within a single HTML <p> paragraph tag, so it must be a single, continuous block of prose. Formatting Rules: Do NOT use any Markdown, Do NOT use bullet points (e.g., asterisks or dashes), numbered lists, bolding, or line breaks, The entire output must be one single paragraph. Instead of a list, weave the key points together into a narrative. Use transition words and phrases to connect different topics smoothly. Emulate the analytical and insightful style of writers like Ben Thompson or Patrick McKenzie. For each point, don't just state the fact—briefly explain its significance or why it matters to an outsider."
     }
   ]
 }

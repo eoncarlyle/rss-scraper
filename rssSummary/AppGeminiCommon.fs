@@ -49,7 +49,7 @@ type GeminiService(client: Client) =
     let encoder = Encoder(O200KBase())
     let clientCooldown = 100
 
-    member private _.GetRequestsWithExcludes(items: (RssItem * Guid) array, submitBatchParameters: SummaryRequestParameters) =
+    member private _.GetRequestsWithExcludes (items: (RssItem * Guid) array) (submitBatchParameters: SummaryRequestParameters) =
         let requests =
             requestsWithTokenCount items encoder
             |> Array.filter (filterPredicate submitBatchParameters)
@@ -69,7 +69,7 @@ type GeminiService(client: Client) =
 
         requests, Array.filter (filterPredicate submitBatchParameters >> not) (requestsWithTokenCount items encoder)
 
-    member private _.ClientBatchRequest(model: string, requests: InlinedRequest array) =
+    member private _.ClientBatchRequest (model: string) (requests: InlinedRequest array) =
         task {
             modelSubmitSemaphore.WaitAsync() |> ignore
 
@@ -87,19 +87,19 @@ type GeminiService(client: Client) =
                 modelSubmitSemaphore.Release() |> ignore
         }
 
-    member this.SubmitBatch(items: RssItem array, batchParameters: SummaryRequestParameters) =
-        this.SubmitModelAgnosticBatch(Some "gemini-2.5-flash-lite", items, batchParameters)
+    member this.SubmitBatch (items: RssItem array) (batchParameters: SummaryRequestParameters) =
+        this.SubmitModelAgnosticBatch (Some "gemini-2.5-flash-lite") items batchParameters
 
-    member this.SubmitModelAgnosticBatch(maybeModel: string option, items: RssItem array, summaryRequestParameters: SummaryRequestParameters) =
+    member this.SubmitModelAgnosticBatch (maybeModel: string option) (items: RssItem array) (summaryRequestParameters: SummaryRequestParameters) =
         let model = Option.defaultValue "gemini-2.5-flash-lite" maybeModel
 
         task {
             let itemsWithRequestGuids = Array.map (fun item -> item, Guid.NewGuid()) items
 
             let requestWithExcludes =
-                this.GetRequestsWithExcludes(itemsWithRequestGuids, summaryRequestParameters)
+                this.GetRequestsWithExcludes itemsWithRequestGuids summaryRequestParameters
 
-            let! response = this.ClientBatchRequest(model, fst requestWithExcludes)
+            let! response = this.ClientBatchRequest model (fst requestWithExcludes)
             let excludes = snd requestWithExcludes |> Array.map _.MinimalRssItem
 
             let batchItems =
@@ -125,7 +125,7 @@ type GeminiService(client: Client) =
                   BatchItems = batchItems }
         }
 
-    member _.GetUpdatedDerivedFeed(sourceSetting: SourceSetting, derivedFeed: DerivedFeed) : Task<DerivedFeed option> =
+    member _.GetUpdatedDerivedFeed (sourceSetting: SourceSetting) (derivedFeed: DerivedFeed) : Task<DerivedFeed option> =
         let inProgressBatches =
             derivedFeed.Batches
             |> Array.filter (fun batch -> batch.ProcessingStatus = InProgress)
@@ -179,10 +179,10 @@ type GeminiService(client: Client) =
         }
 
     member this.Actions: LanguageModelActions =
-        { SubmitBatch = fun items batchParameters -> this.SubmitBatch(items, batchParameters)
-          GetUpdatedDerivedFeed = fun setting feed -> this.GetUpdatedDerivedFeed(setting, feed) }
+        { SubmitBatch = fun items batchParameters -> this.SubmitBatch items batchParameters
+          GetUpdatedDerivedFeed = fun setting feed -> this.GetUpdatedDerivedFeed setting feed }
 
-    member private _.SubmitInstant(model: string, itemTuple: RssItem * Guid) : Task<DerivedItem> =
+    member private _.SubmitInstant (model: string) (itemTuple: RssItem * Guid) : Task<DerivedItem> =
         task {
             let! response = client.Models.GenerateContentAsync(model, fst itemTuple |> getStructuredQuery)
 
@@ -199,10 +199,10 @@ type GeminiService(client: Client) =
                   Result = Some description }
         }
 
-    member this.SubmitSynchronousBatch(items: RssItem array, summaryRequestParameters: SummaryRequestParameters) =
-        this.SubmitSynchronousModelAgnosticBatch(Some "gemini-2.5-flash-lite", items, summaryRequestParameters)
+    member this.SubmitSynchronousBatch (items: RssItem array) (summaryRequestParameters: SummaryRequestParameters) =
+        this.SubmitSynchronousModelAgnosticBatch (Some "gemini-2.5-flash-lite") items summaryRequestParameters
 
-    member this.SubmitSynchronousModelAgnosticBatch(maybeModel: string option, items: RssItem array, summaryRequestParameters: SummaryRequestParameters) =
+    member this.SubmitSynchronousModelAgnosticBatch (maybeModel: string option) (items: RssItem array) (summaryRequestParameters: SummaryRequestParameters) =
         let model = Option.defaultValue "gemini-2.5-flash-lite" maybeModel
         let encoder = Encoder(O200KBase())
 
@@ -215,7 +215,7 @@ type GeminiService(client: Client) =
                     let tokenCount = encoder.CountTokens(fst itemTuple |> getStructuredQuery)
 
                     if tokenCount < summaryRequestParameters.InputTokenCutoff then
-                        this.SubmitInstant(model, itemTuple)
+                        this.SubmitInstant model itemTuple
                     else
                         task {
                             return
@@ -232,9 +232,9 @@ type GeminiService(client: Client) =
                   BatchItems = batchItems }
         }
 
-    member _.GetUpdatedDerivedFeedSynchronous(sourceSetting: SourceSetting, derivedFeed: DerivedFeed) : Task<DerivedFeed option> =
+    member _.GetUpdatedDerivedFeedSynchronous (sourceSetting: SourceSetting) (derivedFeed: DerivedFeed) : Task<DerivedFeed option> =
         task { return Some derivedFeed }
 
     member this.SynchronousActions: LanguageModelActions =
-        { SubmitBatch = fun items batchParameters -> this.SubmitSynchronousBatch(items, batchParameters)
-          GetUpdatedDerivedFeed = fun setting feed -> this.GetUpdatedDerivedFeedSynchronous(setting, feed) }
+        { SubmitBatch = this.SubmitSynchronousBatch
+          GetUpdatedDerivedFeed = this.GetUpdatedDerivedFeedSynchronous }
