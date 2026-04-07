@@ -57,6 +57,7 @@ let getFreshDerivedItems
                 |> _.BatchItems
                 |> Array.map (fun batch -> fst derivedPair, batch))
             |> Array.concat
+            |> Array.filter (fun pair -> snd pair |> _.Result |> Option.isSome)
 
         return
             match maybeSinkS3Object with

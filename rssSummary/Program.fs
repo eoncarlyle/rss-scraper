@@ -66,9 +66,9 @@ let handleSource (logger: MsLogger) (storage: ObjectStorageService) (anthropic: 
             | SourceSlug.Artemis -> updateDerivedFeed' (SourceFeeds.Artemis.fetchSource logger)
             | GroceryDive -> updateDerivedFeed' (SourceFeeds.Dive.fetchSource logger)
             | CStoreDive -> updateDerivedFeed' (SourceFeeds.Dive.fetchSource logger)
+            | SupplyChainDive -> updateDerivedFeed' (SourceFeeds.Dive.fetchSource logger)
             | TheZvi -> updateDerivedFeed' (SourceFeeds.Substack.fetchSource logger)
             | Noahpinion -> updateDerivedFeed' (SourceFeeds.Substack.fetchSource logger)
-            | _ -> failwith "not implemented"
     }
 
 let handleSink (logger: MsLogger) (storage: ObjectStorageService) (sink: SinkSetting) =
