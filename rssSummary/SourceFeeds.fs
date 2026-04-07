@@ -6,6 +6,7 @@ open DomainModel
 open Serialisation
 open FSharp.Data
 open System.Text.RegularExpressions
+open Microsoft.Extensions.Logging
 
 let getSanitisedDiveContent content =
     Regex.Replace(htmlSanitized content, @"(\r?\n){2,}", "\n").Replace("&nbsp;", "")
@@ -33,7 +34,7 @@ module Artemis =
           Content = htmlSanitized item.Encoded |> firstSentenceRemove
           PubDate = rfc822Date item.PubDate |> Some }
 
-    let fetchSource url =
+    let fetchSource (logger: ILogger) url =
         let request =
             http {
                 GET url
@@ -48,8 +49,7 @@ module Artemis =
                 let feed = body |> ArtemisRss.Parse
                 return Array.map deserialiseRssItem feed.Channel.Items
             with ex ->
-                Console.WriteLine $"Exception thrown when trying to fetch source {url} {ex.Message}"
-                Console.WriteLine ex.StackTrace
+                logger.LogError(ex, "Failed to fetch Artemis source {Url}", url)
                 return [||]
         }
 
@@ -64,7 +64,7 @@ module Dive =
           Content = getSanitisedDiveContent item.Content.Value
           PubDate = rfc822Date item.Published |> Some }
 
-    let fetchSource url =
+    let fetchSource (logger: ILogger) url =
         let request =
             http {
                 GET url
@@ -79,7 +79,6 @@ module Dive =
                 let feed = body |> DiveRss.Parse
                 return Array.map deserialiseRssItem feed.Entries
             with ex ->
-                Console.WriteLine $"Exception thrown when trying to fetch source {url} {ex.Message}"
-                Console.WriteLine ex.StackTrace
+                logger.LogError(ex, "Failed to fetch Dive source {Url}", url)
                 return [||]
         }

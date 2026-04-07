@@ -8,6 +8,7 @@ open System.Globalization
 open Giraffe.ViewEngine
 open System.Threading.Tasks
 open System
+open Microsoft.Extensions.Logging
 
 let getFeedKey (sinkSetting: SinkSetting) = $"{sinkSetting.SinkSlug}.sink.json"
 let getPossibleFeedKey possibleSlug = $"{possibleSlug}.sink.json"
@@ -110,7 +111,7 @@ let getToPublish (derivedPairs: (SourceSlug * DerivedItem) array) sinkSetting =
       DerivedItemReferences = derivedItemReferences }
 
 
-let feedUpdate (storage: ObjectStorageService) (sink: SinkSetting) =
+let feedUpdate (logger: ILogger) (storage: ObjectStorageService) (sink: SinkSetting) =
     let update sinkSetting =
         task {
             let! incomingDerivedItemsWithSlug = getDerivedItemsWithSlug storage sinkSetting
@@ -133,7 +134,7 @@ let feedUpdate (storage: ObjectStorageService) (sink: SinkSetting) =
 
                 match batchCount with
                 | 0 ->
-                    Console.WriteLine $"No fresh items to add for sink {sinkSetting.SinkSlug}"
+                    logger.LogInformation("No fresh items to add for sink {SinkSlug}", sinkSetting.SinkSlug)
                     return Result.Ok 0
                 | x when x > 0 ->
                     let sinkFeed = deserialise<SinkFeed> sinkS3Object.Content
@@ -146,7 +147,7 @@ let feedUpdate (storage: ObjectStorageService) (sink: SinkSetting) =
                           Items = Array.append sinkFeed.Items toPublish }
 
                     let! putResult = storage.PutObject feedKey (serialise updatedSinkFeed) (Some sinkS3Object.ETag)
-                    Console.WriteLine $"Sink {sinkSetting} added {x} fresh items"
+                    logger.LogInformation("Sink {SinkSlug} added {Count} fresh items", sinkSetting.SinkSlug, x)
                     return putResult |> Result.map (fun _ -> x)
                 | _ -> return Result.Error Net.HttpStatusCode.InternalServerError
 
@@ -165,7 +166,7 @@ let feedUpdate (storage: ObjectStorageService) (sink: SinkSetting) =
                 let slugLabel =
                     CultureInfo.CurrentCulture.TextInfo.ToTitleCase(serialise sinkSetting.SinkSlug)
 
-                Console.WriteLine $"Sink {slugLabel} created with {toPublish.Length} items"
+                logger.LogInformation("Sink {SinkSlug} created with {Count} items", slugLabel, toPublish.Length)
 
                 return putResult |> Result.map (fun _ -> toPublish.Length)
         }

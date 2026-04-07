@@ -5,29 +5,35 @@ open System.IO
 open System.Threading.Tasks
 open Microsoft.Extensions.DependencyInjection
 open Microsoft.Extensions.Hosting
+open Microsoft.Extensions.Logging
 open Amazon.S3
 open Anthropic
 open Google.GenAI
 open Quartz
+open Serilog
 open ObjectStorage
 open AppAnthropic
 open AppGeminiCommon
 open DomainModel
 open Serialisation
 
+type MsLogger = Microsoft.Extensions.Logging.ILogger
+type MsLogger<'T> = Microsoft.Extensions.Logging.ILogger<'T>
+
 let resultMessage (result: Result<'a, 'b>) = if result.IsOk then "Ok" else "Error"
 
-let updateDerivedFeed (storage: ObjectStorageService) (source: SourceSetting) modelActions fetchSource =
+let updateDerivedFeed (logger: MsLogger) (storage: ObjectStorageService) (source: SourceSetting) modelActions fetchSource =
     task {
         let! maybeDerivedBatch = DerivedFeeds.submitSummaryBatch storage source fetchSource modelActions
 
         match maybeDerivedBatch with
         | Some derivedBatch ->
-            Console.WriteLine
-                $"{source.SourceSlug} request batch update: {derivedBatch.Id}, {derivedBatch.BatchItems.Length} items"
+            logger.LogInformation(
+                "{SourceSlug} request batch update: {BatchId}, {ItemCount} items",
+                source.SourceSlug, derivedBatch.Id, derivedBatch.BatchItems.Length)
 
             let! appendBatchResult = DerivedFeeds.appendToFeed storage source derivedBatch
-            Console.WriteLine $"{source.SourceSlug} request batch result: {resultMessage appendBatchResult}"
+            logger.LogInformation("{SourceSlug} request batch result: {Result}", source.SourceSlug, resultMessage appendBatchResult)
             ()
         | _ -> ()
 
@@ -39,11 +45,11 @@ let updateDerivedFeed (storage: ObjectStorageService) (source: SourceSetting) mo
             | Ok value -> $"{value} records added"
             | Error code -> $"failed with status code {code}"
 
-        Console.WriteLine $"{source.SourceSlug} poll derived feed update: {pollFeedMessage}"
+        logger.LogInformation("{SourceSlug} poll derived feed update: {Message}", source.SourceSlug, pollFeedMessage)
         ()
     }
 
-let handleSource (storage: ObjectStorageService) (anthropic: AnthropicService) (gemini: GeminiService) source =
+let handleSource (logger: MsLogger) (storage: ObjectStorageService) (anthropic: AnthropicService) (gemini: GeminiService) source =
     task {
         let modelActions =
             match source.Model, source.Synchronous with
@@ -53,25 +59,26 @@ let handleSource (storage: ObjectStorageService) (anthropic: AnthropicService) (
                 if b then gemini.SynchronousActions
                 else gemini.Actions
 
-        let updateDerivedFeed' = updateDerivedFeed storage source modelActions
+        let updateDerivedFeed' = updateDerivedFeed logger storage source modelActions
 
         return!
             match source.SourceSlug with
-            | SourceSlug.Artemis -> updateDerivedFeed' SourceFeeds.Artemis.fetchSource
-            | GroceryDive -> updateDerivedFeed' SourceFeeds.Dive.fetchSource
-            | CStoreDive -> updateDerivedFeed' SourceFeeds.Dive.fetchSource
+            | SourceSlug.Artemis -> updateDerivedFeed' (SourceFeeds.Artemis.fetchSource logger)
+            | GroceryDive -> updateDerivedFeed' (SourceFeeds.Dive.fetchSource logger)
+            | CStoreDive -> updateDerivedFeed' (SourceFeeds.Dive.fetchSource logger)
             | _ -> failwith "not implemented"
     }
 
-let handleSink (storage: ObjectStorageService) (sink: SinkSetting) =
+let handleSink (logger: MsLogger) (storage: ObjectStorageService) (sink: SinkSetting) =
     task {
-        let! feedUpdateResult = SinkFeeds.feedUpdate storage sink
+        let! feedUpdateResult = SinkFeeds.feedUpdate logger storage sink
         match feedUpdateResult with
         | Ok _ -> ()
-        | Error result -> Console.WriteLine $"Sink feed update failed with status code {result}"
+        | Error result -> logger.LogWarning("Sink feed update failed with status code {StatusCode}", result)
     }
 
 type RssSyncJob(
+    logger: MsLogger<RssSyncJob>,
     storage: ObjectStorageService,
     anthropic: AnthropicService,
     gemini: GeminiService,
@@ -81,18 +88,25 @@ type RssSyncJob(
     interface IJob with
         member _.Execute(context) =
             task {
-                Console.WriteLine $"RssSyncJob called: {DateTimeOffset.UtcNow}"
+                logger.LogInformation("RssSyncJob called: {Timestamp}", DateTimeOffset.UtcNow)
                 let enabledSources = sourceSettings.Sources |> Array.filter _.Enabled
-                do! Array.map (handleSource storage anthropic gemini) enabledSources |> Task.WhenAll :> Task
-                do! Array.map (handleSink storage) sinkSettings.Sinks |> Task.WhenAll :> Task
+                do! Array.map (handleSource logger storage anthropic gemini) enabledSources |> Task.WhenAll :> Task
+                do! Array.map (handleSink logger storage) sinkSettings.Sinks |> Task.WhenAll :> Task
             }
 
 [<EntryPoint>]
 let main args =
+    Log.Logger <-
+        LoggerConfiguration()
+            .MinimumLevel.Information()
+            .WriteTo.Console()
+            .CreateLogger()
+
     let sourceSettings = File.ReadAllText "source-settings.json" |> deserialise<SourceSettings>
     let sinkSettings = File.ReadAllText "sink-settings.json" |> deserialise<SinkSettings>
 
     Host.CreateDefaultBuilder(args)
+        .UseSerilog()
         .ConfigureServices(fun services ->
             services.AddSingleton<SourceSettings>(sourceSettings) |> ignore
             services.AddSingleton<SinkSettings>(sinkSettings) |> ignore
