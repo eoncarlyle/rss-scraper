@@ -11,7 +11,10 @@ open System
 open Microsoft.Extensions.Logging
 
 let getFeedKey (sinkSetting: SinkSetting) = $"{sinkSetting.SinkSlug}.sink.json"
+
 let getPossibleFeedKey possibleSlug = $"{possibleSlug}.sink.json"
+
+let toTitleCase = CultureInfo.CurrentCulture.TextInfo.ToTitleCase 
 
 let isEquivalent (item: RssItem) (derivedItemReference: DerivedItemReference) =
     item.Title = derivedItemReference.Title
@@ -78,18 +81,19 @@ let getFreshDerivedItems
 
 let getToPublish (derivedPairs: (SourceSlug * DerivedItem) array) sinkSetting =
     let publishDate = DateTimeOffset.UtcNow
-    let slugLabel = String.Join(", ", Array.map fst derivedPairs |> Set)
 
     let content =
         div
             []
             [ yield!
                   derivedPairs
-                  |> Array.map snd
-                  |> Array.filter _.Included
-                  |> Array.filter _.Result.IsSome
-                  |> Array.map (fun derivedItem ->
-                      div [] [ h2 [] [ str derivedItem.Item.Title ]; p [] [ str derivedItem.Result.Value ] ]) ]
+                  |> Array.filter (fun pair ->
+                      let derivedItem = snd pair
+                      derivedItem.Included && derivedItem.Result.IsSome)
+                  |> Array.map (fun pair ->
+                      let derivedItem = snd pair
+                      let sourceSlug = fst pair
+                      div [] [ h2 [] [ str $"{sourceSlug}: {derivedItem.Item.Title}" ]; p [] [ str derivedItem.Result.Value ] ]) ]
 
     let baseItem =
         { Title = $"{sinkSetting.SinkSlug}: Update {publishDate.Date}"
@@ -132,7 +136,6 @@ let feedUpdate (logger: ILogger) (storage: ObjectStorageService) (sink: SinkSett
 
             match maybeSinkS3Object with
             | Some sinkS3Object ->
-
                 match batchCount with
                 | 0 ->
                     logger.LogInformation("No fresh items to add for sink {SinkSlug}", sinkSetting.SinkSlug)
@@ -164,8 +167,7 @@ let feedUpdate (logger: ILogger) (storage: ObjectStorageService) (sink: SinkSett
 
                 let! putResult = storage.PutObject feedKey (serialise sinkFeed) None
 
-                let slugLabel =
-                    CultureInfo.CurrentCulture.TextInfo.ToTitleCase(serialise sinkSetting.SinkSlug)
+                let slugLabel = serialise sinkSetting.SinkSlug |> toTitleCase
 
                 logger.LogInformation("Sink {SinkSlug} created with {Count} items", slugLabel, toPublish.Length)
 
