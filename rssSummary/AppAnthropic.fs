@@ -24,7 +24,7 @@ let internal collectAsyncEnumerable (asyncEnum: IAsyncEnumerable<'t>) =
             let! moved = enumerator.MoveNextAsync()
 
             if moved then
-                results.Add(enumerator.Current)
+                results.Add enumerator.Current
             else
                 hasMore <- false
 
@@ -38,12 +38,10 @@ let internal applyBatchResult (batchResponses: Map<string, MessageBatchIndividua
         let batchResponse =
             Map.find derivedItem.Guid batchResponses
             |> _.Result
-            |> _.Match(
-                succeeded = (fun s -> Ok(s.Message)),
-                errored = (fun er -> Error(Some er)),
-                canceled = (fun _ -> Error(None)),
-                expired = (fun _ -> Error(None))
-            )
+            |> _.Match(succeeded = (fun s -> Ok s.Message),
+                       errored = (fun er -> Error(Some er)),
+                       canceled = (fun _ -> Error None),
+                       expired = (fun _ -> Error None))
 
         let parsedText =
             batchResponse
@@ -71,7 +69,11 @@ type AnthropicService(client: AnthropicClient) =
     let encoder = Encoder(O200KBase())
     let clientCooldown = 100
 
-    member private _.GetRequestsWithExcludes (items: (RssItem * Guid) array) (model: string) (submitBatchParameters: SummaryRequestParameters) =
+    member private _.GetRequestsWithExcludes
+        (items: (RssItem * Guid) array)
+        (model: string)
+        (submitBatchParameters: SummaryRequestParameters)
+        =
         let requests =
             requestsWithTokenCount items encoder
             |> Array.filter (filterPredicate submitBatchParameters)
@@ -101,7 +103,7 @@ type AnthropicService(client: AnthropicClient) =
 
         requests, Array.filter (filterPredicate submitBatchParameters >> not) (requestsWithTokenCount items encoder)
 
-    member private _.ClientBatchRequest (requests: Request array) =
+    member private _.ClientBatchRequest(requests: Request array) =
         task {
             modelSubmitSemaphore.WaitAsync() |> ignore
 
@@ -109,7 +111,7 @@ type AnthropicService(client: AnthropicClient) =
                 let messageBatch =
                     client.Messages.Batches.Create(BatchCreateParams(Requests = requests))
 
-                do! Task.Delay(clientCooldown)
+                do! Task.Delay clientCooldown
                 return! messageBatch
             finally
                 modelSubmitSemaphore.Release() |> ignore
@@ -118,7 +120,11 @@ type AnthropicService(client: AnthropicClient) =
     member this.SubmitBatch (items: RssItem array) (batchParameters: SummaryRequestParameters) =
         this.SubmitModelAgnosticBatch (Some "claude-haiku-4-5") items batchParameters
 
-    member this.SubmitModelAgnosticBatch (maybeModel: string option) (items: RssItem array) (submitBatchParameters: SummaryRequestParameters) =
+    member this.SubmitModelAgnosticBatch
+        (maybeModel: string option)
+        (items: RssItem array)
+        (submitBatchParameters: SummaryRequestParameters)
+        =
         let model = Option.defaultValue "claude-haiku-4-5" maybeModel
 
         task {
@@ -153,7 +159,10 @@ type AnthropicService(client: AnthropicClient) =
                   BatchItems = batchItems }
         }
 
-    member _.GetUpdatedDerivedFeed (sourceSetting: SourceSetting) (derivedFeed: DerivedFeed) : Task<DerivedFeed option> =
+    member _.GetUpdatedDerivedFeed
+        (sourceSetting: SourceSetting)
+        (derivedFeed: DerivedFeed)
+        : Task<DerivedFeed option> =
         let inProgressBatches =
             derivedFeed.Batches
             |> Array.filter (fun batch -> batch.ProcessingStatus = InProgress)

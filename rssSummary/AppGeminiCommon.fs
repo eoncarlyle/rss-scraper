@@ -10,6 +10,8 @@ open Tiktoken.Encodings
 open LanguageModelCommon
 open Tiktoken
 
+type GeminiClient = Google.GenAI.Client
+
 let internal isTerminalState (state: JobState) =
     state = JobState.JobStateSucceeded
     || state = JobState.JobStateFailed
@@ -44,12 +46,15 @@ let internal applyBatchResult (batchResponses: Map<string, InlinedResponse>) (de
         else
             derivedItem
 
-type GeminiService(client: Client) =
+type GeminiService(client: GeminiClient) =
     let modelSubmitSemaphore = new SemaphoreSlim(1)
     let encoder = Encoder(O200KBase())
     let clientCooldown = 100
 
-    member private _.GetRequestsWithExcludes (items: (RssItem * Guid) array) (submitBatchParameters: SummaryRequestParameters) =
+    member private _.GetRequestsWithExcludes
+        (items: (RssItem * Guid) array)
+        (submitBatchParameters: SummaryRequestParameters)
+        =
         let requests =
             requestsWithTokenCount items encoder
             |> Array.filter (filterPredicate submitBatchParameters)
@@ -90,7 +95,11 @@ type GeminiService(client: Client) =
     member this.SubmitBatch (items: RssItem array) (batchParameters: SummaryRequestParameters) =
         this.SubmitModelAgnosticBatch (Some "gemini-2.5-flash-lite") items batchParameters
 
-    member this.SubmitModelAgnosticBatch (maybeModel: string option) (items: RssItem array) (summaryRequestParameters: SummaryRequestParameters) =
+    member this.SubmitModelAgnosticBatch
+        (maybeModel: string option)
+        (items: RssItem array)
+        (summaryRequestParameters: SummaryRequestParameters)
+        =
         let model = Option.defaultValue "gemini-2.5-flash-lite" maybeModel
 
         task {
@@ -125,7 +134,10 @@ type GeminiService(client: Client) =
                   BatchItems = batchItems }
         }
 
-    member _.GetUpdatedDerivedFeed (sourceSetting: SourceSetting) (derivedFeed: DerivedFeed) : Task<DerivedFeed option> =
+    member _.GetUpdatedDerivedFeed
+        (sourceSetting: SourceSetting)
+        (derivedFeed: DerivedFeed)
+        : Task<DerivedFeed option> =
         let inProgressBatches =
             derivedFeed.Batches
             |> Array.filter (fun batch -> batch.ProcessingStatus = InProgress)
@@ -133,7 +145,7 @@ type GeminiService(client: Client) =
         task {
             let! retrievedBatches =
                 inProgressBatches
-                |> Array.map (fun b -> client.Batches.GetAsync(b.Id))
+                |> Array.map (fun b -> client.Batches.GetAsync b.Id)
                 |> Task.WhenAll
 
             let finishedBatches =
@@ -202,7 +214,11 @@ type GeminiService(client: Client) =
     member this.SubmitSynchronousBatch (items: RssItem array) (summaryRequestParameters: SummaryRequestParameters) =
         this.SubmitSynchronousModelAgnosticBatch (Some "gemini-2.5-flash-lite") items summaryRequestParameters
 
-    member this.SubmitSynchronousModelAgnosticBatch (maybeModel: string option) (items: RssItem array) (summaryRequestParameters: SummaryRequestParameters) =
+    member this.SubmitSynchronousModelAgnosticBatch
+        (maybeModel: string option)
+        (items: RssItem array)
+        (summaryRequestParameters: SummaryRequestParameters)
+        =
         let model = Option.defaultValue "gemini-2.5-flash-lite" maybeModel
         let encoder = Encoder(O200KBase())
 
@@ -232,7 +248,10 @@ type GeminiService(client: Client) =
                   BatchItems = batchItems }
         }
 
-    member _.GetUpdatedDerivedFeedSynchronous (sourceSetting: SourceSetting) (derivedFeed: DerivedFeed) : Task<DerivedFeed option> =
+    member _.GetUpdatedDerivedFeedSynchronous
+        (sourceSetting: SourceSetting)
+        (derivedFeed: DerivedFeed)
+        : Task<DerivedFeed option> =
         task { return Some derivedFeed }
 
     member this.SynchronousActions: LanguageModelActions =

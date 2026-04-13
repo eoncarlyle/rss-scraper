@@ -17,7 +17,7 @@ module Artemis =
     let localArtemisRss = ArtemisRss.Load "Schema/artemis.rss"
 
     let internal firstSentenceRemove (s: string) =
-        if String.IsNullOrEmpty(s) then
+        if String.IsNullOrEmpty s then
             s
         else
             let m = Regex.Match(s, "^[^.]*(?:\.[^.]*)*?\.bm[^.]*\.\s*")
@@ -56,7 +56,7 @@ module Artemis =
 
 module Dive =
     type DiveRss = XmlProvider<"Schema/c-store-dive.rss">
-    
+
     let internal deserialiseRssItem (item: DiveRss.Entry) : RssItem =
         { Title = item.Title
           Guid = if isNull (box item.Id) then None else Some item.Id
@@ -86,7 +86,7 @@ module Dive =
 
 module Substack =
     type Substack = XmlProvider<"Schema/thezvi.rss">
-    
+
     let internal deserialiseRssItem (item: Substack.Item) : RssItem =
         { Title = item.Title
           Guid =
