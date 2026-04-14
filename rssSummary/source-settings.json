@@ -48,7 +48,7 @@
       "sourceSlug": "the-zvi",
       "model": "claude-haiku-4-5",
       "inputTokenCutoff": 100000,
-      "outputTokenCutoff": 896,
+      "outputTokenCutoff": 1536,
       "maximumItems": 100,
       "maximumLookback": 15,
       "enabled": true
@@ -58,7 +58,7 @@
       "sourceSlug": "noahpinion",
       "model": "claude-haiku-4-5",
       "inputTokenCutoff": 100000,
-      "outputTokenCutoff": 896,
+      "outputTokenCutoff": 1536,
       "maximumItems": 100,
       "maximumLookback": 15,
       "enabled": true
