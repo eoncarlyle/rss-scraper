@@ -217,3 +217,93 @@ type AnthropicService(client: AnthropicClient) =
     member this.Actions: LanguageModelActions =
         { SubmitBatch = this.SubmitBatch
           GetUpdatedDerivedFeed = this.GetUpdatedDerivedFeed }
+
+    member private _.SubmitInstant
+        (model: string)
+        (summaryRequestParameters: SummaryRequestParameters)
+        (itemTuple: RssItem * Guid)
+        : Task<DerivedItem> =
+        task {
+            let! response =
+                client.Messages.CreateAsync(
+                    MessageCreateParams(
+                        MaxTokens = summaryRequestParameters.OutputTokenCutoff,
+                        Model = model,
+                        System =
+                            MessageCreateParamsSystem(
+                                [ TextBlockParam(
+                                      Text = summaryRequestParameters.SystemPrompt,
+                                      CacheControl = CacheControlEphemeral()
+                                  ) ]
+                            ),
+                        Messages =
+                            [ MessageParam(
+                                  Role = Role.User,
+                                  Content = getStructuredQuery (fst itemTuple)
+                              ) ]
+                    )
+                )
+
+            let description =
+                try
+                    match response.Content |> Seq.tryHead with
+                    | Some block ->
+                        let mutable tb = Unchecked.defaultof<TextBlock>
+                        block.TryPickText(&tb) |> ignore
+                        tb.Text
+                    | None -> "Language model query parse failure"
+                with _ ->
+                    "Language model query parse failure"
+
+            return
+                { Guid = snd itemTuple |> _.ToString()
+                  Included = true
+                  Item = fst itemTuple
+                  Result = Some description }
+        }
+
+    member this.SubmitSynchronousBatch (items: RssItem array) (summaryRequestParameters: SummaryRequestParameters) =
+        this.SubmitSynchronousModelAgnosticBatch (Some "claude-haiku-4-5") items summaryRequestParameters
+
+    member this.SubmitSynchronousModelAgnosticBatch
+        (maybeModel: string option)
+        (items: RssItem array)
+        (summaryRequestParameters: SummaryRequestParameters)
+        =
+        let model = Option.defaultValue "claude-haiku-4-5" maybeModel
+
+        task {
+            let itemsWithRequestGuids = Array.map (fun item -> item, Guid.NewGuid()) items
+
+            let! batchItems =
+                itemsWithRequestGuids
+                |> Array.map (fun itemTuple ->
+                    let tokenCount = encoder.CountTokens(fst itemTuple |> getStructuredQuery)
+
+                    if tokenCount < summaryRequestParameters.InputTokenCutoff then
+                        this.SubmitInstant model summaryRequestParameters itemTuple
+                    else
+                        task {
+                            return
+                                { Guid = snd itemTuple |> _.ToString()
+                                  Included = false
+                                  Item = fst itemTuple
+                                  Result = None }
+                        })
+                |> Task.WhenAll
+
+            return
+                { Id = $"synchronous/{Guid.NewGuid()}"
+                  ProcessingStatus = Ended
+                  BatchItems = batchItems }
+        }
+
+    member _.GetUpdatedDerivedFeedSynchronous
+        (sourceSetting: SourceSetting)
+        (derivedFeed: DerivedFeed)
+        : Task<DerivedFeed option> =
+        task { return Some derivedFeed }
+
+    member this.SynchronousActions: LanguageModelActions =
+        { SubmitBatch = this.SubmitSynchronousBatch
+          GetUpdatedDerivedFeed = this.GetUpdatedDerivedFeedSynchronous }
