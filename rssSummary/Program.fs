@@ -3,6 +3,7 @@ module RssSummary.App
 open System
 open System.IO
 open System.Threading.Tasks
+open Giraffe.ViewEngine
 open Microsoft.Extensions.DependencyInjection
 open Microsoft.Extensions.Hosting
 open Microsoft.Extensions.Logging
@@ -76,7 +77,9 @@ let handleSource
             match source.Model, source.Synchronous with
             | ClaudeHaiku45, _ -> anthropic.Actions
             | Gemini25FlashLite, None -> gemini.Actions
-            | Gemini25FlashLite, Some b -> if b then gemini.SynchronousActions else gemini.Actions
+            | Gemini25FlashLite, Some b ->
+                if b then gemini.SynchronousActions
+                else gemini.Actions
 
         let updateDerivedFeed' = updateDerivedFeed logger storage source modelActions
 

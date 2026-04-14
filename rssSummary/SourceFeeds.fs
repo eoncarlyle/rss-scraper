@@ -3,7 +3,6 @@ module SourceFeeds
 open System
 open FsHttp
 open DomainModel
-open Giraffe.ViewEngine
 open Serialisation
 open FSharp.Data
 open System.Text.RegularExpressions
