@@ -1,13 +1,16 @@
 # Notes
-- Seperate sources from sinks
-- Place all feeds in object storage to be able to run anywhere (use Tigris, make use of eTags if possible)
-- Consider if makes sense to seperate normalisation in source feed setup
+- ~~Seperate sources from sinks~~
+- ~~Place all feeds in object storage to be able to run anywhere (use Tigris, make use of eTags if possible)~~
+- ~~Consider if makes sense to seperate normalisation in source feed setup~~
 - ~~Place the Quartz scheduling inside the dependency injection (although the Giraffe server could be seperated out)~~
 - ~~Need to start using eTags on object storage for concurrency control~~
 - ~~Probably should come up with real dependency injection soon~~
 - Need to do exponential backoff
 - Need to truncate sink feeds
 - Split out definition of 'Rss Item': 'Content' makes sense for source, but not necessarily derived or sink
+- Claude seems to not get the memo about not remdering markdown and honestly, maybe the feeds _should_ just be 
+  rendered HTML. Could trivially test by deleting sink feeds (or at least some sink feed _entries_)
+
 - Feeds to add
   - https://capacityglobal.com/feed
 
