@@ -212,14 +212,20 @@ type GeminiService(client: GeminiClient) =
         }
 
     member this.SubmitSynchronousBatch (items: RssItem array) (summaryRequestParameters: SummaryRequestParameters) =
-        this.SubmitSynchronousModelAgnosticBatch (Some "gemini-2.5-flash-lite") items summaryRequestParameters
+        this.SubmitSynchronousModelAgnosticBatch
+            (Gemini31FlashLitePreview |> Serialisation.serialise |> Some)
+            items
+            summaryRequestParameters
 
     member this.SubmitSynchronousModelAgnosticBatch
         (maybeModel: string option)
         (items: RssItem array)
         (summaryRequestParameters: SummaryRequestParameters)
         =
-        let model = Option.defaultValue "gemini-2.5-flash-lite" maybeModel
+        let model =
+            (Serialisation.serialise Gemini31FlashLitePreview, maybeModel)
+            ||> Option.defaultValue
+
         let encoder = Encoder(O200KBase())
 
         task {

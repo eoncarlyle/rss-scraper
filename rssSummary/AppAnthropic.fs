@@ -87,12 +87,11 @@ type AnthropicService(client: AnthropicClient) =
                             MaxTokens = submitBatchParameters.OutputTokenCutoff,
                             Model = model,
                             System =
-                                ParamsSystem(
+                                ParamsSystem
                                     [ TextBlockParam(
                                           Text = submitBatchParameters.SystemPrompt,
                                           CacheControl = CacheControlEphemeral()
-                                      ) ]
-                                ),
+                                      ) ],
                             Messages =
                                 [ MessageParam(
                                       Role = Role.User,
@@ -225,22 +224,17 @@ type AnthropicService(client: AnthropicClient) =
         : Task<DerivedItem> =
         task {
             let! response =
-                client.Messages.CreateAsync(
+                client.Messages.Create(
                     MessageCreateParams(
                         MaxTokens = summaryRequestParameters.OutputTokenCutoff,
                         Model = model,
                         System =
-                            MessageCreateParamsSystem(
+                            MessageCreateParamsSystem
                                 [ TextBlockParam(
                                       Text = summaryRequestParameters.SystemPrompt,
                                       CacheControl = CacheControlEphemeral()
-                                  ) ]
-                            ),
-                        Messages =
-                            [ MessageParam(
-                                  Role = Role.User,
-                                  Content = getStructuredQuery (fst itemTuple)
-                              ) ]
+                                  ) ],
+                        Messages = [ MessageParam(Role = Role.User, Content = getStructuredQuery (fst itemTuple)) ]
                     )
                 )
 

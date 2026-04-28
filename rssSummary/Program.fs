@@ -77,9 +77,7 @@ let handleSource
             match source.Model, source.Synchronous with
             | ClaudeHaiku45, _ -> anthropic.Actions
             | Gemini25FlashLite, None -> gemini.Actions
-            | Gemini25FlashLite, Some b ->
-                if b then gemini.SynchronousActions
-                else gemini.Actions
+            | Gemini25FlashLite, Some b -> if b then gemini.SynchronousActions else gemini.Actions
 
         let updateDerivedFeed' = updateDerivedFeed logger storage source modelActions
 
