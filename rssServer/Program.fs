@@ -63,8 +63,6 @@ let summaryHandler slug : HttpHandler =
                     ctx.WriteStringAsync "Not Found"
         }
 
-// TODO: 4) summary slug handling (caching?)
-
 let slugRouter feed : HttpHandler =
     match feed with
     | "thediff.rss" -> directScrapeHandler feed TheDiff.getRss >=> publicResponseCaching 60 None
