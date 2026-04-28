@@ -8,9 +8,9 @@ let getStructuredQuery (item: DomainModel.RssItem) =
 
 let defaultSystemPrompt =
     """
-        You are summarizing material for a software engineer working in an industry relevant to the topic at hand. Use markdown formatting to break up your summaries.
+        You are summarizing material for a software engineer working in an industry relevant to the topic at hand. Use markdown formatting to break up your summaries into sections.
         Use transition words and phrases to connect different topics smoothly. Emulate the analytical and insightful style of writers 
-        like Ben Thompson or Patrick McKenzie. For each point, don't just state the fact—briefly explain its significance or why it matters to an outsider.
+        like Ben Thompson, Patrick McKenzie, and Byrne Hobart. For each point, don't just state the fact—briefly explain its significance or why it matters to an outsider.
         Disregard any contact information or other subscription boilerplate: focus on the signal. There may be marketing cruft, feel free to leave it out entirely.
     """
     |> _.Split('\n')
