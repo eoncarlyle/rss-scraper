@@ -151,28 +151,27 @@ module TheDiff =
         |> rssChannelView feed
 
 module RenderSummarised =
+    let private tryGetEncodedText maybeString =
+        Option.defaultValue "" maybeString |> encodedText
+
     let getRss (sinkFeed: DomainModel.SinkFeed) =
         let getRssItem (sinkItem: DomainModel.SinkItem) =
             tag
                 "item"
                 []
                 [ tag "title" [] [ encodedText sinkItem.Item.Title ]
-                  tag "guid" [] [ encodedText (Option.defaultValue "" sinkItem.Item.Guid) ]
-                  tag "link" [] [ encodedText (Option.defaultValue "" sinkItem.Item.Link) ]
-                  tag "description" [] [ encodedText sinkItem.Item.Description ]
-                  tag "pubDate" [] [ encodedText sinkItem.Item.Title ] ] 
-        
+                  tag "guid" [] [ tryGetEncodedText sinkItem.Item.Guid ]
+                  tag "link" [] [ tryGetEncodedText sinkItem.Item.Link ]
+                  tag "pubDate" [] [ tryGetEncodedText sinkItem.Item.PubDate ]
+                  tag "description" [] [ rawText $"<![CDATA[{sinkItem.Item.Description}]]>" ] ]
+
         tag
             "rss"
             [ attr "version" "2.0" ]
-            [
-                tag
-                    "channel"
-                    []
-                    [
-                        tag "title" [] [ encodedText sinkFeed.Title ]
-                        tag "link" [] [ encodedText sinkFeed.Link ]
-                        tag "description" [] [encodedText sinkFeed.Description]
-                        yield! Array.map getRssItem sinkFeed.Items
-                    ]
-            ]
+            [ tag
+                  "channel"
+                  []
+                  [ tag "title" [] [ encodedText sinkFeed.Title ]
+                    tag "link" [] [ encodedText sinkFeed.Link ]
+                    tag "description" [] [ encodedText sinkFeed.Description ]
+                    yield! Array.map getRssItem sinkFeed.Items ] ]

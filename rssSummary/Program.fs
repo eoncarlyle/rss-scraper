@@ -3,13 +3,11 @@ module RssSummary.App
 open System
 open System.IO
 open System.Threading.Tasks
-open Giraffe.ViewEngine
 open Microsoft.Extensions.DependencyInjection
 open Microsoft.Extensions.Hosting
 open Microsoft.Extensions.Logging
 open Amazon.S3
 open Anthropic
-open Google.GenAI
 open Quartz
 open Serilog
 open ObjectStorage
@@ -115,7 +113,6 @@ type RssSyncJob
             task {
                 logger.LogInformation("RssSyncJob called: {Timestamp}", DateTimeOffset.UtcNow)
                 let enabledSources = sourceSettings.Sources |> Array.filter _.Enabled
-
                 do!
                     Array.map (handleSource logger storage anthropic gemini) enabledSources
                     |> Task.WhenAll

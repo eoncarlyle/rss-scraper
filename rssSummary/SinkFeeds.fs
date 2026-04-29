@@ -8,18 +8,25 @@ open System.Globalization
 open Giraffe.ViewEngine
 open System.Threading.Tasks
 open System
+open System.Net
 open Microsoft.Extensions.Logging
+open Markdig
 
 let getFeedKey (sinkSetting: SinkSetting) = $"{sinkSetting.SinkSlug}.sink.json"
 
 let getPossibleFeedKey possibleSlug = $"{possibleSlug}.sink.json"
 
-let toTitleCase = CultureInfo.CurrentCulture.TextInfo.ToTitleCase 
+let toTitleCase = CultureInfo.CurrentCulture.TextInfo.ToTitleCase
 
 let isEquivalent (item: RssItem) (derivedItemReference: DerivedItemReference) =
     item.Title = derivedItemReference.Title
     && item.Guid = derivedItemReference.Guid
     && item.Link = derivedItemReference.Link
+
+let pipeline = MarkdownPipelineBuilder().UseAdvancedExtensions().Build()
+
+let getXmlNode (md: string) =
+    Markdown.ToHtml(WebUtility.HtmlDecode md, pipeline) |> rawText
 
 let getDerivedItemsWithSlug (storage: ObjectStorageService) (sinkSetting: SinkSetting) =
 
@@ -93,7 +100,11 @@ let getToPublish (derivedPairs: (SourceSlug * DerivedItem) array) sinkSetting =
                   |> Array.map (fun pair ->
                       let derivedItem = snd pair
                       let sourceSlug = fst pair
-                      div [] [ h2 [] [ str $"{sourceSlug}: {derivedItem.Item.Title}" ]; p [] [ str derivedItem.Result.Value ] ]) ]
+
+                      div
+                          []
+                          [ h1 [] [ str $"{sourceSlug}: {derivedItem.Item.Title}" ]
+                            getXmlNode derivedItem.Result.Value ]) ]
 
     let baseItem =
         { Title = $"{sinkSetting.SinkSlug}: Update {publishDate.Date}"

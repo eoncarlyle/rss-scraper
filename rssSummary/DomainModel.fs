@@ -122,4 +122,3 @@ and DerivedItemReference =
     { Title: String
       Guid: String option
       Link: String option }
-
