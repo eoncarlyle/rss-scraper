@@ -119,20 +119,20 @@ type AnthropicService(client: AnthropicClient) =
         }
 
     member this.SubmitBatch (items: RssItem array) (batchParameters: SummaryRequestParameters) =
-        this.SubmitModelAgnosticBatch (Some "claude-haiku-4-5") items batchParameters
+        this.SubmitModelAgnosticBatch (Some ClaudeHaiku45) items batchParameters
 
     member this.SubmitModelAgnosticBatch
-        (maybeModel: string option)
+        (maybeModel: LanguageModel option)
         (items: RssItem array)
         (submitBatchParameters: SummaryRequestParameters)
         =
-        let model = Option.defaultValue "claude-haiku-4-5" maybeModel
+        let model = Option.defaultValue ClaudeHaiku45 maybeModel
 
         task {
             let itemsWithRequestGuids = Array.map (fun item -> item, Guid.NewGuid()) items
 
             let requestWithExcludes =
-                this.GetRequestsWithExcludes itemsWithRequestGuids model submitBatchParameters
+                this.GetRequestsWithExcludes itemsWithRequestGuids (Serialisation.serialise model) submitBatchParameters
 
             let! response = fst requestWithExcludes |> this.ClientBatchRequest
             let excludes = snd requestWithExcludes |> Array.map _.MinimalRssItem
@@ -259,14 +259,14 @@ type AnthropicService(client: AnthropicClient) =
         }
 
     member this.SubmitSynchronousBatch (items: RssItem array) (summaryRequestParameters: SummaryRequestParameters) =
-        this.SubmitSynchronousModelAgnosticBatch (Some "claude-haiku-4-5") items summaryRequestParameters
+        this.SubmitSynchronousModelAgnosticBatch (Some ClaudeHaiku45) items summaryRequestParameters
 
     member this.SubmitSynchronousModelAgnosticBatch
-        (maybeModel: string option)
+        (maybeModel: LanguageModel option)
         (items: RssItem array)
         (summaryRequestParameters: SummaryRequestParameters)
         =
-        let model = Option.defaultValue "claude-haiku-4-5" maybeModel
+        let model = Option.defaultValue ClaudeHaiku45 maybeModel
 
         task {
             let itemsWithRequestGuids = Array.map (fun item -> item, Guid.NewGuid()) items
@@ -277,7 +277,7 @@ type AnthropicService(client: AnthropicClient) =
                     let tokenCount = encoder.CountTokens(fst itemTuple |> getStructuredQuery)
 
                     if tokenCount < summaryRequestParameters.InputTokenCutoff then
-                        this.SubmitInstant model summaryRequestParameters itemTuple
+                        this.SubmitInstant (Serialisation.serialise model) summaryRequestParameters itemTuple
                     else
                         task {
                             return
