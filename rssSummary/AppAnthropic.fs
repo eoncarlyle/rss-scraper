@@ -38,10 +38,12 @@ let internal applyBatchResult (batchResponses: Map<string, MessageBatchIndividua
         let batchResponse =
             Map.find derivedItem.Guid batchResponses
             |> _.Result
-            |> _.Match(succeeded = (fun s -> Ok s.Message),
-                       errored = (fun er -> Error(Some er)),
-                       canceled = (fun _ -> Error None),
-                       expired = (fun _ -> Error None))
+            |> _.Match(
+                succeeded = (fun s -> Ok s.Message),
+                errored = (fun er -> Error(Some er)),
+                canceled = (fun _ -> Error None),
+                expired = (fun _ -> Error None)
+            )
 
         let parsedText =
             batchResponse
@@ -213,7 +215,7 @@ type AnthropicService(client: AnthropicClient) =
                           Batches = newBatches }
         }
 
-    member this.Actions: LanguageModelActions =
+    member this.BatchActions: LanguageModelActions =
         { SubmitBatch = this.SubmitBatch
           GetUpdatedDerivedFeed = this.GetUpdatedDerivedFeed }
 
@@ -301,3 +303,12 @@ type AnthropicService(client: AnthropicClient) =
     member this.SynchronousActions: LanguageModelActions =
         { SubmitBatch = this.SubmitSynchronousBatch
           GetUpdatedDerivedFeed = this.GetUpdatedDerivedFeedSynchronous }
+
+    member this.Actions synchronous : LanguageModelActions =
+        match synchronous with
+        | Some true ->
+            { SubmitBatch = this.SubmitSynchronousBatch
+              GetUpdatedDerivedFeed = this.GetUpdatedDerivedFeedSynchronous }
+        | _ ->
+            { SubmitBatch = this.SubmitBatch
+              GetUpdatedDerivedFeed = this.GetUpdatedDerivedFeed }

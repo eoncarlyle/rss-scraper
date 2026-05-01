@@ -6,7 +6,7 @@
       "model": "claude-haiku-4-5",
       "inputTokenCutoff": 50000,
       "outputTokenCutoff": 896,
-      "maximumItems": 100,
+      "maximumItems": 200,
       "maximumLookback": 15,
       "enabled": true
     },
@@ -16,7 +16,7 @@
       "model": "claude-haiku-4-5",
       "inputTokenCutoff": 50000,
       "outputTokenCutoff": 896,
-      "maximumItems": 100,
+      "maximumItems": 200,
       "maximumLookback": 15,
       "enabled": false,
       "synchronous": true
@@ -27,7 +27,7 @@
       "model": "claude-haiku-4-5",
       "inputTokenCutoff": 50000,
       "outputTokenCutoff": 896,
-      "maximumItems": 100,
+      "maximumItems": 200,
       "maximumLookback": 15,
       "enabled": true,
       "synchronous": false
@@ -38,7 +38,7 @@
       "model": "claude-haiku-4-5",
       "inputTokenCutoff": 50000,
       "outputTokenCutoff": 896,
-      "maximumItems": 100,
+      "maximumItems": 200,
       "maximumLookback": 15,
       "enabled": true,
       "synchronous": false
@@ -49,7 +49,7 @@
       "model": "claude-haiku-4-5",
       "inputTokenCutoff": 100000,
       "outputTokenCutoff": 2048,
-      "maximumItems": 100,
+      "maximumItems": 200,
       "maximumLookback": 15,
       "enabled": true
     },
@@ -59,9 +59,20 @@
       "model": "claude-haiku-4-5",
       "inputTokenCutoff": 100000,
       "outputTokenCutoff": 1536,
-      "maximumItems": 100,
+      "maximumItems": 200,
       "maximumLookback": 15,
       "enabled": true
+    },
+    {
+      "sourceUrl": "https://www.chinatalk.media/feed",
+      "sourceSlug": "china-talk",
+      "model": "gemini-3-1-flash-lite-preview",
+      "inputTokenCutoff": 100000,
+      "outputTokenCutoff": 2048,
+      "maximumItems": 200,
+      "maximumLookback": 15,
+      "enabled": true,
+      "synchronous": true
     }
   ]
 }

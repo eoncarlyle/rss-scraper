@@ -93,14 +93,14 @@ type GeminiService(client: GeminiClient) =
         }
 
     member this.SubmitBatch (items: RssItem array) (batchParameters: SummaryRequestParameters) =
-        this.SubmitModelAgnosticBatch (Some "gemini-2.5-flash-lite") items batchParameters
+        this.SubmitModelAgnosticBatch (Some LanguageModel.Gemini31FlashLitePreview) items batchParameters
 
     member this.SubmitModelAgnosticBatch
-        (maybeModel: string option)
+        (maybeModel: LanguageModel option)
         (items: RssItem array)
         (summaryRequestParameters: SummaryRequestParameters)
         =
-        let model = Option.defaultValue "gemini-2.5-flash-lite" maybeModel
+        let model = Option.defaultValue Gemini31FlashLitePreview maybeModel
 
         task {
             let itemsWithRequestGuids = Array.map (fun item -> item, Guid.NewGuid()) items
@@ -108,7 +108,7 @@ type GeminiService(client: GeminiClient) =
             let requestWithExcludes =
                 this.GetRequestsWithExcludes itemsWithRequestGuids summaryRequestParameters
 
-            let! response = this.ClientBatchRequest model (fst requestWithExcludes)
+            let! response = this.ClientBatchRequest (Serialisation.serialise model) (fst requestWithExcludes)
             let excludes = snd requestWithExcludes |> Array.map _.MinimalRssItem
 
             let batchItems =
@@ -190,9 +190,9 @@ type GeminiService(client: GeminiClient) =
                           Batches = newBatches }
         }
 
-    member this.Actions: LanguageModelActions =
-        { SubmitBatch = fun items batchParameters -> this.SubmitBatch items batchParameters
-          GetUpdatedDerivedFeed = fun setting feed -> this.GetUpdatedDerivedFeed setting feed }
+    member this.BatchActions: LanguageModelActions =
+        { SubmitBatch = this.SubmitBatch
+          GetUpdatedDerivedFeed = this.GetUpdatedDerivedFeed }
 
     member private _.SubmitInstant (model: string) (itemTuple: RssItem * Guid) : Task<DerivedItem> =
         task {
@@ -212,21 +212,17 @@ type GeminiService(client: GeminiClient) =
         }
 
     member this.SubmitSynchronousBatch (items: RssItem array) (summaryRequestParameters: SummaryRequestParameters) =
-        this.SubmitSynchronousModelAgnosticBatch
-            (Gemini31FlashLitePreview |> Serialisation.serialise |> Some)
-            items
-            summaryRequestParameters
+        this.SubmitSynchronousModelAgnosticBatch (Some Gemini31FlashLitePreview) items summaryRequestParameters
 
     member this.SubmitSynchronousModelAgnosticBatch
-        (maybeModel: string option)
+        (maybeModel: LanguageModel option)
         (items: RssItem array)
         (summaryRequestParameters: SummaryRequestParameters)
         =
-        let model =
-            (Serialisation.serialise Gemini31FlashLitePreview, maybeModel)
-            ||> Option.defaultValue
 
-        let encoder = Encoder(O200KBase())
+        let maybeSerialisedModel =
+            Option.defaultValue Gemini31FlashLitePreview maybeModel
+            |> Serialisation.serialise
 
         task {
             let itemsWithRequestGuids = Array.map (fun item -> item, Guid.NewGuid()) items
@@ -237,7 +233,7 @@ type GeminiService(client: GeminiClient) =
                     let tokenCount = encoder.CountTokens(fst itemTuple |> getStructuredQuery)
 
                     if tokenCount < summaryRequestParameters.InputTokenCutoff then
-                        this.SubmitInstant model itemTuple
+                        this.SubmitInstant maybeSerialisedModel itemTuple
                     else
                         task {
                             return
@@ -263,3 +259,12 @@ type GeminiService(client: GeminiClient) =
     member this.SynchronousActions: LanguageModelActions =
         { SubmitBatch = this.SubmitSynchronousBatch
           GetUpdatedDerivedFeed = this.GetUpdatedDerivedFeedSynchronous }
+
+    member this.Actions synchronous maybeModel : LanguageModelActions =
+        match synchronous with
+        | Some true ->
+            { SubmitBatch = this.SubmitSynchronousModelAgnosticBatch maybeModel
+              GetUpdatedDerivedFeed = this.GetUpdatedDerivedFeedSynchronous }
+        | _ ->
+            { SubmitBatch = this.SubmitModelAgnosticBatch maybeModel
+              GetUpdatedDerivedFeed = this.GetUpdatedDerivedFeed }

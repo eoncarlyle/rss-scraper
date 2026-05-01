@@ -9,6 +9,7 @@
     <PackageId>RssSummary</PackageId>
     <RootNamespace>RssSummary</RootNamespace>
     <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+    <WarningsAsErrors>25;26;27;46</WarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="AngleSharp" Version="1.4.0" />

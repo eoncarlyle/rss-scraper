@@ -12,6 +12,7 @@ type SourceSlug =
     | [<JsonName "supply-chain-dive">] SupplyChainDive
     | [<JsonName "the-zvi">] TheZvi
     | [<JsonName "noahpinion">] Noahpinion
+    | [<JsonName "china-talk">] ChinaTalk
 
     override this.ToString() =
         match this with
@@ -21,6 +22,7 @@ type SourceSlug =
         | SupplyChainDive -> "supply-chain-dive"
         | TheZvi -> "the-zvi"
         | Noahpinion -> "noahpinion"
+        | ChinaTalk -> "china-talk"
 
 type SinkSlug =
     | [<JsonName "artemis">] Artemis
