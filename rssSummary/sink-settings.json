@@ -6,7 +6,7 @@
         "artemis"
       ],
       "sourceItemsPerPublish": 5,
-      "maximumItems": 50
+      "maximumItems": 200
     },
     {
       "sinkSlug": "industry-dive",
@@ -16,7 +16,7 @@
         "supply-chain-dive"
       ],
       "sourceItemsPerPublish": 5,
-      "maximumItems": 50
+      "maximumItems": 200
     },
     {
       "sinkSlug": "substack-general",
@@ -26,7 +26,7 @@
         "china-talk"
       ],
       "sourceItemsPerPublish": 5,
-      "maximumItems": 50
+      "maximumItems": 200
     }
   ]
 }
