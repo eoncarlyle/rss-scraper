@@ -22,7 +22,8 @@
       "sinkSlug": "substack-general",
       "sourceSlugs": [
         "the-zvi",
-        "noahpinion"
+        "noahpinion",
+        "china-talk"
       ],
       "sourceItemsPerPublish": 5,
       "maximumItems": 50
