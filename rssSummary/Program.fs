@@ -72,10 +72,10 @@ let handleSource
     =
     task {
         let modelActions =
-            match source.Model, source.Synchronous with
-            | ClaudeHaiku45, _ -> anthropic.Actions
-            | Gemini25FlashLite, None -> gemini.Actions
-            | Gemini25FlashLite, Some b -> if b then gemini.SynchronousActions else gemini.Actions
+            match source.Model with
+            | ClaudeHaiku45 -> anthropic.Actions source.Synchronous
+            | Gemini25FlashLite
+            | Gemini31FlashLitePreview -> gemini.Actions source.Synchronous <| Some source.Model
 
         let updateDerivedFeed' = updateDerivedFeed logger storage source modelActions
 
@@ -87,7 +87,19 @@ let handleSource
             | SupplyChainDive -> updateDerivedFeed' (SourceFeeds.Dive.fetchSource logger)
             | TheZvi -> updateDerivedFeed' (SourceFeeds.Substack.fetchSource logger)
             | Noahpinion -> updateDerivedFeed' (SourceFeeds.Substack.fetchSource logger)
+            | ChinaTalk -> updateDerivedFeed' (SourceFeeds.Substack.fetchSource logger)
     }
+
+let validateUnique items (getSlug: 'a -> 'slug) label =
+    let duplicates =
+        items
+        |> Seq.groupBy getSlug
+        |> Seq.filter (fun (_, group) -> Seq.length group > 1)
+        |> Seq.map (fun (slug, _) -> slug.ToString())
+        |> Seq.toList
+
+    if not (List.isEmpty duplicates) then
+        failwithf "Duplicate %s slugs found: %A" label duplicates
 
 let handleSink (logger: MsLogger) (storage: ObjectStorageService) (sink: SinkSetting) =
     task {
@@ -113,6 +125,7 @@ type RssSyncJob
             task {
                 logger.LogInformation("RssSyncJob called: {Timestamp}", DateTimeOffset.UtcNow)
                 let enabledSources = sourceSettings.Sources |> Array.filter _.Enabled
+
                 do!
                     Array.map (handleSource logger storage anthropic gemini) enabledSources
                     |> Task.WhenAll
@@ -132,8 +145,12 @@ let main args =
     let sourceSettings =
         File.ReadAllText "source-settings.json" |> deserialise<SourceSettings>
 
+    validateUnique sourceSettings.Sources _.SourceSlug "source"
+
     let sinkSettings =
         File.ReadAllText "sink-settings.json" |> deserialise<SinkSettings>
+
+    validateUnique sinkSettings.Sinks _.SinkSlug "sink"
 
     Host
         .CreateDefaultBuilder(args)

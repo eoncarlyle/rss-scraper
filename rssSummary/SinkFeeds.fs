@@ -154,12 +154,19 @@ let feedUpdate (logger: ILogger) (storage: ObjectStorageService) (sink: SinkSett
                 | x when x > 0 ->
                     let sinkFeed = deserialise<SinkFeed> sinkS3Object.Content
 
+                    let combinedItems = Array.append sinkFeed.Items toPublish
+                    let updatedItems =
+                        if combinedItems.Length > sinkSetting.MaximumItems then
+                            combinedItems |> Array.skip (combinedItems.Length - sinkSetting.MaximumItems)
+                        else
+                            combinedItems
+
                     let updatedSinkFeed =
                         { Title = sinkFeed.Title
                           Link = sinkFeed.Link
                           PubDate = pubDate
                           Description = sinkFeed.Description
-                          Items = Array.append sinkFeed.Items toPublish }
+                          Items = updatedItems }
 
                     let! putResult = storage.PutObject feedKey (serialise updatedSinkFeed) (Some sinkS3Object.ETag)
                     logger.LogInformation("Sink {SinkSlug} added {Count} fresh items", sinkSetting.SinkSlug, x)
@@ -169,12 +176,18 @@ let feedUpdate (logger: ILogger) (storage: ObjectStorageService) (sink: SinkSett
             | None ->
                 let slugLabel = String.Join(", ", Set sinkSetting.SourceSlugs)
 
+                let items =
+                    if toPublish.Length > sinkSetting.MaximumItems then
+                        toPublish |> Array.skip (toPublish.Length - sinkSetting.MaximumItems)
+                    else
+                        toPublish
+
                 let sinkFeed: SinkFeed =
                     { Title = $"{sinkSetting.SinkSlug}: Summary Sink Feed"
                       Link = $"https://rss-scrape.iainschmitt.com/{sinkSetting.SinkSlug}"
                       PubDate = pubDate
                       Description = $"Summarised feed for {slugLabel}"
-                      Items = toPublish }
+                      Items = items }
 
                 let! putResult = storage.PutObject feedKey (serialise sinkFeed) None
 

@@ -12,6 +12,7 @@ type SourceSlug =
     | [<JsonName "supply-chain-dive">] SupplyChainDive
     | [<JsonName "the-zvi">] TheZvi
     | [<JsonName "noahpinion">] Noahpinion
+    | [<JsonName "china-talk">] ChinaTalk
 
     override this.ToString() =
         match this with
@@ -21,6 +22,7 @@ type SourceSlug =
         | SupplyChainDive -> "supply-chain-dive"
         | TheZvi -> "the-zvi"
         | Noahpinion -> "noahpinion"
+        | ChinaTalk -> "china-talk"
 
 type SinkSlug =
     | [<JsonName "artemis">] Artemis
@@ -64,6 +66,7 @@ type DerivedFeed =
 type LanguageModel =
     | [<JsonName "claude-haiku-4-5">] ClaudeHaiku45
     | [<JsonName "gemini-2-5-flash-lite">] Gemini25FlashLite
+    | [<JsonName "gemini-3-1-flash-lite-preview">] Gemini31FlashLitePreview
 
 [<CLIMutable>]
 type SourceSettings = { Sources: SourceSetting array }
