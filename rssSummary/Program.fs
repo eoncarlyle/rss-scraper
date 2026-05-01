@@ -90,7 +90,7 @@ let handleSource
             | ChinaTalk -> updateDerivedFeed' (SourceFeeds.Substack.fetchSource logger)
     }
 
-let validateUnique (items: 'a seq) (getSlug: 'a -> 'slug) (label: string) =
+let validateUnique items (getSlug: 'a -> 'slug) label =
     let duplicates =
         items
         |> Seq.groupBy getSlug
@@ -145,12 +145,12 @@ let main args =
     let sourceSettings =
         File.ReadAllText "source-settings.json" |> deserialise<SourceSettings>
 
-    validateUnique sourceSettings.Sources (fun s -> s.SourceSlug) "source"
+    validateUnique sourceSettings.Sources _.SourceSlug "source"
 
     let sinkSettings =
         File.ReadAllText "sink-settings.json" |> deserialise<SinkSettings>
 
-    validateUnique sinkSettings.Sinks (fun s -> s.SinkSlug) "sink"
+    validateUnique sinkSettings.Sinks _.SinkSlug "sink"
 
     Host
         .CreateDefaultBuilder(args)
