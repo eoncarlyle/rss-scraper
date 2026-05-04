@@ -13,8 +13,7 @@ let getDerivedFeedKeyFromSource (sourceSetting: SourceSetting) =
     getDerivedFeedKeyFromSlug sourceSetting.SourceSlug
 
 let crossItemEquivalent (item: RssItem) (batchItem: DerivedItem) =
-    item.Title = batchItem.Item.Title
-    && item.Guid = batchItem.Item.Guid
+    item.Guid = batchItem.Item.Guid
     && item.Link = batchItem.Item.Link
 
 let getFreshSourceItems (storage: ObjectStorageService) (sourceSetting: SourceSetting) (incomingRssItems: RssItem array) =
