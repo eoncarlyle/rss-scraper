@@ -19,6 +19,15 @@ open Serialisation
 type MsLogger = Microsoft.Extensions.Logging.ILogger
 type MsLogger<'T> = Microsoft.Extensions.Logging.ILogger<'T>
 
+type AppExecution =
+    | Persistent
+    | AdHoc
+
+let getAppMode args =
+    match Array.toList args with
+    | [ "--ad-hoc" ] -> AdHoc
+    | _ -> Persistent
+
 let resultMessage (result: Result<'a, 'b>) = if result.IsOk then "Ok" else "Error"
 
 let updateDerivedFeed
@@ -134,6 +143,62 @@ type RssSyncJob
                 do! Array.map (handleSink logger storage) sinkSettings.Sinks |> Task.WhenAll :> Task
             }
 
+let configureServices (sourceSettings: SourceSettings) (sinkSettings: SinkSettings) (services: IServiceCollection) =
+    services.AddSingleton<SourceSettings> sourceSettings |> ignore
+    services.AddSingleton<SinkSettings> sinkSettings |> ignore
+
+    let endpoint = Environment.GetEnvironmentVariable "AWS_ENDPOINT_URL_S3"
+    let bucketName = Environment.GetEnvironmentVariable "TIGRIS_BUCKET"
+
+    let s3Client =
+        new AmazonS3Client(AmazonS3Config(ServiceURL = endpoint, ForcePathStyle = true))
+
+    services.AddSingleton<IAmazonS3> s3Client |> ignore
+
+    services.AddSingleton<ObjectStorageService>(fun _ -> ObjectStorageService(s3Client, bucketName))
+    |> ignore
+
+    services.AddSingleton<AnthropicClient>() |> ignore
+    services.AddSingleton<AnthropicService>() |> ignore
+    services.AddSingleton<GeminiClient>() |> ignore
+    services.AddSingleton<GeminiService>() |> ignore
+    services.AddLogging(fun b -> b.AddSerilog() |> ignore) |> ignore
+
+let runAdHoc (sourceSettings: SourceSettings) (sinkSettings: SinkSettings) =
+    task {
+        let services = ServiceCollection()
+        configureServices sourceSettings sinkSettings services
+        let provider = services.BuildServiceProvider()
+
+        let logger = provider.GetRequiredService<MsLogger<RssSyncJob>>()
+        let storage = provider.GetRequiredService<ObjectStorageService>()
+        let anthropic = provider.GetRequiredService<AnthropicService>()
+        let gemini = provider.GetRequiredService<GeminiService>()
+
+        let job = RssSyncJob(logger, storage, anthropic, gemini, sourceSettings, sinkSettings)
+        do! (job :> IJob).Execute null
+    }
+
+let runPersistent args (sourceSettings: SourceSettings) (sinkSettings: SinkSettings) =
+    Host
+        .CreateDefaultBuilder(args)
+        .UseSerilog()
+        .ConfigureServices(fun services ->
+            configureServices sourceSettings sinkSettings services
+
+            services.AddQuartz(fun q ->
+                let jobKey = JobKey "rss-sync"
+                q.AddJob<RssSyncJob> jobKey |> ignore
+
+                q.AddTrigger(fun t -> t.ForJob(jobKey).WithCronSchedule "0 */10 * * * ?" |> ignore)
+                |> ignore)
+            |> ignore
+
+            services.AddQuartzHostedService(fun opt -> opt.WaitForJobsToComplete <- true)
+            |> ignore)
+        .Build()
+        .Run()
+
 [<EntryPoint>]
 let main args =
     Log.Logger <-
@@ -152,40 +217,11 @@ let main args =
 
     validateUnique sinkSettings.Sinks _.SinkSlug "sink"
 
-    Host
-        .CreateDefaultBuilder(args)
-        .UseSerilog()
-        .ConfigureServices(fun services ->
-            services.AddSingleton<SourceSettings> sourceSettings |> ignore
-            services.AddSingleton<SinkSettings> sinkSettings |> ignore
-
-            let endpoint = Environment.GetEnvironmentVariable "AWS_ENDPOINT_URL_S3"
-            let bucketName = Environment.GetEnvironmentVariable "TIGRIS_BUCKET"
-
-            let s3Client =
-                new AmazonS3Client(AmazonS3Config(ServiceURL = endpoint, ForcePathStyle = true))
-
-            services.AddSingleton<IAmazonS3> s3Client |> ignore
-
-            services.AddSingleton<ObjectStorageService>(fun _ -> ObjectStorageService(s3Client, bucketName))
-            |> ignore
-
-            services.AddSingleton<AnthropicClient>() |> ignore
-            services.AddSingleton<AnthropicService>() |> ignore
-            services.AddSingleton<GeminiClient>() |> ignore
-            services.AddSingleton<GeminiService>() |> ignore
-
-            services.AddQuartz(fun q ->
-                let jobKey = JobKey "rss-sync"
-                q.AddJob<RssSyncJob> jobKey |> ignore
-
-                q.AddTrigger(fun t -> t.ForJob(jobKey).WithCronSchedule "0 */10 * * * ?" |> ignore)
-                |> ignore)
-            |> ignore
-
-            services.AddQuartzHostedService(fun opt -> opt.WaitForJobsToComplete <- true)
-            |> ignore)
-        .Build()
-        .Run()
-
-    0
+    match getAppMode args with
+    | AdHoc ->
+        Log.Information "Running ad-hoc"
+        (runAdHoc sourceSettings sinkSettings).Wait()
+        0
+    | Persistent ->
+        runPersistent args sourceSettings sinkSettings
+        0
