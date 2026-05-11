@@ -13,7 +13,7 @@
     {
       "sourceUrl": "https://kill-the-newsletter.com/feeds/ym7qmh96s4dsaouxnq2c.xml",
       "sourceSlug": "grocery-dive",
-      "model": "claude-haiku-4-5",
+      "model": "gemini-3.1-flash-lite-preview",
       "inputTokenCutoff": 50000,
       "outputTokenCutoff": 896,
       "maximumItems": 200,
@@ -24,24 +24,24 @@
     {
       "sourceUrl": "https://kill-the-newsletter.com/feeds/a0xyhasgeuotozpnfpah.xml",
       "sourceSlug": "c-store-dive",
-      "model": "claude-haiku-4-5",
+      "model": "gemini-3.1-flash-lite-preview",
       "inputTokenCutoff": 50000,
       "outputTokenCutoff": 896,
       "maximumItems": 200,
       "maximumLookback": 15,
       "enabled": true,
-      "synchronous": false
+      "synchronous": true
     },
     {
       "sourceUrl": "https://kill-the-newsletter.com/feeds/95snzvoui03xxke5isdg.xml",
       "sourceSlug": "supply-chain-dive",
-      "model": "claude-haiku-4-5",
+      "model": "gemini-3.1-flash-lite-preview",
       "inputTokenCutoff": 50000,
       "outputTokenCutoff": 896,
       "maximumItems": 200,
       "maximumLookback": 15,
       "enabled": true,
-      "synchronous": false
+      "synchronous": true
     },
     {
       "sourceUrl": "https://thezvi.substack.com/feed",
@@ -51,7 +51,8 @@
       "outputTokenCutoff": 2048,
       "maximumItems": 200,
       "maximumLookback": 15,
-      "enabled": true
+      "enabled": true,
+      "synchronous": true
     },
     {
       "sourceUrl": "https://www.noahpinion.blog/feed",
@@ -61,7 +62,8 @@
       "outputTokenCutoff": 1536,
       "maximumItems": 200,
       "maximumLookback": 15,
-      "enabled": true
+      "enabled": true,
+      "synchronous": true
     },
     {
       "sourceUrl": "https://www.chinatalk.media/feed",
