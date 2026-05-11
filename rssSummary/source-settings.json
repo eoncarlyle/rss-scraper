@@ -3,12 +3,13 @@
     {
       "sourceUrl": "https://www.artemis.bm/feed/",
       "sourceSlug": "artemis",
-      "model": "claude-haiku-4-5",
+      "model": "gemini-3.1-flash-lite-preview",
       "inputTokenCutoff": 50000,
       "outputTokenCutoff": 896,
       "maximumItems": 200,
       "maximumLookback": 15,
-      "enabled": true
+      "enabled": true,
+      "synchronous": true
     },
     {
       "sourceUrl": "https://kill-the-newsletter.com/feeds/ym7qmh96s4dsaouxnq2c.xml",
