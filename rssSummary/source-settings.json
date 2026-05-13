@@ -47,7 +47,7 @@
     {
       "sourceUrl": "https://thezvi.substack.com/feed",
       "sourceSlug": "the-zvi",
-      "model": "claude-haiku-4-5",
+      "model": "gemini-3.1-flash-lite-preview",
       "inputTokenCutoff": 100000,
       "outputTokenCutoff": 2048,
       "maximumItems": 200,
@@ -58,7 +58,7 @@
     {
       "sourceUrl": "https://www.noahpinion.blog/feed",
       "sourceSlug": "noahpinion",
-      "model": "claude-haiku-4-5",
+      "model": "gemini-3.1-flash-lite-preview",
       "inputTokenCutoff": 100000,
       "outputTokenCutoff": 1536,
       "maximumItems": 200,

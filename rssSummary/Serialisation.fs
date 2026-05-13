@@ -30,6 +30,12 @@ let deserialise<'T> (json: string) : 'T =
 let serialise settings =
     JsonSerializer.Serialize(settings, jsonOptions)
 
+let serialiseModel model =
+    match model with 
+    | ClaudeHaiku45 ->  "claude-haiku-4-5"
+    | Gemini31FlashLitePreview -> "gemini-3.1-flash-lite-preview"
+    | Gemini25FlashLite -> "gemini-2.5-flash-lite"
+
 let toAnthropicStatus (status: ProcessingStatus) =
     match status with
     | InProgress -> Anthropic.Models.Messages.Batches.ProcessingStatus.InProgress

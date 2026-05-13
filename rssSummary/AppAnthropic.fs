@@ -277,7 +277,7 @@ type AnthropicService(client: AnthropicClient) =
                     let tokenCount = encoder.CountTokens(fst itemTuple |> getStructuredQuery)
 
                     if tokenCount < summaryRequestParameters.InputTokenCutoff then
-                        this.SubmitInstant (Serialisation.serialise model) summaryRequestParameters itemTuple
+                        this.SubmitInstant (Serialisation.serialiseModel model) summaryRequestParameters itemTuple
                     else
                         task {
                             return

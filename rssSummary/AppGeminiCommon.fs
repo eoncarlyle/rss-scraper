@@ -108,7 +108,7 @@ type GeminiService(client: GeminiClient) =
             let requestWithExcludes =
                 this.GetRequestsWithExcludes itemsWithRequestGuids summaryRequestParameters
 
-            let! response = this.ClientBatchRequest (Serialisation.serialise model) (fst requestWithExcludes)
+            let! response = this.ClientBatchRequest (Serialisation.serialiseModel model) (fst requestWithExcludes)
             let excludes = snd requestWithExcludes |> Array.map _.MinimalRssItem
 
             let batchItems =

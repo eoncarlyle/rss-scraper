@@ -9,7 +9,7 @@ open DomainModel
 
 type ObjectStorageService(s3Client: IAmazonS3, bucketName: string) =
 
-    member _.GetObject (key: string) : Task<S3Object option> =
+    member _.GetObject(key: string) : Task<S3Object option> =
         task {
             try
                 let request = GetObjectRequest(BucketName = bucketName, Key = key)
@@ -21,7 +21,7 @@ type ObjectStorageService(s3Client: IAmazonS3, bucketName: string) =
                     Some
                         { Content = content
                           ETag = response.ETag }
-            with :? AmazonS3Exception as ex when ex.StatusCode = System.Net.HttpStatusCode.NotFound ->
+            with :? NoSuchKeyException ->
                 return None
         }
 
@@ -46,7 +46,7 @@ type ObjectStorageService(s3Client: IAmazonS3, bucketName: string) =
                 return Error ex.StatusCode
         }
 
-    member _.ObjectExists (key: string) =
+    member _.ObjectExists(key: string) =
         task {
             try
                 let request = GetObjectMetadataRequest(BucketName = bucketName, Key = key)
@@ -58,10 +58,12 @@ type ObjectStorageService(s3Client: IAmazonS3, bucketName: string) =
 
     member _.RetryHttp (times: int) (factory: Unit -> Task<Result<'a, Net.HttpStatusCode>>) =
         let mutable result = Error(Net.HttpStatusCode.BadRequest)
+
         task {
             for _ in 1..times do
                 if result.IsError then
                     let! nextResult = factory ()
                     result <- nextResult
+
             return result
         }
