@@ -80,10 +80,8 @@ type AnthropicService(client: AnthropicClient) =
             requestsWithTokenCount items encoder
             |> Array.filter (filterPredicate submitBatchParameters)
             |> Array.map (fun itemTokenRecord ->
-                let customID = itemTokenRecord.Guid
-
                 Request(
-                    CustomID = customID.ToString(),
+                    CustomID = itemTokenRecord.Guid.ToString(),
                     Params =
                         Params(
                             MaxTokens = submitBatchParameters.OutputTokenCutoff,
