@@ -76,6 +76,17 @@
       "maximumLookback": 15,
       "enabled": true,
       "synchronous": true
+    },
+    {
+      "sourceUrl": "https://feeds.feedblitz.com/marginalrevolution",
+      "sourceSlug": "marginal-revolution",
+      "model": "gemini-3.1-flash-lite-preview",
+      "inputTokenCutoff": 50000,
+      "outputTokenCutoff": 2048,
+      "maximumItems": 200,
+      "maximumLookback": 15,
+      "enabled": true,
+      "synchronous": false
     }
   ]
 }

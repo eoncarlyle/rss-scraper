@@ -1,6 +1,7 @@
 module AppGeminiCommon
 
 open System
+open System.Collections.Generic
 open System.Threading
 open System.Threading.Tasks
 open DomainModel
@@ -11,6 +12,8 @@ open LanguageModelCommon
 open Tiktoken
 
 type GeminiClient = Google.GenAI.Client
+
+let metadataKey = "inlineRequestKey"
 
 let internal isTerminalState (state: JobState) =
     state = JobState.JobStateSucceeded
@@ -69,7 +72,8 @@ type GeminiService(client: GeminiClient) =
                                           [ Part(Text = getStructuredQuery itemTokenRecord.MinimalRssItem) ]
                                       )
                               ) ]
-                        )
+                        ),
+                    Metadata = Dictionary<string, string>(dict [ metadataKey, itemTokenRecord.Guid.ToString() ])
                 ))
 
         requests, Array.filter (filterPredicate submitBatchParameters >> not) (requestsWithTokenCount items encoder)
@@ -156,8 +160,8 @@ type GeminiService(client: GeminiClient) =
                         if b.Dest <> null && b.Dest.InlinedResponses <> null then
                             b.Dest.InlinedResponses
                             |> Seq.choose (fun r ->
-                                if r.Metadata <> null && r.Metadata.ContainsKey("key") then
-                                    Some(r.Metadata["key"], r)
+                                if r.Metadata <> null && r.Metadata.ContainsKey(metadataKey) then
+                                    Some(r.Metadata[metadataKey], r)
                                 else
                                     None)
                             |> Map.ofSeq
