@@ -97,14 +97,14 @@ type GeminiService(client: GeminiClient) =
         }
 
     member this.SubmitBatch (items: RssItem array) (batchParameters: SummaryRequestParameters) =
-        this.SubmitModelAgnosticBatch (Some LanguageModel.Gemini31FlashLitePreview) items batchParameters
+        this.SubmitModelAgnosticBatch (Some LanguageModel.Gemini31FlashLite) items batchParameters
 
     member this.SubmitModelAgnosticBatch
         (maybeModel: LanguageModel option)
         (items: RssItem array)
         (summaryRequestParameters: SummaryRequestParameters)
         =
-        let model = Option.defaultValue Gemini31FlashLitePreview maybeModel
+        let model = Option.defaultValue Gemini31FlashLite maybeModel
 
         task {
             let itemsWithRequestGuids = Array.map (fun item -> item, Guid.NewGuid()) items
@@ -216,7 +216,7 @@ type GeminiService(client: GeminiClient) =
         }
 
     member this.SubmitSynchronousBatch (items: RssItem array) (summaryRequestParameters: SummaryRequestParameters) =
-        this.SubmitSynchronousModelAgnosticBatch (Some Gemini31FlashLitePreview) items summaryRequestParameters
+        this.SubmitSynchronousModelAgnosticBatch (Some Gemini31FlashLite) items summaryRequestParameters
 
     member this.SubmitSynchronousModelAgnosticBatch
         (maybeModel: LanguageModel option)
@@ -225,7 +225,7 @@ type GeminiService(client: GeminiClient) =
         =
 
         let maybeSerialisedModel =
-            Option.defaultValue Gemini31FlashLitePreview maybeModel
+            Option.defaultValue Gemini31FlashLite maybeModel
             |> Serialisation.serialise
 
         task {

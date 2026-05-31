@@ -84,7 +84,7 @@ let handleSource
             match source.Model with
             | ClaudeHaiku45 -> anthropic.Actions source.Synchronous
             | Gemini25FlashLite
-            | Gemini31FlashLitePreview -> gemini.Actions source.Synchronous <| Some source.Model
+            | Gemini31FlashLite -> gemini.Actions source.Synchronous <| Some source.Model
 
         let updateDerivedFeed' = updateDerivedFeed logger storage source modelActions
 

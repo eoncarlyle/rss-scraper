@@ -33,7 +33,7 @@ let serialise settings =
 let serialiseModel model =
     match model with 
     | ClaudeHaiku45 ->  "claude-haiku-4-5"
-    | Gemini31FlashLitePreview -> "gemini-3.1-flash-lite-preview"
+    | Gemini31FlashLite -> "gemini-3.1-flash-lite"
     | Gemini25FlashLite -> "gemini-2.5-flash-lite"
 
 let toAnthropicStatus (status: ProcessingStatus) =
