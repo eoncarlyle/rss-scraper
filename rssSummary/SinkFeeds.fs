@@ -107,7 +107,7 @@ let getToPublish (derivedPairs: (SourceSlug * DerivedItem) array) sinkSetting =
                             getXmlNode derivedItem.Result.Value ]) ]
 
     let baseItem =
-        { Title = $"{sinkSetting.SinkSlug}: Update {publishDate.Date}"
+        { Title = $"{sinkSetting.SinkSlug}: Update {publishDate.ToString("yyyy-MM-dd HH:mm:ss")}"
           Guid = Guid.NewGuid().ToString() |> Some
           Link = None
           Description = RenderView.AsString.htmlNode content
@@ -184,7 +184,7 @@ let feedUpdate (logger: ILogger) (storage: ObjectStorageService) (sink: SinkSett
 
                 let sinkFeed: SinkFeed =
                     { Title = $"{sinkSetting.SinkSlug}: Summary Sink Feed"
-                      Link = $"https://rss-scrape.iainschmitt.com/{sinkSetting.SinkSlug}"
+                      Link = $"https://rss-scrape.iainschmitt.com/{sinkSetting.SinkSlug}.rss"
                       PubDate = pubDate
                       Description = $"Summarised feed for {slugLabel}"
                       Items = items }
