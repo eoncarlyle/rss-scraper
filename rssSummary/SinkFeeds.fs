@@ -106,8 +106,9 @@ let getToPublish (derivedPairs: (SourceSlug * DerivedItem) array) sinkSetting =
                           [ h1 [] [ str $"{sourceSlug}: {derivedItem.Item.Title}" ]
                             getXmlNode derivedItem.Result.Value ]) ]
 
+    
     let baseItem =
-        { Title = $"{sinkSetting.SinkSlug}: Update {publishDate.ToString("yyyy-MM-dd HH:mm:ss")}"
+        { Title = $"""{sinkSetting.SinkSlug}: Update {publishDate.ToString("yyyy-MM-dd HH:mm:ss")}"""
           Guid = Guid.NewGuid().ToString() |> Some
           Link = None
           Description = RenderView.AsString.htmlNode content
