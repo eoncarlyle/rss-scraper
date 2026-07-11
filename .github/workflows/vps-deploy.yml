@@ -48,7 +48,7 @@ jobs:
           sudo podman push ${{ env.REGISTRY }}/${{ env.SERVER_IMAGE }}:latest
 
   build_scraper:
-    runs-on: [self-hosted, los-angeles]
+    runs-on: [self-hosted, new-york-0]
 
     permissions:
       contents: read
