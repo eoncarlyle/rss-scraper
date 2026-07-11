@@ -12,7 +12,7 @@ env:
 
 jobs:
   build_server:
-    runs-on: [self-hosted, new-york-0]
+    runs-on: [santa-cruz]
 
     permissions:
       contents: read
@@ -48,7 +48,7 @@ jobs:
           sudo podman push ${{ env.REGISTRY }}/${{ env.SERVER_IMAGE }}:latest
 
   build_scraper:
-    runs-on: [self-hosted, new-york-0]
+    runs-on: [santa-cruz]
 
     permissions:
       contents: read
