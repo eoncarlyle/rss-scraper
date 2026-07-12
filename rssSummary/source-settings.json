@@ -3,7 +3,7 @@
     {
       "sourceUrl": "https://www.artemis.bm/feed/",
       "sourceSlug": "artemis",
-      "model": "gemini-3.1-flash-lite",
+      "model": "claude-haiku-4-5",
       "inputTokenCutoff": 50000,
       "outputTokenCutoff": 896,
       "maximumItems": 200,
@@ -14,7 +14,7 @@
     {
       "sourceUrl": "https://kill-the-newsletter.com/feeds/ym7qmh96s4dsaouxnq2c.xml",
       "sourceSlug": "grocery-dive",
-      "model": "gemini-3.1-flash-lite",
+      "model": "claude-haiku-4-5",
       "inputTokenCutoff": 50000,
       "outputTokenCutoff": 896,
       "maximumItems": 200,
@@ -25,7 +25,7 @@
     {
       "sourceUrl": "https://kill-the-newsletter.com/feeds/a0xyhasgeuotozpnfpah.xml",
       "sourceSlug": "c-store-dive",
-      "model": "gemini-3.1-flash-lite",
+      "model": "claude-haiku-4-5",
       "inputTokenCutoff": 50000,
       "outputTokenCutoff": 896,
       "maximumItems": 200,
@@ -36,7 +36,7 @@
     {
       "sourceUrl": "https://kill-the-newsletter.com/feeds/95snzvoui03xxke5isdg.xml",
       "sourceSlug": "supply-chain-dive",
-      "model": "gemini-3.1-flash-lite",
+      "model": "claude-haiku-4-5",
       "inputTokenCutoff": 50000,
       "outputTokenCutoff": 896,
       "maximumItems": 200,
@@ -47,7 +47,7 @@
     {
       "sourceUrl": "https://thezvi.substack.com/feed",
       "sourceSlug": "the-zvi",
-      "model": "gemini-3.1-flash-lite",
+      "model": "claude-haiku-4-5",
       "inputTokenCutoff": 100000,
       "outputTokenCutoff": 2048,
       "maximumItems": 200,
@@ -58,7 +58,7 @@
     {
       "sourceUrl": "https://www.noahpinion.blog/feed",
       "sourceSlug": "noahpinion",
-      "model": "gemini-3.1-flash-lite",
+      "model": "claude-haiku-4-5",
       "inputTokenCutoff": 100000,
       "outputTokenCutoff": 1536,
       "maximumItems": 200,
@@ -69,7 +69,7 @@
     {
       "sourceUrl": "https://www.chinatalk.media/feed",
       "sourceSlug": "china-talk",
-      "model": "gemini-3.1-flash-lite",
+      "model": "claude-haiku-4-5",
       "inputTokenCutoff": 100000,
       "outputTokenCutoff": 2048,
       "maximumItems": 200,
