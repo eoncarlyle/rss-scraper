@@ -102,8 +102,6 @@ module TheDispatch =
             |> Seq.map directScrapeRssItem
             |> rssChannelView (feed newsletterSlug)
 
-open TheDispatch
-
 module TheDiff =
     let scrapePath = "https://thediff.co/archive"
     let basePath = "https://thediff.co"

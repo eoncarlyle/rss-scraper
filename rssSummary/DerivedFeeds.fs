@@ -35,7 +35,7 @@ let getFreshSourceItems (storage: ObjectStorageService) (sourceSetting: SourceSe
                     incomingRssItems
                     |> Array.tryFindIndexBack (fun incomingItem ->
                         submittedBatchItems
-                        |> Array.tryFind (fun batchItem -> crossItemEquivalent incomingItem batchItem)
+                        |> Array.tryFind (crossItemEquivalent incomingItem)
                         |> Option.isSome)
                     |> Option.defaultValue sourceSetting.MaximumLookback
 
