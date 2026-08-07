@@ -185,7 +185,6 @@ jobs:
             --replace \
             --restart unless-stopped \
             --network podman_bridge_rootfull \
-            --memory 64m
             -e AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }} \
             -e AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }} \
             -e AWS_ENDPOINT_URL_S3=${{ secrets.AWS_ENDPOINT_URL_S3 }} \
