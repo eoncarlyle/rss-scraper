@@ -82,6 +82,40 @@ module Dive =
                 logger.LogError(ex, "Failed to fetch Dive source {Url}", url)
                 return [||]
         }
+        
+module FierceNetworks =
+    type FierceNetworksRss = XmlProvider<"Schema/fierce-networks.rss">
+    
+    let internal deserialiseRssItem (item: FierceNetworksRss.Entry) : RssItem =
+        { Title = item.Title
+          Guid =
+            if isNull (box item.Id) then
+                None
+            else
+                Some item.Id
+          Link = Some item.Link.Href
+          Description = htmlSanitized item.Title
+          Content = htmlSanitized item.Content.Value
+          PubDate = rfc822Date item.Published |> Some }
+
+    let fetchSource (logger: ILogger) url =
+        let request =
+            http {
+                GET url
+                CacheControl "no-cache"
+                body
+            }
+
+        task {
+            try
+                let response = request |> Request.send
+                let body = Response.toText response
+                let feed = body |> FierceNetworksRss.Parse
+                return Array.map deserialiseRssItem feed.Entries
+            with ex ->
+                logger.LogError(ex, "Failed to fetch Fierce Networks source {Url}", url)
+                return [||]
+        }
 
 module Substack =
     type Substack = XmlProvider<"Schema/thezvi.rss">

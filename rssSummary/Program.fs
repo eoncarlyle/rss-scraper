@@ -94,6 +94,7 @@ let handleSource
             | GroceryDive -> updateDerivedFeed' (SourceFeeds.Dive.fetchSource logger)
             | CStoreDive -> updateDerivedFeed' (SourceFeeds.Dive.fetchSource logger)
             | SupplyChainDive -> updateDerivedFeed' (SourceFeeds.Dive.fetchSource logger)
+            | FierceNetworks -> updateDerivedFeed' (SourceFeeds.FierceNetworks.fetchSource logger)
             | TheZvi -> updateDerivedFeed' (SourceFeeds.Substack.fetchSource logger)
             | Noahpinion -> updateDerivedFeed' (SourceFeeds.Substack.fetchSource logger)
             | ChinaTalk -> updateDerivedFeed' (SourceFeeds.Substack.fetchSource logger)

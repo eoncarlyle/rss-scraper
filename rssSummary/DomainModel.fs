@@ -10,6 +10,7 @@ type SourceSlug =
     | [<JsonName "grocery-dive">] GroceryDive
     | [<JsonName "c-store-dive">] CStoreDive
     | [<JsonName "supply-chain-dive">] SupplyChainDive
+    | [<JsonName "fierce-networks">] FierceNetworks
     | [<JsonName "the-zvi">] TheZvi
     | [<JsonName "noahpinion">] Noahpinion
     | [<JsonName "china-talk">] ChinaTalk
@@ -21,6 +22,7 @@ type SourceSlug =
         | GroceryDive -> "grocery-dive"
         | CStoreDive -> "c-store-dive"
         | SupplyChainDive -> "supply-chain-dive"
+        | FierceNetworks -> "fierce-networks"
         | TheZvi -> "the-zvi"
         | Noahpinion -> "noahpinion"
         | ChinaTalk -> "china-talk"

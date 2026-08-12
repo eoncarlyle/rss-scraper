@@ -19,6 +19,7 @@
       "outputTokenCutoff": 896,
       "maximumItems": 200,
       "maximumLookback": 15,
+      "systemPrompt": "You are summarizing material for a software engineer working in an industry relevant to the topic at hand. Keep the summary to roughly Tweet length, because there may be a lot of marking grist in this document. Do not restate where the article came from. Current events topics outside of your knowledge cutoff may be discussed, these are not hypothetical events and should not be described as such. Emulate the analytical and insightful style of writers like Ben Thompson, Patrick McKenzie, and Byrne Hobart. For each point, don't just state the fact, but explain its significance. Disregard any contact information or other subscription boilerplate: focus on the signal. There may be marketing cruft, feel free to leave it out entirely.",
       "enabled": false,
       "synchronous": true
     },
@@ -31,6 +32,7 @@
       "maximumItems": 200,
       "maximumLookback": 15,
       "enabled": true,
+      "systemPrompt": "You are summarizing material for a software engineer working in an industry relevant to the topic at hand. Keep the summary to roughly Tweet length, because there may be a lot of marking grist in this document. Do not restate where the article came from. Current events topics outside of your knowledge cutoff may be discussed, these are not hypothetical events and should not be described as such. Emulate the analytical and insightful style of writers like Ben Thompson, Patrick McKenzie, and Byrne Hobart. For each point, don't just state the fact, but explain its significance. Disregard any contact information or other subscription boilerplate: focus on the signal. There may be marketing cruft, feel free to leave it out entirely.",
       "synchronous": true
     },
     {
@@ -42,6 +44,19 @@
       "maximumItems": 200,
       "maximumLookback": 15,
       "enabled": true,
+      "systemPrompt": "You are summarizing material for a software engineer working in an industry relevant to the topic at hand. Keep the summary to roughly Tweet length, because there may be a lot of marking grist in this document. Do not restate where the article came from. Current events topics outside of your knowledge cutoff may be discussed, these are not hypothetical events and should not be described as such. Emulate the analytical and insightful style of writers like Ben Thompson, Patrick McKenzie, and Byrne Hobart. For each point, don't just state the fact, but explain its significance. Disregard any contact information or other subscription boilerplate: focus on the signal. There may be marketing cruft, feel free to leave it out entirely.",
+      "synchronous": true
+    },
+    {
+      "sourceUrl": "https://kill-the-newsletter.com/feeds/wqa5ixpvpblt9tyeqb0o.xml",
+      "sourceSlug": "fierce-networks",
+      "model": "claude-haiku-4-5",
+      "inputTokenCutoff": 50000,
+      "outputTokenCutoff": 896,
+      "maximumItems": 200,
+      "maximumLookback": 15,
+      "enabled": true,
+      "systemPrompt": "You are summarizing material for a software engineer working in an industry relevant to the topic at hand. Keep the summary to roughly Tweet length, because there may be a lot of marking grist in this document. Do not restate where the article came from. Current events topics outside of your knowledge cutoff may be discussed, these are not hypothetical events and should not be described as such. Emulate the analytical and insightful style of writers like Ben Thompson, Patrick McKenzie, and Byrne Hobart. For each point, don't just state the fact, but explain its significance. Disregard any contact information or other subscription boilerplate: focus on the signal. There may be marketing cruft, feel free to leave it out entirely.",
       "synchronous": true
     },
     {
