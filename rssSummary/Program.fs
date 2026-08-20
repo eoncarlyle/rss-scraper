@@ -98,7 +98,6 @@ let handleSource
             | TheZvi -> updateDerivedFeed' (SourceFeeds.Substack.fetchSource logger)
             | Noahpinion -> updateDerivedFeed' (SourceFeeds.Substack.fetchSource logger)
             | ChinaTalk -> updateDerivedFeed' (SourceFeeds.Substack.fetchSource logger)
-            | SourceSlug.MarginalRevolution -> updateDerivedFeed' (SourceFeeds.MarginalRevolution.fetchSource logger)
     }
 
 let validateUnique items (getSlug: 'a -> 'slug) label =

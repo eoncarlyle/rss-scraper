@@ -14,7 +14,6 @@ type SourceSlug =
     | [<JsonName "the-zvi">] TheZvi
     | [<JsonName "noahpinion">] Noahpinion
     | [<JsonName "china-talk">] ChinaTalk
-    | [<JsonName "marginal-revolution">] MarginalRevolution
 
     override this.ToString() =
         match this with
@@ -26,7 +25,6 @@ type SourceSlug =
         | TheZvi -> "the-zvi"
         | Noahpinion -> "noahpinion"
         | ChinaTalk -> "china-talk"
-        | MarginalRevolution -> "marginal-revolution"
 
 type SinkSlug =
     | [<JsonName "artemis">] Artemis
