@@ -2,6 +2,7 @@ module DerivedFeeds
 
 open System
 open System.Threading.Tasks
+open FIO.DSL
 open Serialisation
 open DomainModel
 open LanguageModelCommon
@@ -17,9 +18,9 @@ let crossItemEquivalent (item: RssItem) (batchItem: DerivedItem) =
     && item.Link = batchItem.Item.Link
 
 let getFreshSourceItems (storage: ObjectStorageService) (sourceSetting: SourceSetting) (incomingRssItems: RssItem array) =
-    task {
+    fio {
         let feedKey = getDerivedFeedKeyFromSource sourceSetting
-        let! maybeDerivedS3Object = storage.GetObject feedKey
+        let! maybeDerivedS3Object = FIO.awaitTask (storage.GetObject feedKey) id
 
         match maybeDerivedS3Object with
         | Some derivedS3Object ->
@@ -29,7 +30,7 @@ let getFreshSourceItems (storage: ObjectStorageService) (sourceSetting: SourceSe
                 derivedFeed.Batches |> Array.map _.BatchItems |> Array.concat
 
             if Array.length submittedBatchItems = 0 then
-                return Array.truncate sourceSetting.MaximumLookback incomingRssItems
+                return! FIO.succeed (Array.truncate sourceSetting.MaximumLookback incomingRssItems)
             else
                 let truncationIndex =
                     incomingRssItems
@@ -39,7 +40,7 @@ let getFreshSourceItems (storage: ObjectStorageService) (sourceSetting: SourceSe
                         |> Option.isSome)
                     |> Option.defaultValue sourceSetting.MaximumLookback
 
-                return
+                return! FIO.succeed (
                     incomingRssItems
                     |> Array.truncate truncationIndex
                     |> Array.filter (fun sourceItem ->
@@ -47,8 +48,8 @@ let getFreshSourceItems (storage: ObjectStorageService) (sourceSetting: SourceSe
                             submittedBatchItems
                             |> Array.tryFind (fun batchItem -> crossItemEquivalent sourceItem batchItem)
 
-                        maybeMatch.IsNone)
-        | None -> return Array.truncate sourceSetting.MaximumLookback incomingRssItems
+                        maybeMatch.IsNone))
+        | None -> return! FIO.succeed (Array.truncate sourceSetting.MaximumLookback incomingRssItems)
     }
 
 let submitSummaryBatch
@@ -57,8 +58,8 @@ let submitSummaryBatch
     (fetchSource: string -> Task<RssItem array>)
     (modelActions: LanguageModelActions)
     =
-    task {
-        let! sourceItems = fetchSource source.SourceUrl
+    fio {
+        let! sourceItems = FIO.awaitTask (fetchSource source.SourceUrl) id
         let! submittedSourceItems = getFreshSourceItems storage source sourceItems
 
         if Array.length submittedSourceItems > 0 then
@@ -67,18 +68,32 @@ let submitSummaryBatch
                   InputTokenCutoff = source.InputTokenCutoff
                   OutputTokenCutoff = source.OutputTokenCutoff }
 
-            let! summaryRequest = modelActions.SubmitBatch submittedSourceItems submitBatchParameters
+            let! summaryRequest = FIO.awaitTask (modelActions.SubmitBatch submittedSourceItems submitBatchParameters) id
 
-            return Some summaryRequest
+            return! FIO.succeed (Some summaryRequest)
         else
-            return None
+            return! FIO.succeed None
     }
 
+let retryHttp (times: int) (effect: FIO.DSL.FIO<Result<'a, Net.HttpStatusCode>, 'e>) =
+    let rec loop attempt =
+        fio {
+            let! res = effect
+            match res with
+            | Ok x -> return Ok x
+            | Error e ->
+                if attempt < times then
+                    return! loop (attempt + 1)
+                else
+                    return Error e
+        }
+    loop 1
+
 let appendToFeed (storage: ObjectStorageService) (sourceSetting: SourceSetting) (derivedBatch: DerivedBatch) =
-    let append sourceSetting derivedBatch =
-        task {
+    let append =
+        fio {
             let feedKey = getDerivedFeedKeyFromSource sourceSetting
-            let! maybeDerivedS3Object = storage.GetObject feedKey
+            let! maybeDerivedS3Object = FIO.awaitTask (storage.GetObject feedKey) id
 
             match maybeDerivedS3Object with
             | Some derivedS3Object ->
@@ -88,41 +103,41 @@ let appendToFeed (storage: ObjectStorageService) (sourceSetting: SourceSetting) 
                     { SourceUrl = existingDerivedFeed.SourceUrl
                       Batches = Array.append existingDerivedFeed.Batches [| derivedBatch |] }
 
-                return! storage.PutObject feedKey (serialise updatedDerivedFeed) (Some derivedS3Object.ETag)
+                return! FIO.awaitTask (storage.PutObject feedKey (serialise updatedDerivedFeed) (Some derivedS3Object.ETag)) id
             | None ->
                 let derivedFeed =
                     { SourceUrl = sourceSetting.SourceUrl
                       Batches = [| derivedBatch |] }
 
-                return! storage.PutObject feedKey (serialise derivedFeed) None
+                return! FIO.awaitTask (storage.PutObject feedKey (serialise derivedFeed) None) id
         }
 
-    storage.RetryHttp 3 (fun () -> append sourceSetting derivedBatch)
+    retryHttp 3 append
 
 let feedUpdateWithSummaryRequests storage source fetchSource modelActions =
-    task {
+    fio {
         let! maybeSubmitBatch = submitSummaryBatch storage source fetchSource modelActions
         match maybeSubmitBatch with
         | Some batch ->
             let! b = appendToFeed storage source batch
-            return Some b
-        | None -> return None
+            return! FIO.succeed (Some b)
+        | None -> return! FIO.succeed None
     }
 
 let tryFeedUpdateWithSummaryResults (storage: ObjectStorageService) sourceSetting modelActions =
-    let update sourceSetting modelActions =
-        task {
+    let update =
+        fio {
             let feedKey = getDerivedFeedKeyFromSource sourceSetting
-            let! maybeDerivedS3Object = storage.GetObject feedKey
+            let! maybeDerivedS3Object = FIO.awaitTask (storage.GetObject feedKey) id
 
             match maybeDerivedS3Object with
             | Some s3Object ->
                 let existingDerivedFeed = deserialise<DerivedFeed> s3Object.Content
-                let! maybeUpdatedDerivedFeed = modelActions.GetUpdatedDerivedFeed sourceSetting existingDerivedFeed
+                let! maybeUpdatedDerivedFeed = FIO.awaitTask (modelActions.GetUpdatedDerivedFeed sourceSetting existingDerivedFeed) id
 
                 match maybeUpdatedDerivedFeed with
                 | Some updated ->
-                    let! putResult = storage.PutObject feedKey (serialise updated) (Some s3Object.ETag)
+                    let! putResult = FIO.awaitTask (storage.PutObject feedKey (serialise updated) (Some s3Object.ETag)) id
 
                     let getUpdatedCount batches =
                         batches
@@ -131,13 +146,13 @@ let tryFeedUpdateWithSummaryResults (storage: ObjectStorageService) sourceSettin
                         |> Array.filter _.Result.IsSome
                         |> Array.length
 
-                    return
-                        putResult
-                        |> Result.map (fun _ ->
+                    return putResult |> Result.map (fun _ ->
                             getUpdatedCount updated.Batches - getUpdatedCount existingDerivedFeed.Batches)
 
                 | None -> return Ok 0
             | None -> return Error Net.HttpStatusCode.NotFound
         }
 
-    storage.RetryHttp 3 (fun () -> update sourceSetting modelActions)
+    retryHttp 3 update
+
+

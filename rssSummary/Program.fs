@@ -38,10 +38,12 @@ let updateDerivedFeed
     fetchSource
     =
     task {
-        let! maybeDerivedBatch = DerivedFeeds.submitSummaryBatch storage source fetchSource modelActions
+        let runtime = FIO.Runtime.Default.DefaultRuntime()
+        
+        let! maybeDerivedBatchRes = runtime.Run(DerivedFeeds.submitSummaryBatch storage source fetchSource modelActions).Task()
 
-        match maybeDerivedBatch with
-        | Some derivedBatch ->
+        match maybeDerivedBatchRes with
+        | FIO.DSL.Succeeded(Some derivedBatch) ->
             logger.LogInformation(
                 "{SourceSlug} request batch update: {BatchId}, {ItemCount} items",
                 source.SourceSlug,
@@ -49,26 +51,31 @@ let updateDerivedFeed
                 derivedBatch.BatchItems.Length
             )
 
-            let! appendBatchResult = DerivedFeeds.appendToFeed storage source derivedBatch
+            let! appendBatchResultRes = runtime.Run(DerivedFeeds.appendToFeed storage source derivedBatch).Task()
 
-            logger.LogInformation(
-                "{SourceSlug} request batch result: {Result}",
-                source.SourceSlug,
-                resultMessage appendBatchResult
-            )
-
+            match appendBatchResultRes with
+            | FIO.DSL.Succeeded appendBatchResult ->
+                logger.LogInformation(
+                    "{SourceSlug} request batch result: {Result}",
+                    source.SourceSlug,
+                    resultMessage appendBatchResult
+                )
+            | _ -> ()
             ()
         | _ -> ()
 
-        let! pollFeedUpdateResult = DerivedFeeds.tryFeedUpdateWithSummaryResults storage source modelActions
+        let! pollFeedUpdateResultRes = runtime.Run(DerivedFeeds.tryFeedUpdateWithSummaryResults storage source modelActions).Task()
 
-        let pollFeedMessage =
-            match pollFeedUpdateResult with
-            | Ok 0 -> "feed unchanged"
-            | Ok value -> $"{value} records added"
-            | Error code -> $"failed with status code {code}"
+        match pollFeedUpdateResultRes with
+        | FIO.DSL.Succeeded pollFeedUpdateResult ->
+            let pollFeedMessage =
+                match pollFeedUpdateResult with
+                | Ok 0 -> "feed unchanged"
+                | Ok value -> $"{value} records added"
+                | Error code -> $"failed with status code {code}"
 
-        logger.LogInformation("{SourceSlug} poll derived feed update: {Message}", source.SourceSlug, pollFeedMessage)
+            logger.LogInformation("{SourceSlug} poll derived feed update: {Message}", source.SourceSlug, pollFeedMessage)
+        | _ -> ()
         ()
     }
 
