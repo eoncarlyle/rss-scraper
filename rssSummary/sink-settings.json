@@ -28,14 +28,6 @@
       ],
       "sourceItemsPerPublish": 5,
       "maximumItems": 200
-    },
-    {
-      "sinkSlug": "marginal-revolution",
-      "sourceSlugs": [
-        "marginal-revolution"
-      ],
-      "sourceItemsPerPublish": 7,
-      "maximumItems": 200
     }
   ]
 }
